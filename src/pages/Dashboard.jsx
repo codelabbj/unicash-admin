@@ -13,28 +13,24 @@ const Dashboard = () => {
                     title="Volume Total"
                     value="15 245 000 F"
                     icon={FiDollarSign}
-                    trend={12}
                     color="blue"
                 />
                 <StatCard
                     title="Utilisateurs"
                     value="1,234"
                     icon={FiUsers}
-                    trend={5.4}
                     color="green"
                 />
                 <StatCard
                     title="Transactions"
                     value="856"
                     icon={FiCreditCard}
-                    trend={-2.3}
                     color="yellow"
                 />
                 <StatCard
                     title="Frais Collectés"
                     value="450 000 F"
                     icon={FiActivity}
-                    trend={8.1}
                     color="red"
                 />
             </div>
