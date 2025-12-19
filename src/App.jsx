@@ -7,6 +7,7 @@ import AdminLayout from './components/layout/AdminLayout';
 // Pages
 import AdminLogin from './pages/auth/AdminLogin';
 import Dashboard from './pages/Dashboard';
+import Banners from './pages/Banners';
 import Users from './pages/Users';
 import Countries from './pages/Countries';
 import Networks from './pages/Networks';
@@ -29,6 +30,7 @@ function App() {
           <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
             <Route index element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="banners" element={<Banners />} />
             <Route path="users" element={<Users />} />
             <Route path="users/:userId/transactions" element={<UserTransactions />} />
             <Route path="countries" element={<Countries />} />

@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-light: #4B6BFB;
-  --color-primary: #1834CD;
-  --color-primary-dark: #102394;
+  --color-primary: #1e3a8a;
+  --color-primary-hover: #1e40af;
+  --color-primary-light: #3b82f6;
 }
 
 @layer base {
   body {
     @apply bg-gray-50 text-gray-900;
+    font-family: 'Outfit', sans-serif;
   }
 }
