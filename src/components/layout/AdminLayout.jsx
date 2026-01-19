@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import MobileNav from './MobileNav';
+
 
 const AdminLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth < 768);
-            if (window.innerWidth >= 768) {
+            setIsMobile(window.innerWidth < 1024);
+            if (window.innerWidth >= 1024) {
                 setSidebarOpen(false);
             }
         };
@@ -21,12 +23,24 @@ const AdminLayout = () => {
     }, []);
 
     return (
-        <div className="flex h-screen bg-gray-50">
+        <div className="flex h-screen overflow-hidden">
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             {/* Sidebar Desktop */}
             <aside className={`
-        hidden md:block w-64 bg-white shadow-lg
-        transition-all duration-300
-      `}>
+                hidden lg:block w-72 h-screen p-4
+                transition-all duration-300
+            `}>
                 <Sidebar />
             </aside>
 
@@ -34,26 +48,23 @@ const AdminLayout = () => {
             {isMobile && sidebarOpen && (
                 <>
                     <div
-                        className="fixed inset-0 bg-black bg-opacity-50 z-40"
+                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity"
                         onClick={() => setSidebarOpen(false)}
                     />
-                    <aside className="fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-50 transform transition-transform">
+                    <aside className="fixed inset-y-0 left-0 w-72 p-4 z-50 transform transition-transform duration-300">
                         <Sidebar onClose={() => setSidebarOpen(false)} />
                     </aside>
                 </>
             )}
 
             {/* Main Content */}
-            <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
                 <Header onMenuClick={() => setSidebarOpen(true)} />
 
-                <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 pb-20 md:pb-6">
+                <main className="flex-1 overflow-y-auto p-3 md:p-6 lg:p-8 pb-24 md:pb-6 scroll-smooth">
                     <Outlet />
                 </main>
             </div>
-
-            {/* Mobile Bottom Navigation */}
-            {isMobile && <MobileNav />}
         </div>
     );
 };

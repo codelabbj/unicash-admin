@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { FiPlus, FiGlobe } from 'react-icons/fi';
+import { FiPlus, FiGlobe, FiMap } from 'react-icons/fi';
+import Modal from '../components/common/Modal';
+import ConfirmationModal from '../components/common/ConfirmationModal';
 import CountryTable from '../components/countries/CountryTable';
 import CountryForm from '../components/countries/CountryForm';
+import LoadingSpinner from '../components/common/LoadingSpinner';
+import EmptyState from '../components/common/EmptyState';
 import { countriesAPI } from '../api/countries.api';
 
 const Countries = () => {
@@ -9,6 +13,9 @@ const Countries = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentCountry, setCurrentCountry] = useState(null);
+
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [countryToDelete, setCountryToDelete] = useState(null);
 
     const fetchCountries = async () => {
         setIsLoading(true);
@@ -36,10 +43,21 @@ const Countries = () => {
         setIsModalOpen(true);
     };
 
-    const handleDelete = async (id) => {
-        if (window.confirm('Êtes-vous sûr de vouloir supprimer ce pays ?')) {
-            await countriesAPI.deleteCountry(id);
-            fetchCountries();
+    const handleDelete = (id) => {
+        setCountryToDelete(id);
+        setIsDeleteModalOpen(true);
+    };
+
+    const confirmDelete = async () => {
+        if (countryToDelete) {
+            try {
+                await countriesAPI.deleteCountry(countryToDelete);
+                fetchCountries();
+                setIsDeleteModalOpen(false);
+                setCountryToDelete(null);
+            } catch (error) {
+                console.error("Error deleting country:", error);
+            }
         }
     };
 
@@ -51,7 +69,7 @@ const Countries = () => {
     const handleSubmit = async (data) => {
         try {
             if (currentCountry) {
-                await countriesAPI.updateCountry(currentCountry.id, data);
+                await countriesAPI.updateCountry(currentCountry.uid, data);
             } else {
                 await countriesAPI.createCountry(data);
             }
@@ -79,7 +97,21 @@ const Countries = () => {
 
             {/* List */}
             {isLoading ? (
-                <div className="py-12 text-center text-gray-500">Chargement...</div>
+                <LoadingSpinner text="Chargement des pays..." />
+            ) : countries.length === 0 ? (
+                <EmptyState
+                    title="Aucun pays configuré"
+                    description="Ajoutez les pays pris en charge par UniCash."
+                    icon={<FiMap size={32} />}
+                    action={
+                        <button
+                            onClick={handleCreate}
+                            className="flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-hover transition-colors"
+                        >
+                            <FiPlus size={18} /> Ajouter un Pays
+                        </button>
+                    }
+                />
             ) : (
                 <CountryTable
                     countries={countries}
@@ -90,26 +122,30 @@ const Countries = () => {
             )}
 
             {/* Modal */}
-            {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4 backdrop-blur-sm">
-                    <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
-                        <div className="mb-6 flex items-center justify-between">
-                            <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                                <div className="p-2 rounded-lg bg-blue-50 text-primary">
-                                    <FiGlobe />
-                                </div>
-                                {currentCountry ? 'Modifier le pays' : 'Nouveau pays'}
-                            </h2>
-                        </div>
-                        <CountryForm
-                            initialData={currentCountry}
-                            onSubmit={handleSubmit}
-                            onCancel={() => setIsModalOpen(false)}
-                            isLoading={isLoading}
-                        />
-                    </div>
-                </div>
-            )}
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                title={currentCountry ? 'Modifier le pays' : 'Nouveau pays'}
+                icon={<FiGlobe />}
+            >
+                <CountryForm
+                    initialData={currentCountry}
+                    onSubmit={handleSubmit}
+                    onCancel={() => setIsModalOpen(false)}
+                    isLoading={isLoading}
+                />
+            </Modal>
+
+            {/* Delete Confirmation Modal */}
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                onConfirm={confirmDelete}
+                title="Supprimer le pays"
+                message="Êtes-vous sûr de vouloir supprimer ce pays ? Cette action est irréversible."
+                confirmText="Supprimer"
+                variant="danger"
+            />
         </div>
     );
 };

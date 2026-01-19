@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { FiPlus, FiDollarSign } from 'react-icons/fi';
+import { FiPlus, FiDollarSign, FiSettings } from 'react-icons/fi';
+import Modal from '../components/common/Modal';
+import ConfirmationModal from '../components/common/ConfirmationModal';
 import FeeTable from '../components/fees/FeeTable';
 import FeeForm from '../components/fees/FeeForm';
+import LoadingSpinner from '../components/common/LoadingSpinner';
+import EmptyState from '../components/common/EmptyState';
 import { feesAPI } from '../api/fees.api';
 
 const FeeConfigs = () => {
@@ -9,6 +13,9 @@ const FeeConfigs = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentConfig, setCurrentConfig] = useState(null);
+
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [configToDelete, setConfigToDelete] = useState(null);
 
     const fetchConfigs = async () => {
         setIsLoading(true);
@@ -36,10 +43,21 @@ const FeeConfigs = () => {
         setIsModalOpen(true);
     };
 
-    const handleDelete = async (id) => {
-        if (window.confirm('Êtes-vous sûr de vouloir supprimer cette configuration de frais ?')) {
-            await feesAPI.deleteFeeConfig(id);
-            fetchConfigs();
+    const handleDelete = (id) => {
+        setConfigToDelete(id);
+        setIsDeleteModalOpen(true);
+    };
+
+    const confirmDelete = async () => {
+        if (configToDelete) {
+            try {
+                await feesAPI.deleteFeeConfig(configToDelete);
+                fetchConfigs();
+                setIsDeleteModalOpen(false);
+                setConfigToDelete(null);
+            } catch (error) {
+                console.error("Error deleting fee config:", error);
+            }
         }
     };
 
@@ -79,7 +97,21 @@ const FeeConfigs = () => {
 
             {/* List */}
             {isLoading ? (
-                <div className="py-12 text-center text-gray-500">Chargement...</div>
+                <LoadingSpinner text="Chargement des frais..." />
+            ) : configs.length === 0 ? (
+                <EmptyState
+                    title="Aucune configuration de frais"
+                    description="Définissez les frais pour les transactions."
+                    icon={<FiSettings size={32} />}
+                    action={
+                        <button
+                            onClick={handleCreate}
+                            className="flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-hover transition-colors"
+                        >
+                            <FiPlus size={18} /> Nouvelle Configuration
+                        </button>
+                    }
+                />
             ) : (
                 <FeeTable
                     configs={configs}
@@ -90,26 +122,30 @@ const FeeConfigs = () => {
             )}
 
             {/* Modal */}
-            {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4 backdrop-blur-sm">
-                    <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
-                        <div className="mb-6 flex items-center justify-between">
-                            <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                                <div className="p-2 rounded-lg bg-blue-50 text-primary">
-                                    <FiDollarSign />
-                                </div>
-                                {currentConfig ? 'Modifier les frais' : 'Ajouter des frais'}
-                            </h2>
-                        </div>
-                        <FeeForm
-                            initialData={currentConfig}
-                            onSubmit={handleSubmit}
-                            onCancel={() => setIsModalOpen(false)}
-                            isLoading={isLoading}
-                        />
-                    </div>
-                </div>
-            )}
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                title={currentConfig ? 'Modifier les frais' : 'Ajouter des frais'}
+                icon={<FiDollarSign />}
+            >
+                <FeeForm
+                    initialData={currentConfig}
+                    onSubmit={handleSubmit}
+                    onCancel={() => setIsModalOpen(false)}
+                    isLoading={isLoading}
+                />
+            </Modal>
+
+            {/* Delete Confirmation Modal */}
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                onConfirm={confirmDelete}
+                title="Supprimer la configuration"
+                message="Êtes-vous sûr de vouloir supprimer cette configuration de frais ? Cette action est irréversible."
+                confirmText="Supprimer"
+                variant="danger"
+            />
         </div>
     );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FiSave, FiX } from 'react-icons/fi';
+import GlassSelect from '../common/GlassSelect';
 import { networksAPI } from '../../api/networks.api'; // To populate network dropdown
 
 const FeeForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
@@ -46,16 +47,15 @@ const FeeForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Réseau concerné</label>
-                <select
+                <GlassSelect
                     value={formData.networkId}
                     onChange={(e) => setFormData({ ...formData, networkId: e.target.value })}
-                    className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50"
-                >
-                    <option value="">Tous les réseaux (Défaut)</option>
-                    {networks.map(n => (
-                        <option key={n.id} value={n.id}>{n.name} ({n.country})</option>
-                    ))}
-                </select>
+                    options={[
+                        { value: "", label: "Tous les réseaux (Défaut)" },
+                        ...networks.map(n => ({ value: n.id, label: `${n.name} (${n.country})` }))
+                    ]}
+                    placeholder="Tous les réseaux (Défaut)"
+                />
                 <p className="mt-1 text-xs text-gray-500">Laissez vide pour appliquer à tous les réseaux par défaut.</p>
             </div>
 

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FiSave, FiX } from 'react-icons/fi';
+import GlassSelect from '../common/GlassSelect';
 
-const NetworkForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
+const NetworkForm = ({ initialData, countries = [], onSubmit, onCancel, isLoading }) => {
     const [formData, setFormData] = useState({
         name: '',
         code: '',
@@ -48,15 +49,15 @@ const NetworkForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Pays (Code ISO)</label>
-                    <input
-                        type="text"
-                        required
-                        maxLength={2}
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Pays</label>
+                    <GlassSelect
                         value={formData.country}
-                        onChange={(e) => setFormData({ ...formData, country: e.target.value.toUpperCase() })}
-                        className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50 uppercase"
-                        placeholder="Ex: BJ"
+                        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                        options={[
+                            { value: "", label: "Sélectionner un pays" },
+                            ...countries.map(c => ({ value: c.uid, label: `${c.name} (${c.code})` }))
+                        ]}
+                        placeholder="Sélectionner un pays"
                     />
                 </div>
             </div>

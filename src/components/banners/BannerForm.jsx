@@ -57,7 +57,11 @@ const BannerForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
                     className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50"
                     placeholder="https://exemple.com/image.jpg"
                 />
-                <p className="mt-1 text-xs text-gray-500">Utilisez une URL directe vers l'image.</p>
+                <p className="mt-1 text-xs text-gray-500">
+                    Utilisez une URL directe vers l'image.
+                    <br />
+                    <span className="font-medium text-orange-600">Recommandé : Ratio 16:9 (ex: 800x450px). JPG/PNG &lt; 2Mo.</span>
+                </p>
             </div>
 
             {formData.image && (

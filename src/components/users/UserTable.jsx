@@ -24,77 +24,80 @@ const UserTable = ({ users, onViewDetails, onUpdateStatus }) => {
     };
 
     return (
-        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-            <table className="min-w-full divide-y divide-gray-100">
-                <thead className="bg-gray-50">
-                    <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Utilisateur</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Contact</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Statut</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Compte</th>
-                        <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">Actions</th>
-                    </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100 bg-white">
-                    {users.map((user) => (
-                        <tr key={user.id} className="hover:bg-gray-50 transition-colors">
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border border-gray-100">
-                                        <img src={user.avatar} alt="" className="h-full w-full object-cover" />
-                                    </div>
-                                    <div>
-                                        <div className="text-sm font-semibold text-gray-900">{user.fullName}</div>
-                                        <div className="text-xs text-gray-500">Inscrit le {new Date(user.joinedAt).toLocaleDateString()}</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="flex flex-col">
-                                    <span className="text-sm text-gray-900">{user.email}</span>
-                                    <span className="text-xs text-gray-500">{user.phone}</span>
-                                </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                {getKycBadge(user.kycStatus)}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                <span className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${getStatusColor(user.status)}`}>
-                                    {user.status === 'ACTIVE' ? 'Actif' : 'Bloqué'}
-                                </span>
-                            </td>
-                            <td className="px-6 py-4 text-right whitespace-nowrap text-sm font-medium">
-                                <div className="flex justify-end gap-2">
-                                    <button
-                                        onClick={() => onViewDetails(user)}
-                                        className="rounded-lg p-2 text-gray-400 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                                        title="Voir Détails"
-                                    >
-                                        <FiEye size={16} />
-                                    </button>
-                                    {user.status === 'ACTIVE' ? (
-                                        <button
-                                            onClick={() => onUpdateStatus(user.id, 'BLOCKED')}
-                                            className="rounded-lg p-2 text-gray-400 hover:bg-red-50 hover:text-red-600 transition-colors"
-                                            title="Bloquer"
-                                        >
-                                            <FiXCircle size={16} />
-                                        </button>
-                                    ) : (
-                                        <button
-                                            onClick={() => onUpdateStatus(user.id, 'ACTIVE')}
-                                            className="rounded-lg p-2 text-gray-400 hover:bg-green-50 hover:text-green-600 transition-colors"
-                                            title="Activer"
-                                        >
-                                            <FiCheckCircle size={16} />
-                                        </button>
-                                    )}
-                                </div>
-                            </td>
+        <div className="glass-panel overflow-hidden border-none ring-1 ring-black/5">
+            <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-100">
+                    <thead className="bg-gray-50/50">
+                        <tr>
+                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Utilisateur</th>
+                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Contact</th>
+                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Statut</th>
+                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Compte</th>
+                            <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100 bg-white/50">
+                        {users.map((user) => (
+                            <tr key={user.uid} className="hover:bg-blue-50/30 transition-colors group">
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="flex items-center gap-3">
+                                        <div>
+                                            <div className="text-sm font-semibold text-slate-900">
+                                                {user.first_name || user.last_name ? `${user.first_name} ${user.last_name}` : 'Utilisateur'}
+                                            </div>
+                                            <div className="text-xs text-slate-500">
+                                                Inscrit le {user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="flex flex-col">
+                                        <span className="text-sm text-slate-700 font-medium">{user.email}</span>
+                                        <span className="text-xs text-slate-500">{user.phone_number || 'Non renseigné'}</span>
+                                    </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {getKycBadge(user.kycStatus || (user.is_email_verified ? 'VERIFIED' : 'PENDING'))}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-bold leading-5 ${getStatusColor(user.is_active ? 'ACTIVE' : 'BLOCKED')}`}>
+                                        {user.is_active ? 'Actif' : 'Bloqué'}
+                                    </span>
+                                </td>
+                                <td className="px-6 py-4 text-right whitespace-nowrap text-sm font-medium">
+                                    <div className="flex justify-end gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                                        <button
+                                            onClick={() => onViewDetails(user)}
+                                            className="rounded-xl p-2 text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                            title="Voir Détails"
+                                        >
+                                            <FiEye size={18} />
+                                        </button>
+                                        {user.is_active ? (
+                                            <button
+                                                onClick={() => onUpdateStatus(user.uid, 'BLOCKED')}
+                                                className="rounded-xl p-2 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
+                                                title="Bloquer"
+                                            >
+                                                <FiXCircle size={18} />
+                                            </button>
+                                        ) : (
+                                            <button
+                                                onClick={() => onUpdateStatus(user.uid, 'ACTIVE')}
+                                                className="rounded-xl p-2 text-slate-400 hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
+                                                title="Activer"
+                                            >
+                                                <FiCheckCircle size={18} />
+                                            </button>
+                                        )}
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

@@ -1,87 +1,32 @@
-// Mock API for Payment Aggregators
-import fedapayLogo from '../assets/fedapay.png';
-import kkiapayLogo from '../assets/kkiapay.jpg';
-
-const mockAggregators = [
-    {
-        id: 1,
-        name: 'Fedapay',
-        code: 'FEDAPAY',
-        isActive: true,
-        logo: fedapayLogo
-    },
-    {
-        id: 2,
-        name: 'KKiapay',
-        code: 'KKIAPAY',
-        isActive: true,
-        logo: kkiapayLogo
-    },
-    {
-        id: 3,
-        name: 'CinetPay',
-        code: 'CINETPAY',
-        isActive: false,
-        logo: 'https://cinetpay.com/img/cinetpay-logo.png'
-    }
-];
+import apiClient from './axios.config';
 
 export const aggregatorsAPI = {
     getAggregators: async () => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({ data: [...mockAggregators] });
-            }, 600);
-        });
+        const response = await apiClient.get('/core/admin/payment-aggregators/');
+        const data = response.data;
+        const results = Array.isArray(data) ? data : (data.results || data.data || []);
+        return { data: results };
     },
 
     createAggregator: async (data) => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const newAggregator = {
-                    id: mockAggregators.length + 1,
-                    ...data,
-                    isActive: true
-                };
-                mockAggregators.push(newAggregator);
-                resolve({ data: newAggregator });
-            }, 600);
-        });
+        const response = await apiClient.post('/core/admin/payment-aggregators/', data);
+        return response;
     },
 
     updateAggregator: async (id, data) => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const index = mockAggregators.findIndex(a => a.id === id);
-                if (index !== -1) {
-                    mockAggregators[index] = { ...mockAggregators[index], ...data };
-                    resolve({ data: mockAggregators[index] });
-                }
-            }, 600);
-        });
+        const response = await apiClient.patch(`/core/admin/payment-aggregators/${id}/`, data);
+        return response;
     },
 
     deleteAggregator: async (id) => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const index = mockAggregators.findIndex(a => a.id === id);
-                if (index !== -1) {
-                    mockAggregators.splice(index, 1);
-                }
-                resolve({ success: true });
-            }, 500);
-        });
+        const response = await apiClient.delete(`/core/admin/payment-aggregators/${id}/`);
+        return response;
     },
 
-    toggleStatus: async (id) => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const index = mockAggregators.findIndex(a => a.id === id);
-                if (index !== -1) {
-                    mockAggregators[index].isActive = !mockAggregators[index].isActive;
-                    resolve({ data: mockAggregators[index] });
-                }
-            }, 300);
+    toggleStatus: async (id, currentStatus) => {
+        const response = await apiClient.patch(`/core/admin/payment-aggregators/${id}/`, {
+            is_active: !currentStatus
         });
+        return response;
     }
 };

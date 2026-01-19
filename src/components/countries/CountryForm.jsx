@@ -86,18 +86,24 @@ const CountryForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
                 <p className="mt-1 text-xs text-gray-500">Si laissé vide, le drapeau sera généré automatiquement à partir du code pays.</p>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4">
+            {formData.flag && (
+                <div className="mt-2 flex items-center justify-center p-4 border border-gray-200 rounded-xl bg-gray-50">
+                    <img src={formData.flag} alt="Preview" className="h-16 object-contain" />
+                </div>
+            )}
+
+            <div className="flex flex-wrap justify-end gap-3 pt-4">
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
                 >
                     <FiX /> Annuler
                 </button>
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="flex items-center gap-2 rounded-xl bg-primary px-6 py-2 text-sm font-medium text-white hover:bg-primary-hover disabled:opacity-50 transition-colors shadow-sm"
+                    className="flex items-center gap-2 rounded-xl btn-primary px-6 py-2.5 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50 transition-all shadow-lg shadow-blue-500/30"
                 >
                     <FiSave /> {isLoading ? 'Enregistrement...' : 'Enregistrer'}
                 </button>

@@ -14,12 +14,14 @@ export const AuthProvider = ({ children }) => {
 
     const checkAuth = async () => {
         if (import.meta.env.VITE_DEV_MODE === 'true') {
-            setUser({ role: 'admin' });
+            setUser({ role: 'admin', email: 'dev@unicash.com' });
             setLoading(false);
             return;
         }
 
         const token = localStorage.getItem('accessToken');
+        const savedEmail = localStorage.getItem('userEmail'); // Retrieve email
+
         if (token) {
             try {
                 // Verify token validity by fetching user profile
@@ -29,7 +31,7 @@ export const AuthProvider = ({ children }) => {
                 // but checking is safer.
                 // NOTE: The walkthrough mentions /api/auth/admin/users/ but not strictly /me for admin.
                 // We will trust the token works if requests succeed.
-                setUser({ role: 'admin' }); // Placeholder until we have real profile fetch
+                setUser({ role: 'admin', email: savedEmail || 'admin@unicash.com' });
             } catch (error) {
                 console.error("Auth check failed", error);
                 logout();
@@ -45,6 +47,7 @@ export const AuthProvider = ({ children }) => {
 
             localStorage.setItem('accessToken', access);
             localStorage.setItem('refreshToken', refresh);
+            localStorage.setItem('userEmail', email); // Save email
 
             setUser({ role: 'admin', email }); // Basic user info
             return true;
@@ -57,6 +60,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
+        localStorage.removeItem('userEmail');
         setUser(null);
         window.location.href = '/login';
     };

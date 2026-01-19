@@ -1,14 +1,86 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1e3a8a;
-  --color-primary-hover: #1e40af;
-  --color-primary-light: #3b82f6;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-light: #60a5fa;
+  --color-glass-border: rgba(255, 255, 255, 0.5);
+  --color-glass-surface: rgba(255, 255, 255, 0.7);
+  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+
+  --font-family-sans: 'Outfit', sans-serif;
 }
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900;
-    font-family: 'Outfit', sans-serif;
+    @apply text-slate-800 antialiased;
+    font-family: var(--font-family-sans);
+    background-color: #f0f4f8;
+    /* Slightly cooler/lighter gray */
+    /* Modern, subtle mesh gradient background */
+    background-image:
+      radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 80%, rgba(14, 165, 233, 0.05) 0%, transparent 50%);
+    background-attachment: fixed;
+    min-height: 100vh;
   }
+}
+
+@layer components {
+
+  /* Modern Glass Panel */
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-xl border border-white/60 max-w-full;
+    box-shadow: 0 8px 30px rgb(0 0 0 / 0.04);
+  }
+
+  /* Modern Glass Card */
+  .glass-card {
+    @apply bg-white/60 backdrop-blur-lg border border-white/50 transition-all duration-300 max-w-full;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.03);
+  }
+
+  .glass-card:hover {
+    box-shadow: 0 8px 30px rgb(0 0 0 / 0.06);
+  }
+
+  /* Premium Inputs */
+  .glass-input {
+    @apply bg-white/80 border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm hover:border-slate-300;
+  }
+
+  /* Modern Button Base */
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white shadow-lg shadow-blue-500/30 transition-all duration-300 active:scale-95;
+  }
+
+  /* Modern Select */
+  select,
+  .glass-select {
+    @apply appearance-none bg-white/80 border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 pr-10 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all shadow-sm cursor-pointer hover:border-slate-300 bg-no-repeat;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-size: 1.25em 1.25em;
+  }
+}
+
+/* Custom Scrollbar - sleek & thin */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.5);
+  border-radius: 9999px;
+  /* Pill shape */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.8);
 }

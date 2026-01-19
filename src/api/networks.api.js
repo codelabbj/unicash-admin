@@ -1,101 +1,34 @@
-// Mock API for networks
-// In a real app, this would call your backend endpoints
-
-import mtnLogo from '../assets/Mtn_Benin.png';
-import moovLogo from '../assets/Moov_Benin.png';
-import celtiisLogo from '../assets/Celtiis_Benin.png';
-
-const mockNetworks = [
-    {
-        id: 1,
-        name: 'MTN Bénin',
-        code: 'MTN_BJ',
-        country: 'BJ',
-        logo: mtnLogo,
-        isActive: true
-    },
-    {
-        id: 2,
-        name: 'Moov Bénin',
-        code: 'MOOV_BJ',
-        country: 'BJ',
-        logo: moovLogo,
-        isActive: true
-    },
-    {
-        id: 3,
-        name: 'Celtiis',
-        code: 'CELTIIS_BJ',
-        country: 'BJ',
-        logo: celtiisLogo,
-        isActive: true
-    },
-    {
-        id: 4,
-        name: 'Orange Côte d\'Ivoire',
-        code: 'ORANGE_CI',
-        country: 'CI',
-        logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/2048px-Orange_logo.svg.png',
-        isActive: false
-    }
-];
+import apiClient from './axios.config';
 
 export const networksAPI = {
     getNetworks: async () => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({ data: [...mockNetworks] });
-            }, 600);
-        });
+        const response = await apiClient.get('/core/admin/networks/');
+        // Handle pagination or direct array
+        const data = response.data;
+        const results = Array.isArray(data) ? data : (data.results || data.data || []);
+        return { data: results };
     },
 
     createNetwork: async (data) => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const newNetwork = {
-                    id: mockNetworks.length + 1,
-                    ...data,
-                    isActive: true
-                };
-                mockNetworks.push(newNetwork);
-                resolve({ data: newNetwork });
-            }, 600);
-        });
+        const response = await apiClient.post('/core/admin/networks/', data);
+        return response;
     },
 
     updateNetwork: async (id, data) => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const index = mockNetworks.findIndex(n => n.id === id);
-                if (index !== -1) {
-                    mockNetworks[index] = { ...mockNetworks[index], ...data };
-                    resolve({ data: mockNetworks[index] });
-                }
-            }, 600);
-        });
+        const response = await apiClient.patch(`/core/admin/networks/${id}/`, data);
+        return response;
     },
 
     deleteNetwork: async (id) => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const index = mockNetworks.findIndex(n => n.id === id);
-                if (index !== -1) {
-                    mockNetworks.splice(index, 1);
-                }
-                resolve({ success: true });
-            }, 500);
-        });
+        const response = await apiClient.delete(`/core/admin/networks/${id}/`);
+        return response;
     },
 
-    toggleStatus: async (id) => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const index = mockNetworks.findIndex(n => n.id === id);
-                if (index !== -1) {
-                    mockNetworks[index].isActive = !mockNetworks[index].isActive;
-                    resolve({ data: mockNetworks[index] });
-                }
-            }, 300);
+    toggleStatus: async (id, currentStatus) => {
+        // Assuming toggle is just an update of is_active
+        const response = await apiClient.patch(`/core/admin/networks/${id}/`, {
+            is_active: !currentStatus
         });
+        return response;
     }
 };

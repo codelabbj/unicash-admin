@@ -43,25 +43,26 @@ const AdminLogin = () => {
                 <FiDollarSign className="w-14 h-14" />
             </div>
 
-            <div className="bg-white shadow-2xl rounded-3xl p-8 w-full max-w-md relative z-10">
+            <div className="glass-panel p-10 w-full max-w-md relative z-10 animate-fade-in-up">
                 <div className="text-center mb-8">
                     <img
                         src={logo}
                         alt="UniCash"
-                        className="w-48 h-auto mx-auto"
+                        className="w-48 h-auto mx-auto drop-shadow-sm"
                     />
-                    <p className="text-gray-600 text-xl mt-2 font-medium">Administration</p>
+                    <p className="text-slate-500 text-lg mt-3 font-medium tracking-wide">Administration</p>
                 </div>
 
                 {error && (
-                    <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-4 border border-red-100">
+                    <div className="bg-rose-50 text-rose-600 p-4 rounded-xl text-sm mb-6 border border-rose-100 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
                         {error}
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="relative">
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="relative group">
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
                             <FiMail className="w-5 h-5" />
                         </div>
                         <input
@@ -69,13 +70,13 @@ const AdminLogin = () => {
                             placeholder="Email Administrateur"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full pl-12 pr-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-blue-600 transition-colors"
+                            className="w-full pl-11 pr-4 py-3.5 glass-input rounded-xl text-slate-700 placeholder-slate-400 focus:outline-none transition-all"
                             required
                         />
                     </div>
 
-                    <div className="relative">
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                    <div className="relative group">
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
                             <FiLock className="w-5 h-5" />
                         </div>
                         <input
@@ -83,7 +84,7 @@ const AdminLogin = () => {
                             placeholder="Mot de passe"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full pl-12 pr-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-blue-600 transition-colors"
+                            className="w-full pl-11 pr-4 py-3.5 glass-input rounded-xl text-slate-700 placeholder-slate-400 focus:outline-none transition-all"
                             required
                         />
                     </div>
@@ -91,15 +92,15 @@ const AdminLogin = () => {
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className={`w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors shadow-lg shadow-blue-600/30
+                        className={`w-full py-3.5 px-6 btn-primary rounded-xl font-semibold text-[15px] tracking-wide mt-2
               ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                     >
-                        {isSubmitting ? 'Connexion en cours...' : 'Se connecter'}
+                        {isSubmitting ? 'Connexion...' : 'Se connecter'}
                     </button>
                 </form>
 
-                <div className="mt-8 text-center text-sm text-gray-400">
-                    <p>Accès réservé au personnel autorisé</p>
+                <div className="mt-8 text-center text-xs text-slate-400 font-medium uppercase tracking-wider">
+                    <p>Accès Sécurisé • UniCash Admin</p>
                 </div>
             </div>
             {/* More floating money decorations */}

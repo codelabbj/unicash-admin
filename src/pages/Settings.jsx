@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiSave, FiSettings, FiBriefcase, FiGlobe, FiLock } from 'react-icons/fi';
+import SettingInput from '../components/settings/SettingInput';
 
 const Settings = () => {
-    const [settings, setSettings] = useState({
+    // Initial data - normally fetched from API
+    const initialData = {
         companyName: 'UniCash',
         supportEmail: 'support@unicash.com',
         platformStatus: 'active',
@@ -10,11 +12,40 @@ const Settings = () => {
         minTransferAmount: '100',
         maxTransferAmount: '1000000',
         defaultCurrency: 'XOF'
-    });
+    };
 
-    const handleSave = (e) => {
+    const [settings, setSettings] = useState(initialData);
+    const [initialSettings, setInitialSettings] = useState(initialData);
+    const [editingFields, setEditingFields] = useState({});
+    const [isDirty, setIsDirty] = useState(false);
+
+    // Check for changes
+    useEffect(() => {
+        const hasChanges = JSON.stringify(settings) !== JSON.stringify(initialSettings);
+        setIsDirty(hasChanges);
+    }, [settings, initialSettings]);
+
+    const handleEditClick = (field) => {
+        setEditingFields(prev => ({ ...prev, [field]: true }));
+    };
+
+    const handleChange = (field, value) => {
+        setSettings(prev => ({ ...prev, [field]: value }));
+    };
+
+    const handleSave = async (e) => {
         e.preventDefault();
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        setInitialSettings(settings);
+        setEditingFields({});
         alert("Paramètres enregistrés avec succès !");
+    };
+
+    const handleCancel = () => {
+        setSettings(initialSettings);
+        setEditingFields({});
     };
 
     return (
@@ -35,24 +66,23 @@ const Settings = () => {
                     </div>
 
                     <div className="grid gap-6 md:grid-cols-2">
-                        <div>
-                            <label className="mb-1 block text-sm font-medium text-gray-700">Nom de la Plateforme</label>
-                            <input
-                                type="text"
-                                value={settings.companyName}
-                                onChange={(e) => setSettings({ ...settings, companyName: e.target.value })}
-                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50"
-                            />
-                        </div>
-                        <div>
-                            <label className="mb-1 block text-sm font-medium text-gray-700">Email de Support</label>
-                            <input
-                                type="email"
-                                value={settings.supportEmail}
-                                onChange={(e) => setSettings({ ...settings, supportEmail: e.target.value })}
-                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50"
-                            />
-                        </div>
+                        <SettingInput
+                            label="Nom de la Plateforme"
+                            name="companyName"
+                            value={settings.companyName}
+                            onChange={handleChange}
+                            isEditing={editingFields.companyName}
+                            onEditClick={handleEditClick}
+                        />
+                        <SettingInput
+                            label="Email de Support"
+                            name="supportEmail"
+                            type="email"
+                            value={settings.supportEmail}
+                            onChange={handleChange}
+                            isEditing={editingFields.supportEmail}
+                            onEditClick={handleEditClick}
+                        />
                     </div>
                 </section>
 
@@ -66,33 +96,32 @@ const Settings = () => {
                     </div>
 
                     <div className="grid gap-6 md:grid-cols-3">
-                        <div>
-                            <label className="mb-1 block text-sm font-medium text-gray-700">Devise Par Défaut</label>
-                            <input
-                                type="text"
-                                value={settings.defaultCurrency}
-                                onChange={(e) => setSettings({ ...settings, defaultCurrency: e.target.value })}
-                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50 uppercase"
-                            />
-                        </div>
-                        <div>
-                            <label className="mb-1 block text-sm font-medium text-gray-700">Montant Minimum</label>
-                            <input
-                                type="number"
-                                value={settings.minTransferAmount}
-                                onChange={(e) => setSettings({ ...settings, minTransferAmount: e.target.value })}
-                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50"
-                            />
-                        </div>
-                        <div>
-                            <label className="mb-1 block text-sm font-medium text-gray-700">Montant Maximum</label>
-                            <input
-                                type="number"
-                                value={settings.maxTransferAmount}
-                                onChange={(e) => setSettings({ ...settings, maxTransferAmount: e.target.value })}
-                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50"
-                            />
-                        </div>
+                        <SettingInput
+                            label="Devise Par Défaut"
+                            name="defaultCurrency"
+                            value={settings.defaultCurrency}
+                            onChange={handleChange}
+                            isEditing={editingFields.defaultCurrency}
+                            onEditClick={handleEditClick}
+                        />
+                        <SettingInput
+                            label="Montant Minimum"
+                            name="minTransferAmount"
+                            type="number"
+                            value={settings.minTransferAmount}
+                            onChange={handleChange}
+                            isEditing={editingFields.minTransferAmount}
+                            onEditClick={handleEditClick}
+                        />
+                        <SettingInput
+                            label="Montant Maximum"
+                            name="maxTransferAmount"
+                            type="number"
+                            value={settings.maxTransferAmount}
+                            onChange={handleChange}
+                            isEditing={editingFields.maxTransferAmount}
+                            onEditClick={handleEditClick}
+                        />
                     </div>
                 </section>
 
@@ -113,7 +142,10 @@ const Settings = () => {
                             </div>
                             <button
                                 type="button"
-                                onClick={() => setSettings({ ...settings, maintenanceMode: !settings.maintenanceMode })}
+                                onClick={() => {
+                                    handleChange('maintenanceMode', !settings.maintenanceMode);
+                                    // Normally toggle doesn't need "edit mode", it just changes value
+                                }}
                                 className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${settings.maintenanceMode ? 'bg-primary' : 'bg-gray-200'}`}
                             >
                                 <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${settings.maintenanceMode ? 'translate-x-5' : 'translate-x-0'}`} />
@@ -122,14 +154,25 @@ const Settings = () => {
                     </div>
                 </section>
 
-                <div className="flex justify-end pt-4">
-                    <button
-                        type="submit"
-                        className="flex items-center gap-2 rounded-xl bg-primary px-8 py-3 text-sm font-medium text-white shadow-lg hover:bg-primary-hover transition-all transform active:scale-95"
-                    >
-                        <FiSave /> Enregistrer les Paramètres
-                    </button>
-                </div>
+                {/* Save Actions */}
+                {isDirty && (
+                    <div className="fixed bottom-6 right-6 flex items-center gap-4 rounded-xl bg-white p-4 shadow-2xl border border-gray-100 animate-in slide-in-from-bottom-5">
+                        <span className="text-sm text-gray-500 hidden sm:inline">Des modifications non enregistrées</span>
+                        <button
+                            type="button"
+                            onClick={handleCancel}
+                            className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors"
+                        >
+                            Annuler
+                        </button>
+                        <button
+                            type="submit"
+                            className="flex items-center gap-2 rounded-xl bg-primary px-6 py-2 text-sm font-bold text-white shadow-lg hover:bg-primary-hover transition-all transform active:scale-95"
+                        >
+                            <FiSave /> Enregistrer
+                        </button>
+                    </div>
+                )}
             </form>
         </div>
     );
