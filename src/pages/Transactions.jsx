@@ -100,7 +100,7 @@ const Transactions = () => {
             </div>
 
             {/* Toolbar Row: Unified Filters */}
-            <div className="relative z-40 glass-card rounded-[1.5rem] p-4 flex flex-col xl:flex-row xl:items-center gap-4 border border-white/60 bg-white/40 backdrop-blur-md shadow-lg shadow-slate-200/50">
+            <div className="relative z-40 glass-card rounded-[1.5rem] p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 border border-white/60 bg-white/40 backdrop-blur-md shadow-lg shadow-slate-200/50">
                 <div className="flex flex-wrap items-center gap-4 flex-grow">
                     {/* Status Dropdown */}
                     <div className="w-full sm:w-[280px] relative group">
@@ -121,10 +121,10 @@ const Transactions = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between xl:justify-end gap-6 border-t xl:border-t-0 border-slate-100 pt-4 xl:pt-0">
+                <div className="flex items-center justify-between md:justify-end gap-6 border-t md:border-t-0 border-slate-100 pt-4 md:pt-0">
                     {/* Results Counter */}
                     {!isLoading && (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 whitespace-nowrap">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Résultats</span>
                             <div className="px-3 py-1 bg-blue-600 text-white rounded-lg text-[12px] font-black shadow-lg shadow-blue-500/20">
                                 {transactions.length}
