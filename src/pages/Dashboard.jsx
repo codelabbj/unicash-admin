@@ -98,29 +98,6 @@ const Dashboard = () => {
                     <p className="text-slate-500 text-[13px] font-medium mt-1">Aperçu en temps réel des performances UniCash.</p>
                 </div>
 
-                <div className="flex flex-wrap gap-3">
-                    <button
-                        onClick={() => navigate('/admin/transactions')}
-                        className="glass-card px-4 py-2.5 rounded-xl text-[12.5px] font-bold text-blue-600 flex items-center gap-2 hover:bg-blue-50 hover:border-blue-100 transition-all active:scale-95 shadow-sm"
-                    >
-                        <FiSend className="w-3.5 h-3.5" />
-                        <span>Transactions</span>
-                    </button>
-                    <button
-                        onClick={() => navigate('/admin/users')}
-                        className="glass-card px-4 py-2.5 rounded-xl text-[12.5px] font-bold text-emerald-600 flex items-center gap-2 hover:bg-emerald-50 hover:border-emerald-100 transition-all active:scale-95 shadow-sm"
-                    >
-                        <FiUsers className="w-3.5 h-3.5" />
-                        <span>Utilisateurs</span>
-                    </button>
-                    <button
-                        onClick={() => navigate('/admin/networks')}
-                        className="glass-card px-4 py-2.5 rounded-xl text-[12.5px] font-bold text-purple-600 flex items-center gap-2 hover:bg-purple-50 hover:border-purple-100 transition-all active:scale-95 shadow-sm"
-                    >
-                        <FiGlobe className="w-3.5 h-3.5" />
-                        <span>Réseaux</span>
-                    </button>
-                </div>
             </div>
 
             {/* Principal KPIs */}
