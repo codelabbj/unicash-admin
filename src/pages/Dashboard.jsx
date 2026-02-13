@@ -2,83 +2,49 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
-    FiDollarSign, FiUsers, FiCreditCard, FiActivity,
-    FiArrowUpRight, FiArrowDownRight, FiPlus, FiGlobe, FiSend, FiMoreVertical, FiClock
+    FiDollarSign, FiActivity, FiGlobe, FiSend, FiClock,
+    FiCheckCircle, FiXCircle, FiList, FiTrendingUp, FiBarChart2, FiUsers
 } from 'react-icons/fi';
-// No charts used currently
 import StatCard from '../components/dashboard/StatCard';
 import LoadingSpinner from '../components/common/LoadingSpinner';
-import EmptyState from '../components/common/EmptyState';
-import { transactionsAPI } from '../api/transactions.api';
-import { usersAPI } from '../api/users.api';
 import { statsAPI } from '../api/stats.api';
-import { formatErrorForDisplay } from '../utils/errorHandler';
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const [stats, setStats] = useState({
         totalVolume: 0,
-        totalUsers: 0,
-        totalTransactions: 0,
-        feesCollected: 0,
-        pendingKyc: 0
+        totalFees: 0,
+        statusBreakdown: [],
+        dailyVolume: [],
+        kyc: {
+            total: 0,
+            pending: 0,
+            approved: 0,
+            rejected: 0
+        }
     });
-    const [recentTransactions, setRecentTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [charts, setCharts] = useState({
-        volumeEvolution: [],
-        statusDistribution: []
-    });
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [txData, usersData, statsData, kycData] = await Promise.all([
-                    transactionsAPI.getTransactions(),
-                    usersAPI.getUsers(),
+                const [statsData, kycData] = await Promise.all([
                     statsAPI.getAdminStats(),
                     statsAPI.getKycStats()
                 ]);
 
-                const transactions = txData.data || [];
-                const users = usersData.data || [];
-
-                // 1. Calculate Status Distribution
-                const statusCounts = {};
-                const statusNames = {
-                    'SUCCESS': 'Succès',
-                    'COMPLETED': 'Succès',
-                    'PENDING': 'En attente',
-                    'FAILED': 'Échec',
-                    'UNKNOWN': 'Inconnu'
-                };
-
-                transactions.forEach(tx => {
-                    const status = tx.status || 'UNKNOWN';
-                    const name = statusNames[status] || 'Inconnu';
-                    statusCounts[name] = (statusCounts[name] || 0) + 1;
-                });
-
-                const totalForDist = transactions.length || 1;
-                const statusDistribution = Object.entries(statusCounts).map(([name, value]) => ({
-                    name,
-                    value: Math.round((value / totalForDist) * 100),
-                    count: value
-                })).sort((a, b) => b.value - a.value).slice(0, 4);
-
                 setStats({
-                    totalVolume: statsData.total_volume || transactions.reduce((sum, tx) => sum + parseFloat(tx.amount || 0), 0),
-                    totalUsers: statsData.total_users || users.length,
-                    totalTransactions: statsData.total_transactions || transactions.length,
-                    feesCollected: statsData.total_fees || 0,
-                    pendingKyc: kycData.pending || 0
+                    totalVolume: statsData.total_volume || 0,
+                    totalFees: statsData.total_fees || 0,
+                    statusBreakdown: statsData.status_breakdown || [],
+                    dailyVolume: statsData.daily_volume || [],
+                    kyc: {
+                        total: kycData.total_requests || 0,
+                        pending: kycData.pending || 0,
+                        approved: kycData.approved || 0,
+                        rejected: kycData.rejected || 0
+                    }
                 });
-
-                setCharts({
-                    statusDistribution
-                });
-
-                setRecentTransactions(transactions.slice(0, 5));
             } catch (error) {
                 console.error("Dashboard data fetch failed:", error);
                 toast.error("Impossible de charger les données du tableau de bord");
@@ -94,19 +60,44 @@ const Dashboard = () => {
         return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XOF' }).format(amount);
     };
 
+    const getStatusColor = (status) => {
+        const colors = {
+            'COMPLETED': 'bg-emerald-500',
+            'SUCCESS': 'bg-emerald-500',
+            'FAILED': 'bg-rose-500',
+            'DEBIT_FAILED': 'bg-rose-400',
+            'CREDIT_FAILED': 'bg-orange-400',
+            'PENDING': 'bg-amber-400',
+            'DEBIT_INITIATED': 'bg-blue-400'
+        };
+        return colors[status] || 'bg-slate-400';
+    };
+
+    const getStatusLabel = (status) => {
+        const labels = {
+            'COMPLETED': 'Réussi',
+            'SUCCESS': 'Succès',
+            'FAILED': 'Échec',
+            'DEBIT_FAILED': 'Échec débit',
+            'CREDIT_FAILED': 'Échec crédit',
+            'PENDING': 'En attente',
+            'DEBIT_INITIATED': 'Débit initié'
+        };
+        return labels[status] || status;
+    };
+
     if (loading) {
         return <LoadingSpinner text="Chargement du tableau de bord..." />;
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-8">
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div>
                     <h1 className="text-2xl font-black text-slate-900 tracking-tight">Tableau de bord</h1>
-                    <p className="text-slate-500 text-[13px] font-medium mt-1">Aperçu en temps réel de votre activité UniCash.</p>
+                    <p className="text-slate-500 text-[13px] font-medium mt-1">Aperçu en temps réel des performances UniCash.</p>
                 </div>
 
-                {/* Quick Actions */}
                 <div className="flex flex-wrap gap-3">
                     <button
                         onClick={() => navigate('/admin/transactions')}
@@ -132,110 +123,113 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {/* Stats Grid */}
-            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${stats.pendingKyc > 0 ? '5' : '4'} gap-5`}>
+            {/* Principal KPIs */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <StatCard title="Volume Total" value={formatCurrency(stats.totalVolume)} icon={FiDollarSign} color="blue" />
-                <StatCard title="Utilisateurs" value={stats.totalUsers.toString()} icon={FiUsers} color="green" />
-                <StatCard title="Transactions" value={stats.totalTransactions.toString()} icon={FiCreditCard} color="yellow" />
-                <StatCard title="Frais Collectés" value={formatCurrency(stats.feesCollected)} icon={FiActivity} color="red" />
-                {stats.pendingKyc > 0 && (
-                    <StatCard title="KYC en attente" value={stats.pendingKyc.toString()} icon={FiClock} color="indigo" />
+                <StatCard title="Frais Collectés" value={formatCurrency(stats.totalFees)} icon={FiActivity} color="red" />
+                <StatCard title="Total Demandes KYC" value={stats.kyc.total.toString()} icon={FiList} color="slate" />
+            </div>
+
+            {/* KYC Details and Status Breakdown Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* KYC Details Section */}
+                {stats.kyc.total > 0 && (
+                    <div className="glass-card rounded-[2rem] p-8 border-none ring-1 ring-black/5 flex flex-col h-full">
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="p-2.5 bg-indigo-50 rounded-xl text-indigo-600">
+                                <FiCheckCircle size={20} />
+                            </div>
+                            <h2 className="text-[17px] font-black text-slate-900 tracking-tight">Détails KYC</h2>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 flex-grow">
+                            <div className="p-5 rounded-2xl bg-emerald-50/50 border border-emerald-100/50">
+                                <p className="text-[11px] font-black text-emerald-600 uppercase tracking-wider mb-1">Approuvés</p>
+                                <p className="text-2xl font-black text-emerald-700">{stats.kyc.approved}</p>
+                            </div>
+                            <div className="p-5 rounded-2xl bg-amber-50/50 border border-amber-100/50">
+                                <p className="text-[11px] font-black text-amber-600 uppercase tracking-wider mb-1">En attente</p>
+                                <p className="text-2xl font-black text-amber-700">{stats.kyc.pending}</p>
+                            </div>
+                            <div className="p-5 rounded-2xl bg-rose-50/50 border border-rose-100/50">
+                                <p className="text-[11px] font-black text-rose-600 uppercase tracking-wider mb-1">Rejetés</p>
+                                <p className="text-2xl font-black text-rose-700">{stats.kyc.rejected}</p>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Status Breakdown Section */}
+                {stats.statusBreakdown.length > 0 && (
+                    <div className="glass-card rounded-[2rem] p-8 border-none ring-1 ring-black/5 flex flex-col h-full">
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="p-2.5 bg-blue-50 rounded-xl text-blue-600">
+                                <FiBarChart2 size={20} />
+                            </div>
+                            <h2 className="text-[17px] font-black text-slate-900 tracking-tight">Répartition des Statuts</h2>
+                        </div>
+
+                        <div className="space-y-4">
+                            {stats.statusBreakdown.map((item, index) => {
+                                const total = stats.statusBreakdown.reduce((sum, i) => sum + i.count, 0);
+                                const percentage = total > 0 ? Math.round((item.count / total) * 100) : 0;
+                                return (
+                                    <div key={index}>
+                                        <div className="flex justify-between items-center mb-1.5">
+                                            <span className="text-[12.5px] font-bold text-slate-600">{getStatusLabel(item.status)}</span>
+                                            <span className="text-[12.5px] font-black text-slate-900">{item.count} ({percentage}%)</span>
+                                        </div>
+                                        <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                                            <div
+                                                className={`h-full rounded-full transition-all duration-1000 ${getStatusColor(item.status)}`}
+                                                style={{ width: `${percentage}%` }}
+                                            />
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
                 )}
             </div>
 
-            <div className="grid grid-cols-1 gap-6">
-                {/* Status distribution section (matching "Répartition par Pays" style) */}
+            {/* Daily Volume Evolution */}
+            {stats.dailyVolume.length > 0 && (
                 <div className="glass-card rounded-[2rem] p-8 border-none ring-1 ring-black/5">
-                    <h2 className="text-[17px] font-black text-slate-900 tracking-tight mb-8">Répartition des Opérations</h2>
+                    <div className="flex items-center gap-3 mb-8">
+                        <div className="p-2.5 bg-emerald-50 rounded-xl text-emerald-600">
+                            <FiTrendingUp size={20} />
+                        </div>
+                        <h2 className="text-[17px] font-black text-slate-900 tracking-tight">Évolution du Volume (7 derniers jours)</h2>
+                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {charts.statusDistribution.length === 0 ? (
-                            <div className="lg:col-span-4 py-12 text-center text-slate-400 text-sm italic font-medium">Capture des données en cours...</div>
-                        ) : (
-                            charts.statusDistribution.map((item, index) => (
-                                <div key={index}>
-                                    <div className="flex justify-between items-end mb-2">
-                                        <span className="text-[13px] font-bold text-slate-700">{item.name}</span>
-                                        <span className="text-[13px] font-black text-slate-900">{item.value}%</span>
-                                    </div>
-                                    <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4">
+                        {stats.dailyVolume.map((item, index) => {
+                            const date = new Date(item.day);
+                            const dayLabel = date.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric' });
+                            const maxVol = Math.max(...stats.dailyVolume.map(v => v.volume), 1);
+                            const heightPercentage = Math.max((item.volume / maxVol) * 100, 5);
+
+                            return (
+                                <div key={index} className="flex flex-col items-center gap-3 group">
+                                    <div className="w-full bg-slate-50/50 rounded-xl h-32 flex items-end p-1 overflow-hidden transition-all group-hover:bg-slate-100/50">
                                         <div
-                                            className={`h-full rounded-full transition-all duration-1000 ${item.name === 'Succès' ? 'bg-[#2534C1]' :
-                                                item.name === 'En attente' ? 'bg-amber-400' :
-                                                    item.name === 'Échec' ? 'bg-rose-500' : 'bg-slate-400'
-                                                }`}
-                                            style={{ width: `${item.value}%` }}
+                                            className="w-full bg-blue-500/80 rounded-lg transition-all duration-700 ease-out group-hover:bg-blue-600"
+                                            style={{ height: `${heightPercentage}%` }}
                                         />
                                     </div>
-                                </div>
-                            ))
-                        )}
-                    </div>
-                </div>
-            </div>
-
-            {/* Transaction and Activity columns */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-4">
-                <div className="glass-card rounded-[2rem] p-8 border-none ring-1 ring-black/5">
-                    <div className="mb-8 flex items-center justify-between">
-                        <div>
-                            <h2 className="text-[17px] font-black text-slate-900 tracking-tight">Transactions Récentes</h2>
-                            <p className="text-[13px] text-slate-400 font-medium">Les 5 dernières opérations</p>
-                        </div>
-                        <button onClick={() => navigate('/admin/transactions')} className="text-[13px] font-black text-primary hover:text-primary-hover transition-colors">
-                            Voir tout
-                        </button>
-                    </div>
-                    <div className="space-y-4">
-                        {recentTransactions.length === 0 ? (
-                            <EmptyState
-                                title="Aucune transaction"
-                                description="Les transactions récentes apparaîtront ici."
-                                icon={<FiCreditCard size={28} />}
-                            />
-                        ) : (
-                            recentTransactions.map((txn, index) => (
-                                <div key={txn.uid || index} className="flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50/50 transition-all cursor-pointer group border border-transparent hover:border-slate-100">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-[11px] font-black text-primary group-hover:bg-primary/5 group-hover:text-primary transition-colors">
-                                            {txn.user_full_name?.split(' ').map(n => n[0]).join('') || 'U'}
-                                        </div>
-                                        <div>
-                                            <p className="text-[13px] font-black text-slate-900 tracking-tight">#UC-{txn.reference?.slice(-6) || txn.uid?.slice(0, 6)}</p>
-                                            <p className="text-[11px] text-slate-400 font-semibold">{txn.source_network_name || 'Réseau'}</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-[14px] font-black text-slate-900">{formatCurrency(txn.amount)}</p>
-                                        <span className={`inline-block px-2 py-0.5 text-[9px] font-black rounded-full mt-1 uppercase tracking-tight
-                                            ${txn.status === 'SUCCESS' || txn.status === 'COMPLETED' ? 'bg-emerald-100 text-emerald-700' :
-                                                txn.status === 'PENDING' ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'}`}>
-                                            {txn.status === 'SUCCESS' || txn.status === 'COMPLETED' ? 'SUCCÈS' :
-                                                txn.status === 'PENDING' ? 'EN ATTENTE' :
-                                                    txn.status === 'FAILED' ? 'ÉCHEC' : 'INCONNU'}
-                                        </span>
-                                    </div>
-                                    <div className="hidden group-hover:block ml-2 self-center">
-                                        <FiMoreVertical className="text-slate-300" />
+                                    <div className="text-center">
+                                        <p className="text-[11px] font-black text-slate-900 uppercase tracking-tighter">{dayLabel}</p>
+                                        <p className="text-[10px] font-bold text-slate-400 mt-0.5">{item.volume} FCFA</p>
                                     </div>
                                 </div>
-                            ))
-                        )}
+                            );
+                        })}
                     </div>
                 </div>
-
-                <div className="glass-card rounded-[2rem] p-8 border-none ring-1 ring-black/5">
-                    <h2 className="text-[17px] font-black text-slate-900 mb-8">Flux d'Activité</h2>
-                    <EmptyState
-                        title="Pas d'activité"
-                        description="Le flux d'activité est vide pour le moment."
-                        icon={<FiActivity size={28} />}
-                    />
-                </div>
-            </div>
+            )}
         </div>
     );
 };
 
 export default Dashboard;
-
