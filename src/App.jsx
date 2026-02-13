@@ -50,9 +50,9 @@ function App() {
             <Route path="banners" element={<Banners />} />
             <Route path="users" element={<Users />} />
             <Route path="users/:userId/transactions" element={<UserTransactions />} />
-            <Route path="countries" element={<Countries />} />
+            {/* <Route path="countries" element={<Countries />} /> */}
             <Route path="networks" element={<Networks />} />
-            <Route path="fee-configs" element={<FeeConfigs />} />
+            {/* <Route path="fee-configs" element={<FeeConfigs />} /> */}
             <Route path="aggregators" element={<Aggregators />} />
             <Route path="transactions" element={<Transactions />} />
             <Route path="transactions/:txnId" element={<TransactionDetails />} />
