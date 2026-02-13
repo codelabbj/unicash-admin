@@ -18,6 +18,8 @@ import Aggregators from './pages/Aggregators';
 import Transactions from './pages/Transactions';
 import UserTransactions from './pages/UserTransactions';
 import TransactionDetails from './pages/TransactionDetails';
+import KYC from './pages/KYC';
+import KYCDetails from './pages/KYCDetails';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 
@@ -54,6 +56,8 @@ function App() {
             <Route path="aggregators" element={<Aggregators />} />
             <Route path="transactions" element={<Transactions />} />
             <Route path="transactions/:txnId" element={<TransactionDetails />} />
+            <Route path="kyc" element={<KYC />} />
+            <Route path="kyc/:kycUid" element={<KYCDetails />} />
             <Route path="settings" element={<Settings />} />
           </Route>
 
