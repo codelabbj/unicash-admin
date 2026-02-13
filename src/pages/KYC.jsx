@@ -72,7 +72,7 @@ const KYC = () => {
             </div>
 
             {/* Filters */}
-            <div className="relative z-40 glass-card rounded-[1.5rem] p-4 flex flex-col xl:flex-row xl:items-center gap-4 border border-white/60 bg-white/40 backdrop-blur-md shadow-lg shadow-slate-200/50">
+            <div className="relative z-40 glass-card rounded-[1.5rem] p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 border border-white/60 bg-white/40 backdrop-blur-md shadow-lg shadow-slate-200/50">
                 <div className="flex flex-wrap items-center gap-4 flex-grow">
                     <div className="w-full sm:w-[280px] relative group">
                         <FiFilter className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10 pointer-events-none group-hover:text-blue-500 transition-colors" />
@@ -85,14 +85,14 @@ const KYC = () => {
                                 { value: "approved", label: "Approuvé" },
                                 { value: "rejected", label: "Rejeté" }
                             ]}
-                            selectClassName="!pl-11 !py-2.5 !rounded-xl !bg-white/60 !border-slate-100 !text-[13px] !font-black !text-slate-600 hover:!border-slate-300"
+                            selectClassName="!pl-11 !py-2.5 !rounded-xl !bg-white/60 !border-slate-100 !text-[13px] !font-black !text-slate-600 hover:!border-slate-300 w-full"
                         />
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between xl:justify-end gap-6 border-t xl:border-t-0 border-slate-100 pt-4 xl:pt-0">
+                <div className="flex items-center justify-between md:justify-end gap-6 border-t md:border-t-0 border-slate-100 pt-4 md:pt-0">
                     {!isLoading && (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 whitespace-nowrap">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Demandes</span>
                             <div className="px-3 py-1 bg-blue-600 text-white rounded-lg text-[12px] font-black shadow-lg shadow-blue-500/20">
                                 {requests.length}
@@ -103,7 +103,7 @@ const KYC = () => {
                     {statusFilter && (
                         <button
                             onClick={() => setStatusFilter('')}
-                            className="flex items-center gap-2 text-rose-500 text-[12px] font-black hover:text-rose-600 hover:scale-105 active:scale-95 transition-all bg-rose-50 px-3 py-2 rounded-xl border border-rose-100"
+                            className="flex items-center gap-2 text-rose-500 text-[12px] font-black hover:text-rose-600 hover:scale-105 active:scale-95 transition-all bg-rose-50 px-3 py-2 rounded-xl border border-rose-100 whitespace-nowrap"
                         >
                             <FiRefreshCw size={14} />
                             Réinitialiser
