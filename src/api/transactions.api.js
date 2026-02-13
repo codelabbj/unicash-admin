@@ -24,5 +24,10 @@ export const transactionsAPI = {
     retryCredit: async (uid) => {
         const response = await apiClient.post(`/core/admin/transactions/${uid}/retry_credit/`);
         return response;
+    },
+
+    getTransactionDetails: async (id) => {
+        const response = await apiClient.get(`/core/admin/transactions/${id}/`);
+        return response.data;
     }
 };

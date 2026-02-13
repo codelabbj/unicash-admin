@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiFilter, FiDownload, FiCreditCard, FiRefreshCw, FiAlertCircle, FiCalendar, FiGlobe, FiXCircle } from 'react-icons/fi';
 import GlassSelect from '../components/common/GlassSelect';
 import TransactionTable from '../components/transactions/TransactionTable';
@@ -8,6 +9,7 @@ import ConfirmationModal from '../components/common/ConfirmationModal';
 import { transactionsAPI } from '../api/transactions.api';
 
 const Transactions = () => {
+    const navigate = useNavigate();
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -40,7 +42,7 @@ const Transactions = () => {
     }, [searchTerm, statusFilter]);
 
     const handleViewDetails = (txn) => {
-        console.log("View details for:", txn);
+        navigate(`/admin/transactions/${txn.uid}`);
     };
 
     const handleRetryCredit = (txn) => {
@@ -159,7 +161,7 @@ const Transactions = () => {
                 <div className="py-20 bg-white/30 backdrop-blur-md rounded-[2.5rem] border border-white/60">
                     <EmptyState
                         title="Aucune transaction trouvée"
-                        description={searchTerm || statusFilter || networkFilter || startDate || endDate ? "Ajustez vos filtres pour obtenir des résultats." : "Aucune transaction enregistrée pour le moment."}
+                        description={searchTerm || statusFilter ? "Ajustez vos filtres pour obtenir des résultats." : "Aucune transaction enregistrée pour le moment."}
                         icon={<FiCreditCard size={48} className="text-slate-300" />}
                     />
                 </div>

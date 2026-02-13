@@ -17,6 +17,7 @@ import FeeConfigs from './pages/FeeConfigs';
 import Aggregators from './pages/Aggregators';
 import Transactions from './pages/Transactions';
 import UserTransactions from './pages/UserTransactions';
+import TransactionDetails from './pages/TransactionDetails';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 
@@ -52,6 +53,7 @@ function App() {
             <Route path="fee-configs" element={<FeeConfigs />} />
             <Route path="aggregators" element={<Aggregators />} />
             <Route path="transactions" element={<Transactions />} />
+            <Route path="transactions/:txnId" element={<TransactionDetails />} />
             <Route path="settings" element={<Settings />} />
           </Route>
 
