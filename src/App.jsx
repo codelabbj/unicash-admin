@@ -11,6 +11,7 @@ import AdminLogin from './pages/auth/AdminLogin';
 import Dashboard from './pages/Dashboard';
 import Banners from './pages/Banners';
 import Users from './pages/Users';
+import UserDetails from './pages/UserDetails';
 import Countries from './pages/Countries';
 import Networks from './pages/Networks';
 import FeeConfigs from './pages/FeeConfigs';
@@ -49,6 +50,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="banners" element={<Banners />} />
             <Route path="users" element={<Users />} />
+            <Route path="users/:userId" element={<UserDetails />} />
             <Route path="users/:userId/transactions" element={<UserTransactions />} />
             {/* <Route path="countries" element={<Countries />} /> */}
             <Route path="networks" element={<Networks />} />

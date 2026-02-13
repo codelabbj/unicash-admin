@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiDownload, FiUsers } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import UserTable from '../components/users/UserTable';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import EmptyState from '../components/common/EmptyState';
-import UserDetailsModal from '../components/users/UserDetailsModal';
 import { usersAPI } from '../api/users.api';
 import { formatErrorForDisplay } from '../utils/errorHandler';
 
 const Users = () => {
+    const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -17,10 +18,6 @@ const Users = () => {
         isOpen: false,
         userId: null,
         action: ''
-    });
-    const [detailsModal, setDetailsModal] = useState({
-        isOpen: false,
-        userId: null
     });
 
     const fetchUsers = async () => {
@@ -43,10 +40,7 @@ const Users = () => {
     }, [searchTerm]);
 
     const handleViewDetails = (user) => {
-        setDetailsModal({
-            isOpen: true,
-            userId: user.uid
-        });
+        navigate(`/admin/users/${user.uid}`);
     };
 
     const handleUpdateStatus = (userId, action) => {
@@ -104,12 +98,6 @@ const Users = () => {
                 />
             )}
 
-            {/* User Details Modal */}
-            <UserDetailsModal
-                isOpen={detailsModal.isOpen}
-                onClose={() => setDetailsModal({ isOpen: false, userId: null })}
-                userId={detailsModal.userId}
-            />
 
             {/* Confirmation Modal */}
             <ConfirmationModal
