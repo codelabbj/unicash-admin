@@ -1,89 +1,154 @@
 import React from 'react';
-import { FiClock, FiCheckCircle, FiXCircle, FiInfo, FiRefreshCw } from 'react-icons/fi';
+import { FiClock, FiCheckCircle, FiXCircle, FiInfo, FiRefreshCw, FiAlertTriangle, FiUser } from 'react-icons/fi';
 
 const TransactionTable = ({ transactions, onViewDetails, onRetryCredit }) => {
+    const maskPhoneNumber = (number) => {
+        if (!number) return '';
+        if (number.length <= 6) return number;
+        return `${number.slice(0, 4)}****${number.slice(-2)}`;
+    };
+
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat('fr-FR').format(amount) + ' F';
+    };
+
     const getStatusBadge = (status) => {
         const styles = {
             COMPLETED: 'bg-emerald-100/80 text-emerald-700 border border-emerald-200/50',
             SUCCESS: 'bg-emerald-100/80 text-emerald-700 border border-emerald-200/50',
             PENDING: 'bg-amber-100/80 text-amber-700 border border-amber-200/50',
             FAILED: 'bg-rose-100/80 text-rose-700 border border-rose-200/50',
+            DEBIT_FAILED: 'bg-rose-100/80 text-rose-700 border border-rose-200/50',
+            CREDIT_FAILED: 'bg-rose-100/80 text-rose-700 border border-rose-200/50',
             default: 'bg-slate-100/80 text-slate-700 border border-slate-200/50'
         };
 
         const config = {
-            COMPLETED: { icon: FiCheckCircle, text: 'SUCCÈS' },
-            SUCCESS: { icon: FiCheckCircle, text: 'SUCCÈS' },
-            PENDING: { icon: FiClock, text: 'EN ATTENTE' },
-            FAILED: { icon: FiXCircle, text: 'ÉCHEC' },
-            default: { icon: FiInfo, text: 'INCONNU' }
+            COMPLETED: { icon: FiCheckCircle, text: 'COMPLETED' },
+            SUCCESS: { icon: FiCheckCircle, text: 'COMPLETED' },
+            PENDING: { icon: FiClock, text: 'PENDING' },
+            FAILED: { icon: FiXCircle, text: 'FAILED' },
+            DEBIT_FAILED: { icon: FiXCircle, text: 'FAILED' },
+            CREDIT_FAILED: { icon: FiXCircle, text: 'FAILED' },
+            default: { icon: FiInfo, text: status || 'UNKNOWN' }
         };
 
         const style = styles[status] || styles.default;
         const { icon: Icon, text } = config[status] || config.default;
 
         return (
-            <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold shadow-sm backdrop-blur-sm ${style}`}>
-                <Icon className="w-3.5 h-3.5" /> {text}
+            <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-black shadow-sm backdrop-blur-sm ${style}`}>
+                <Icon className="w-3 h-3" /> {text}
             </span>
         );
     };
 
     return (
-        <div className="glass-card rounded-2xl overflow-hidden border border-white/40">
+        <div className="glass-card rounded-[2rem] overflow-hidden border border-white/40 bg-white/30 backdrop-blur-md shadow-2xl shadow-slate-200/50">
             <div className="overflow-x-auto">
-                <table className="min-w-full">
-                    <thead className="bg-white/30 border-b border-white/20">
+                <table className="min-w-full border-separate border-spacing-0">
+                    <thead className="bg-slate-50/50">
                         <tr>
-                            <th className="px-5 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Date & Référence</th>
-                            <th className="px-5 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Utilisateur</th>
-                            <th className="px-5 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Montant</th>
-                            <th className="px-5 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Réseaux</th>
-                            <th className="px-5 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Statut</th>
-                            <th className="px-5 py-3 text-right text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Actions</th>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Référence</th>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">User</th>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Montant</th>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Frais</th>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Net</th>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Source</th>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Destination</th>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Statut</th>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Date</th>
+                            <th className="px-5 py-4 text-center text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Erreur</th>
+                            <th className="px-5 py-4 text-right text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/10">
+                    <tbody className="divide-y divide-slate-100 bg-white/40">
                         {transactions.map((txn) => (
-                            <tr key={txn.uid} className="hover:bg-white/40 transition-colors group">
-                                <td className="px-5 py-2.5 whitespace-nowrap">
-                                    <div className="text-[13px] font-bold text-slate-800 leading-none">{txn.reference}</div>
-                                    <div className="text-[11px] text-slate-400 font-medium mt-1">{new Date(txn.created_at).toLocaleString()}</div>
+                            <tr key={txn.uid} className="hover:bg-white/60 transition-all group">
+                                <td className="px-5 py-4 whitespace-nowrap">
+                                    <span className="text-[12px] font-black text-slate-900 bg-slate-100 px-2 py-1 rounded-lg border border-slate-200/50">
+                                        {txn.reference}
+                                    </span>
                                 </td>
-                                <td className="px-5 py-2.5 whitespace-nowrap">
-                                    <div className="text-[13px] font-semibold text-slate-600">{txn.user_email}</div>
-                                </td>
-                                <td className="px-5 py-2.5 whitespace-nowrap">
-                                    <div className="text-[13px] font-black text-slate-900 leading-none">{txn.amount.toLocaleString()} F</div>
-                                    <div className="text-[11px] text-slate-400 font-medium mt-1">Frais: {txn.fee} F</div>
-                                </td>
-                                <td className="px-5 py-2.5 whitespace-nowrap">
-                                    <div className="flex items-center gap-2 text-[11px] font-bold text-slate-600 bg-white/40 px-2 py-1 rounded-lg inline-block border border-white/20 leading-none">
-                                        <span className="text-slate-800">{txn.source_network_name}</span>
-                                        <span className="text-slate-300 font-normal">→</span>
-                                        <span className="text-slate-800">{txn.dest_network_name}</span>
+                                <td className="px-5 py-4 whitespace-nowrap">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500 transition-colors">
+                                            <FiUser size={14} />
+                                        </div>
+                                        <span className="text-[13px] font-bold text-slate-600 truncate max-w-[120px]" title={txn.user_email || txn.user}>
+                                            {txn.user_email || `${txn.user?.slice(0, 8)}...`}
+                                        </span>
                                     </div>
                                 </td>
-                                <td className="px-5 py-2.5 whitespace-nowrap">
+                                <td className="px-5 py-4 whitespace-nowrap">
+                                    <span className="text-[13px] font-black text-slate-900">{formatCurrency(txn.amount)}</span>
+                                </td>
+                                <td className="px-5 py-4 whitespace-nowrap">
+                                    <span className="text-[12px] font-bold text-rose-500">-{formatCurrency(txn.fees)}</span>
+                                </td>
+                                <td className="px-5 py-4 whitespace-nowrap">
+                                    <span className="text-[13px] font-black text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg">
+                                        {formatCurrency(txn.net_amount)}
+                                    </span>
+                                </td>
+                                <td className="px-5 py-4 whitespace-nowrap">
+                                    <div className="flex items-center gap-2.5">
+                                        {txn.source_network?.logo && (
+                                            <img src={txn.source_network.logo} alt={txn.source_network.name} className="w-6 h-6 rounded-md object-contain shadow-sm border border-white" />
+                                        )}
+                                        <div className="flex flex-col">
+                                            <span className="text-[11px] font-black text-slate-900 leading-none">{txn.source_network?.name}</span>
+                                            <span className="text-[11px] font-bold text-slate-400 mt-0.5">{maskPhoneNumber(txn.source_number)}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td className="px-5 py-4 whitespace-nowrap">
+                                    <div className="flex items-center gap-2.5">
+                                        {txn.dest_network?.logo && (
+                                            <img src={txn.dest_network.logo} alt={txn.dest_network.name} className="w-6 h-6 rounded-md object-contain shadow-sm border border-white" />
+                                        )}
+                                        <div className="flex flex-col">
+                                            <span className="text-[11px] font-black text-slate-900 leading-none">{txn.dest_network?.name}</span>
+                                            <span className="text-[11px] font-bold text-slate-400 mt-0.5">{maskPhoneNumber(txn.dest_number)}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td className="px-5 py-4 whitespace-nowrap">
                                     {getStatusBadge(txn.status)}
                                 </td>
-                                <td className="px-5 py-2.5 text-right whitespace-nowrap">
+                                <td className="px-5 py-4 whitespace-nowrap">
+                                    <div className="flex flex-col">
+                                        <span className="text-[12px] font-bold text-slate-700">{new Date(txn.created_at).toLocaleDateString()}</span>
+                                        <span className="text-[10px] font-bold text-slate-400 leading-none mt-0.5">{new Date(txn.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                    </div>
+                                </td>
+                                <td className="px-5 py-4 text-center whitespace-nowrap">
+                                    {txn.error_message && (
+                                        <div
+                                            className="inline-flex items-center justify-center p-1.5 bg-rose-50 text-rose-500 rounded-lg transition-all hover:scale-110 hover:bg-rose-100 cursor-help group/err"
+                                            data-tooltip={typeof txn.error_message === 'string' ? txn.error_message : JSON.stringify(txn.error_message)}
+                                        >
+                                            <FiAlertTriangle size={16} className="group-hover/err:rotate-12 transition-transform" />
+                                        </div>
+                                    )}
+                                </td>
+                                <td className="px-5 py-4 text-right whitespace-nowrap">
                                     <div className="flex items-center justify-end gap-2">
-                                        {txn.status === 'FAILED' && (
+                                        {(txn.status === 'FAILED' || txn.status === 'CREDIT_FAILED') && (
                                             <button
                                                 onClick={() => onRetryCredit(txn)}
-                                                className="rounded-lg p-1.5 text-amber-500 hover:bg-amber-50 hover:text-amber-600 transition-all hover:shadow-sm active:scale-95"
+                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-amber-50 text-amber-500 hover:bg-amber-100 hover:text-amber-600 transition-all active:scale-95"
                                                 title="Re-créditer"
                                             >
-                                                <FiRefreshCw size={16} />
+                                                <FiRefreshCw size={15} />
                                             </button>
                                         )}
                                         <button
                                             onClick={() => onViewDetails(txn)}
-                                            className="rounded-lg p-1.5 text-slate-400 hover:bg-blue-50/80 hover:text-blue-600 transition-all hover:shadow-sm active:scale-95"
+                                            className="w-8 h-8 flex items-center justify-center rounded-xl bg-slate-100 text-slate-400 hover:bg-slate-900 hover:text-white transition-all active:scale-95"
                                             title="Détails"
                                         >
-                                            <FiInfo size={16} />
+                                            <FiInfo size={15} />
                                         </button>
                                     </div>
                                 </td>

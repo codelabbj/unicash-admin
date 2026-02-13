@@ -63,6 +63,21 @@
     background-position: right 0.75rem center;
     background-size: 1.25em 1.25em;
   }
+
+  /* Premium Tooltip */
+  [data-tooltip] {
+    @apply relative cursor-help;
+  }
+
+  [data-tooltip]::before {
+    content: attr(data-tooltip);
+    @apply absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-slate-900/90 text-white text-[11px] font-bold rounded-lg whitespace-nowrap opacity-0 invisible transition-all duration-200 backdrop-blur-md z-50;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  [data-tooltip]:hover::before {
+    @apply opacity-100 visible -translate-y-1;
+  }
 }
 
 /* Custom Scrollbar - sleek & thin */

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FiChevronDown, FiCheck } from 'react-icons/fi';
 
-const GlassSelect = ({ value, onChange, options, placeholder = "Sélectionner", className = "" }) => {
+const GlassSelect = ({ value, onChange, options, placeholder = "Sélectionner", className = "", selectClassName = "" }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -28,7 +28,7 @@ const GlassSelect = ({ value, onChange, options, placeholder = "Sélectionner", 
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl bg-white/80 border border-slate-200 text-slate-700 hover:border-slate-300 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm text-sm font-medium ${isOpen ? 'ring-4 ring-blue-500/10 border-blue-500' : ''}`}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl bg-white/80 border border-slate-200 text-slate-700 hover:border-slate-300 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm text-sm font-medium ${isOpen ? 'ring-4 ring-blue-500/10 border-blue-500' : ''} ${selectClassName}`}
             >
                 <span className="truncate">
                     {selectedOption ? selectedOption.label : <span className="text-slate-400">{placeholder}</span>}
