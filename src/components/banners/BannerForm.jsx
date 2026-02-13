@@ -6,8 +6,8 @@ const BannerForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
         title: '',
         description: '',
         image: '',
-        link: '#',
-        isActive: true
+        action_url: '#',
+        is_active: true
     });
 
     useEffect(() => {
@@ -44,6 +44,17 @@ const BannerForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50"
                     placeholder="Détails de l'offre"
+                />
+            </div>
+
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">URL de Redirection</label>
+                <input
+                    type="text"
+                    value={formData.action_url}
+                    onChange={(e) => setFormData({ ...formData, action_url: e.target.value })}
+                    className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50"
+                    placeholder="https://test.com ou /promotion"
                 />
             </div>
 

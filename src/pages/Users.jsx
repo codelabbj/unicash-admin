@@ -10,12 +10,9 @@ const Users = () => {
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-
-
     const [confirmModalState, setConfirmModalState] = useState({
         isOpen: false,
-        id: null,
-        status: null,
+        userId: null,
         action: ''
     });
 
@@ -32,54 +29,51 @@ const Users = () => {
     };
 
     useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {
+        const delaySearch = setTimeout(() => {
             fetchUsers();
         }, 500);
-
-        return () => clearTimeout(delayDebounceFn);
+        return () => clearTimeout(delaySearch);
     }, [searchTerm]);
 
-    const handleUpdateStatus = (id, status) => {
-        const action = status === 'ACTIVE' ? 'activer' : 'bloquer';
+    const handleViewDetails = (user) => {
+        // Details view logic could be added here
+        console.log("Details for user:", user);
+    };
+
+    const handleUpdateStatus = (userId, action) => {
         setConfirmModalState({
             isOpen: true,
-            id,
-            status,
-            action
+            userId,
+            action: action === 'ACTIVE' ? 'activer' : 'bloquer'
         });
     };
 
     const confirmStatusUpdate = async () => {
         try {
-            await usersAPI.updateUserStatus(confirmModalState.id, confirmModalState.status);
-            fetchUsers();
+            await usersAPI.updateUserStatus(confirmModalState.userId, confirmModalState.action === 'activer' ? 'ACTIVE' : 'BLOCKED');
             setConfirmModalState({ ...confirmModalState, isOpen: false });
+            fetchUsers();
         } catch (error) {
-            console.error("Error updating status:", error);
+            console.error("Error updating user status:", error);
         }
     };
-
-    const handleViewDetails = (user) => {
-        alert(`Détails pour ${user.fullName} (ID: ${user.id})\nFonctionnalité complète à venir (Modal/Page dédiée).`);
-    };
-
     return (
-        <div className="space-y-6">
+        <div className="space-y-5">
             <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-800">Gestion des Utilisateurs</h1>
-                    <p className="text-sm text-gray-500">Consultez et gérez les comptes utilisateurs.</p>
+                    <h1 className="text-xl font-black text-slate-900 tracking-tight">Utilisateurs</h1>
+                    <p className="text-[13px] text-slate-500 font-medium">Consultez et gérez les comptes utilisateurs.</p>
                 </div>
-                <div className="flex items-center gap-3 w-full md:w-auto">
+                <div className="flex items-center gap-2 w-full md:w-auto">
                     <div className="relative w-full md:w-auto">
                         <input
                             type="text"
                             placeholder="Rechercher..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full md:w-64 rounded-xl border border-gray-200 pl-10 pr-4 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-white shadow-sm transition-all"
+                            className="w-full md:w-56 rounded-xl border border-gray-200 pl-9 pr-3 py-1.5 text-[13px] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-white shadow-sm transition-all"
                         />
-                        <FiSearch className="absolute left-3 top-2.5 text-gray-400" />
+                        <FiSearch className="absolute left-3 top-2.5 text-gray-400 w-4 h-4" />
                     </div>
                 </div>
             </div>

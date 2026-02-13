@@ -29,66 +29,66 @@ const UserTable = ({ users, onViewDetails, onUpdateStatus }) => {
                 <table className="min-w-full divide-y divide-gray-100">
                     <thead className="bg-gray-50/50">
                         <tr>
-                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Utilisateur</th>
-                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Contact</th>
-                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Statut</th>
-                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Compte</th>
-                            <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Actions</th>
+                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Utilisateur</th>
+                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Contact</th>
+                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Statut</th>
+                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Compte</th>
+                            <th className="px-4 py-3 text-right text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Actions</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 bg-white/50">
                         {users.map((user) => (
                             <tr key={user.uid} className="hover:bg-blue-50/30 transition-colors group">
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="flex items-center gap-3">
+                                <td className="px-4 py-2.5 whitespace-nowrap">
+                                    <div className="flex items-center gap-2.5">
                                         <div>
-                                            <div className="text-sm font-semibold text-slate-900">
+                                            <div className="text-[13px] font-bold text-slate-900 leading-none">
                                                 {user.first_name || user.last_name ? `${user.first_name} ${user.last_name}` : 'Utilisateur'}
                                             </div>
-                                            <div className="text-xs text-slate-500">
+                                            <div className="text-[11px] text-slate-400 font-medium mt-1">
                                                 Inscrit le {user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="px-4 py-2.5 whitespace-nowrap">
                                     <div className="flex flex-col">
-                                        <span className="text-sm text-slate-700 font-medium">{user.email}</span>
-                                        <span className="text-xs text-slate-500">{user.phone_number || 'Non renseigné'}</span>
+                                        <span className="text-[13px] text-slate-700 font-semibold leading-none">{user.email}</span>
+                                        <span className="text-[11px] text-slate-400 font-medium mt-1">{user.phone_number || 'Non renseigné'}</span>
                                     </div>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="px-4 py-2.5 whitespace-nowrap">
                                     {getKycBadge(user.kycStatus || (user.is_email_verified ? 'VERIFIED' : 'PENDING'))}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-bold leading-5 ${getStatusColor(user.is_active ? 'ACTIVE' : 'BLOCKED')}`}>
+                                <td className="px-4 py-2.5 whitespace-nowrap">
+                                    <span className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-black leading-none ${getStatusColor(user.is_active ? 'ACTIVE' : 'BLOCKED')}`}>
                                         {user.is_active ? 'Actif' : 'Bloqué'}
                                     </span>
                                 </td>
-                                <td className="px-6 py-4 text-right whitespace-nowrap text-sm font-medium">
-                                    <div className="flex justify-end gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                                <td className="px-4 py-2.5 text-right whitespace-nowrap">
+                                    <div className="flex justify-end gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
                                         <button
                                             onClick={() => onViewDetails(user)}
-                                            className="rounded-xl p-2 text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                            className="rounded-lg p-1.5 text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                                             title="Voir Détails"
                                         >
-                                            <FiEye size={18} />
+                                            <FiEye size={16} />
                                         </button>
                                         {user.is_active ? (
                                             <button
                                                 onClick={() => onUpdateStatus(user.uid, 'BLOCKED')}
-                                                className="rounded-xl p-2 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
+                                                className="rounded-lg p-1.5 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
                                                 title="Bloquer"
                                             >
-                                                <FiXCircle size={18} />
+                                                <FiXCircle size={16} />
                                             </button>
                                         ) : (
                                             <button
                                                 onClick={() => onUpdateStatus(user.uid, 'ACTIVE')}
-                                                className="rounded-xl p-2 text-slate-400 hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
+                                                className="rounded-lg p-1.5 text-slate-400 hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
                                                 title="Activer"
                                             >
-                                                <FiCheckCircle size={18} />
+                                                <FiCheckCircle size={16} />
                                             </button>
                                         )}
                                     </div>

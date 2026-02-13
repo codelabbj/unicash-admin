@@ -96,17 +96,17 @@ const Networks = () => {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-5">
             <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-800">Réseaux Mobiles</h1>
-                    <p className="text-sm text-gray-500">Gérez les opérateurs et leurs configurations.</p>
+                    <h1 className="text-xl font-black text-slate-900 tracking-tight">Réseaux Mobiles</h1>
+                    <p className="text-[13px] text-slate-500 font-medium">Gérez les opérateurs et leurs configurations.</p>
                 </div>
                 <button
                     onClick={handleCreate}
-                    className="flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-hover transition-colors"
+                    className="flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-1.5 text-[13px] font-bold text-white shadow-lg shadow-primary/20 hover:bg-primary-hover hover:scale-[1.02] transition-all"
                 >
-                    <FiPlus size={18} /> Nouveau Réseau
+                    <FiPlus size={16} /> Nouveau Réseau
                 </button>
             </div>
 

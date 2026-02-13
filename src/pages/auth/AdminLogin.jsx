@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { FiUser, FiLock, FiDollarSign, FiMail } from 'react-icons/fi';
+import { toast } from 'react-toastify';
+import { FiLock, FiMail, FiShield } from 'react-icons/fi';
 import logo from '../../assets/Unicash.png';
 
 const AdminLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -15,100 +15,89 @@ const AdminLogin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        setError('');
 
         try {
             await login(email, password);
+            toast.success('Connexion réussie !');
             navigate('/admin/dashboard');
         } catch (err) {
-            setError('Identifiants invalides ou erreur serveur.');
+            toast.error('Identifiants invalides ou erreur serveur.');
         } finally {
             setIsSubmitting(false);
         }
     };
 
     return (
-        <div className="min-h-screen bg-white flex items-center justify-center p-4 relative overflow-hidden">
-            {/* Floating money bill decorations */}
-            <div className="absolute top-10 left-10 text-gray-200 opacity-50 animate-pulse">
-                <FiDollarSign className="w-12 h-12" />
-            </div>
-            <div className="absolute top-20 right-20 text-gray-200 opacity-30">
-                <FiDollarSign className="w-16 h-16" />
-            </div>
-            <div className="absolute bottom-32 left-1/4 text-gray-200 opacity-40">
-                <FiDollarSign className="w-10 h-10" />
-            </div>
-            <div className="absolute bottom-20 right-1/3 text-gray-200 opacity-30 animate-pulse">
-                <FiDollarSign className="w-14 h-14" />
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 relative overflow-hidden font-inter">
+            {/* Minimalist Background Deco */}
+            <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none">
+                <div className="absolute top-10 left-10"><FiShield size={120} /></div>
+                <div className="absolute bottom-10 right-10 rotate-12"><FiShield size={160} /></div>
             </div>
 
-            <div className="glass-panel p-10 w-full max-w-md relative z-10 animate-fade-in-up">
-                <div className="text-center mb-8">
-                    <img
-                        src={logo}
-                        alt="UniCash"
-                        className="w-48 h-auto mx-auto drop-shadow-sm"
-                    />
-                    <p className="text-slate-500 text-lg mt-3 font-medium tracking-wide">Administration</p>
+            <div className="glass-card p-8 w-full max-w-[380px] relative z-10 animate-fade-in-up border-white/40 shadow-2xl">
+                <div className="text-center mb-6">
+                    <div className="inline-block p-3 rounded-2xl bg-white shadow-sm border border-slate-100 mb-4">
+                        <img
+                            src={logo}
+                            alt="UniCash"
+                            className="w-32 h-auto mx-auto"
+                        />
+                    </div>
+                    <h1 className="text-xl font-black text-slate-900 tracking-tight">Administration</h1>
+                    <p className="text-slate-400 text-[11px] font-bold uppercase tracking-[0.2em] mt-1.5">Accès Sécurisé</p>
                 </div>
 
-                {error && (
-                    <div className="bg-rose-50 text-rose-600 p-4 rounded-xl text-sm mb-6 border border-rose-100 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                        {error}
-                    </div>
-                )}
-
-                <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="relative group">
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
-                            <FiMail className="w-5 h-5" />
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="space-y-1.5">
+                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider ml-1">Email</label>
+                        <div className="relative group">
+                            <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+                                <FiMail className="w-4 h-4" />
+                            </div>
+                            <input
+                                type="email"
+                                placeholder="admin@unicash.ci"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-[13px] text-slate-700 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all"
+                                required
+                            />
                         </div>
-                        <input
-                            type="email"
-                            placeholder="Email Administrateur"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full pl-11 pr-4 py-3.5 glass-input rounded-xl text-slate-700 placeholder-slate-400 focus:outline-none transition-all"
-                            required
-                        />
                     </div>
 
-                    <div className="relative group">
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
-                            <FiLock className="w-5 h-5" />
+                    <div className="space-y-1.5">
+                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider ml-1">Mot de passe</label>
+                        <div className="relative group">
+                            <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+                                <FiLock className="w-4 h-4" />
+                            </div>
+                            <input
+                                type="password"
+                                placeholder="••••••••"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-[13px] text-slate-700 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all"
+                                required
+                            />
                         </div>
-                        <input
-                            type="password"
-                            placeholder="Mot de passe"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full pl-11 pr-4 py-3.5 glass-input rounded-xl text-slate-700 placeholder-slate-400 focus:outline-none transition-all"
-                            required
-                        />
                     </div>
 
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className={`w-full py-3.5 px-6 btn-primary rounded-xl font-semibold text-[15px] tracking-wide mt-2
+                        className={`w-full py-3 px-6 bg-primary hover:bg-primary-hover text-white rounded-xl font-bold text-[14px] tracking-tight shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98] mt-2
               ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                     >
-                        {isSubmitting ? 'Connexion...' : 'Se connecter'}
+                        {isSubmitting ? 'Connexion en cours...' : 'Se connecter'}
                     </button>
                 </form>
 
-                <div className="mt-8 text-center text-xs text-slate-400 font-medium uppercase tracking-wider">
-                    <p>Accès Sécurisé • UniCash Admin</p>
+                <div className="mt-8 text-center">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
+                        UniCash v2.0 • Admin Panel
+                    </span>
                 </div>
-            </div>
-            {/* More floating money decorations */}
-            <div className="absolute top-1/3 right-10 text-gray-200 opacity-40">
-                <FiDollarSign className="w-12 h-12" />
-            </div>
-            <div className="absolute bottom-1/4 left-20 text-gray-200 opacity-30 animate-pulse">
-                <FiDollarSign className="w-10 h-10" />
             </div>
         </div>
     );

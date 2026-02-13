@@ -8,12 +8,12 @@ export default {
         extend: {
             colors: {
                 primary: {
-                    DEFAULT: '#1e40af', // blue-800 based on user preference/frontend analysis
-                    hover: '#1e3a8a',
-                    light: '#3b82f6',
+                    DEFAULT: '#2534C1', // UniCash Logo Blue
+                    hover: '#1e2a9e',
+                    light: '#4b57d6',
                 },
                 secondary: '#64748b',
-                success: '#22c55e',
+                success: '#39D196', // Keep Green for success
                 danger: '#ef4444',
                 warning: '#f59e0b',
                 background: '#f8fafc',

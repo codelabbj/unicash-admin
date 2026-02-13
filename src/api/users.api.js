@@ -14,7 +14,9 @@ export const usersAPI = {
     },
 
     updateUserStatus: async (id, status) => {
-        const response = await apiClient.patch(`/auth/admin/users/${id}/`, { status });
+        const response = await apiClient.patch(`/auth/admin/users/${id}/`, {
+            is_active: status === 'ACTIVE'
+        });
         return response;
     },
 

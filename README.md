@@ -1,16 +1,21 @@
-# React + Vite
+# UniCash Admin Frontend 🛡️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Le frontend d'administration d'UniCash est une interface de gestion de haute performance destinée aux administrateurs de la plateforme pour superviser, configurer et sécuriser l'ensemble de l'écosystème financier.
 
-Currently, two official plugins are available:
+## 🎯 But du Projet
+Cette application vise à centraliser le contrôle de la plateforme UniCash. Elle permet une surveillance en temps réel des flux financiers, une gestion granulaire des utilisateurs et une configuration flexible des paramètres du système (frais, réseaux, pays) pour garantir une exploitation optimale et sécurisée.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Fonctionnalités d'Administration
+- **Tableau de Bord Analytique** : Visualisation en temps réel des indicateurs clés de performance (KPI) tels que le volume total des transactions, le nombre d'utilisateurs actifs et les revenus issus des frais.
+- **Supervision des Transactions** : Historique global de toutes les opérations avec capacités de filtrage avancé, recherche par référence et outils de remédiation (ex: Retry Credit).
+- **Gestion des Utilisateurs** : Annuaire complet des clients avec vue détaillée sur leur statut, leurs informations de profil et leur historique transactionnel spécifique.
+- **Configuration Plateforme** : 
+    - Gestion des pays et des réseaux de téléphonie mobile supportés.
+    - Paramétrage dynamique des grilles tarifaires (fees) par réseau.
+    - Configuration des agrégateurs de paiement.
+- **Interface Premium** : Design moderne basé sur une esthétique "Glassmorphism", offrant une clarté visuelle et une ergonomie de pointe pour les gestionnaires.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## �️ Stack Technique
+- **Frontend** : React.js + Vite.
+- **Visualisation de Données** : Intégration de graphiques analytiques pour le suivi des tendances.
+- **Sécurité** : Gestion stricte des rôles et sessions administrateurs.

@@ -12,11 +12,11 @@ const TransactionTable = ({ transactions, onViewDetails }) => {
         };
 
         const config = {
-            COMPLETED: { icon: FiCheckCircle, text: 'Succès' },
-            SUCCESS: { icon: FiCheckCircle, text: 'Succès' },
-            PENDING: { icon: FiClock, text: 'En attente' },
-            FAILED: { icon: FiXCircle, text: 'Échec' },
-            default: { icon: FiInfo, text: 'Inconnu' }
+            COMPLETED: { icon: FiCheckCircle, text: 'SUCCÈS' },
+            SUCCESS: { icon: FiCheckCircle, text: 'SUCCÈS' },
+            PENDING: { icon: FiClock, text: 'EN ATTENTE' },
+            FAILED: { icon: FiXCircle, text: 'ÉCHEC' },
+            default: { icon: FiInfo, text: 'INCONNU' }
         };
 
         const style = styles[status] || styles.default;
@@ -35,44 +35,44 @@ const TransactionTable = ({ transactions, onViewDetails }) => {
                 <table className="min-w-full">
                     <thead className="bg-white/30 border-b border-white/20">
                         <tr>
-                            <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 whitespace-nowrap">Date & Référence</th>
-                            <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 whitespace-nowrap">Utilisateur</th>
-                            <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 whitespace-nowrap">Montant</th>
-                            <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 whitespace-nowrap">Réseaux</th>
-                            <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 whitespace-nowrap">Statut</th>
-                            <th className="px-6 py-4 text-right text-xs font-bold uppercase tracking-wider text-slate-600 whitespace-nowrap">Actions</th>
+                            <th className="px-5 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Date & Référence</th>
+                            <th className="px-5 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Utilisateur</th>
+                            <th className="px-5 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Montant</th>
+                            <th className="px-5 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Réseaux</th>
+                            <th className="px-5 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Statut</th>
+                            <th className="px-5 py-3 text-right text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/20">
+                    <tbody className="divide-y divide-white/10">
                         {transactions.map((txn) => (
-                            <tr key={txn.id} className="hover:bg-white/40 transition-colors group">
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm font-bold text-slate-800">{txn.reference}</div>
-                                    <div className="text-xs text-slate-500 font-medium">{new Date(txn.createdAt).toLocaleString()}</div>
+                            <tr key={txn.uid} className="hover:bg-white/40 transition-colors group">
+                                <td className="px-5 py-2.5 whitespace-nowrap">
+                                    <div className="text-[13px] font-bold text-slate-800 leading-none">{txn.reference}</div>
+                                    <div className="text-[11px] text-slate-400 font-medium mt-1">{new Date(txn.created_at).toLocaleString()}</div>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm font-semibold text-slate-700">{txn.userName}</div>
+                                <td className="px-5 py-2.5 whitespace-nowrap">
+                                    <div className="text-[13px] font-semibold text-slate-600">{txn.user_email}</div>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm font-bold text-slate-900">{txn.amount.toLocaleString()} F</div>
-                                    <div className="text-xs text-slate-500">Frais: {txn.fee} F</div>
+                                <td className="px-5 py-2.5 whitespace-nowrap">
+                                    <div className="text-[13px] font-black text-slate-900 leading-none">{txn.amount.toLocaleString()} F</div>
+                                    <div className="text-[11px] text-slate-400 font-medium mt-1">Frais: {txn.fee} F</div>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="flex items-center gap-2 text-xs font-medium text-slate-600 bg-white/40 px-3 py-1.5 rounded-lg inline-block border border-white/20">
-                                        <span className="font-bold text-slate-800">{txn.senderNetwork}</span>
-                                        <span className="text-slate-400">→</span>
-                                        <span className="font-bold text-slate-800">{txn.receiverNetwork}</span>
+                                <td className="px-5 py-2.5 whitespace-nowrap">
+                                    <div className="flex items-center gap-2 text-[11px] font-bold text-slate-600 bg-white/40 px-2 py-1 rounded-lg inline-block border border-white/20 leading-none">
+                                        <span className="text-slate-800">{txn.source_network_name}</span>
+                                        <span className="text-slate-300 font-normal">→</span>
+                                        <span className="text-slate-800">{txn.dest_network_name}</span>
                                     </div>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="px-5 py-2.5 whitespace-nowrap">
                                     {getStatusBadge(txn.status)}
                                 </td>
-                                <td className="px-6 py-4 text-right whitespace-nowrap text-sm font-medium">
+                                <td className="px-5 py-2.5 text-right whitespace-nowrap">
                                     <button
                                         onClick={() => onViewDetails(txn)}
-                                        className="rounded-xl p-2 text-slate-400 hover:bg-blue-50/80 hover:text-blue-600 transition-all hover:shadow-sm hover:scale-105 active:scale-95"
+                                        className="rounded-lg p-1.5 text-slate-400 hover:bg-blue-50/80 hover:text-blue-600 transition-all hover:shadow-sm active:scale-95"
                                     >
-                                        <FiInfo size={18} />
+                                        <FiInfo size={16} />
                                     </button>
                                 </td>
                             </tr>

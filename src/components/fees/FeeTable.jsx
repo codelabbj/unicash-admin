@@ -1,25 +1,25 @@
 import React from 'react';
-import { FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { FiEdit2, FiTrash2, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const FeeTable = ({ configs, onEdit, onDelete, onToggleStatus }) => {
     return (
-        <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">
+        <div className="glass-panel overflow-hidden border-none shadow-xl shadow-slate-200/50">
             <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-100">
-                    <thead className="bg-gray-50">
-                        <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 whitespace-nowrap">Réseau / Cible</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 whitespace-nowrap">Tranche (Min - Max)</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 whitespace-nowrap">Frais</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 whitespace-nowrap">Statut</th>
-                            <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 whitespace-nowrap">Actions</th>
+                <table className="min-w-full">
+                    <thead>
+                        <tr className="border-b border-slate-100 bg-slate-50/50">
+                            <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-400 whitespace-nowrap">Réseau</th>
+                            <th className="px-4 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-400 whitespace-nowrap">Type</th>
+                            <th className="px-4 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-400 whitespace-nowrap">Taux</th>
+                            <th className="px-4 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-400 whitespace-nowrap">Frais Fixe</th>
+                            <th className="px-4 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-400 whitespace-nowrap">Min / Max</th>
+                            <th className="px-4 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-400 whitespace-nowrap">Statut</th>
+                            <th className="px-6 py-4 text-right text-[10px] font-black uppercase tracking-widest text-slate-400 whitespace-nowrap">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100 bg-white">
+                    <tbody className="divide-y divide-slate-100 bg-white">
                         {configs.map((config) => {
-                            // Helper to get property regardless of case
                             const getProp = (k1, k2) => config[k1] !== undefined ? config[k1] : config[k2];
-
                             const id = getProp('id', 'uid');
                             const netName = config.networkName || config.network_name || (typeof config.network === 'object' ? config.network?.name : config.network) || 'Tous Réseaux';
                             const minAmt = getProp('minAmount', 'min_amount') || 0;
@@ -27,53 +27,63 @@ const FeeTable = ({ configs, onEdit, onDelete, onToggleStatus }) => {
                             const fixed = getProp('fixedFee', 'fixed_fee') || 0;
                             const pct = getProp('percentageFee', 'percentage_rate') || 0;
                             const active = getProp('isActive', 'is_active');
-                            const isAllNetworks = netName === 'Tous Réseaux' || !config.network;
+
+                            const typeLabel = pct > 0 ? 'POURCENTAGE' : 'FIXE';
+                            const networkInitials = netName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
 
                             return (
-                                <tr key={id} className="hover:bg-gray-50 transition-colors">
+                                <tr key={id} className="hover:bg-slate-50/80 transition-all duration-200 group">
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${isAllNetworks ? 'bg-gray-100 text-gray-600' : 'bg-blue-50 text-blue-700'}`}>
-                                            {netName}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                        {minAmt.toLocaleString()} - {maxAmt ? maxAmt.toLocaleString() : '∞'} FCFA
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm font-medium text-gray-900">
-                                            {fixed > 0 && `${fixed} F`}
-                                            {fixed > 0 && pct > 0 && ' + '}
-                                            {pct > 0 && `${pct}%`}
-                                            {fixed === 0 && pct === 0 && 'Gratuit'}
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-primary font-bold text-[10px] shadow-sm group-hover:scale-105 transition-transform">
+                                                {networkInitials}
+                                            </div>
+                                            <div>
+                                                <div className="text-[13px] font-bold text-slate-800">{netName}</div>
+                                                <div className="text-[10px] font-medium text-slate-400">Paiement Mobile</div>
+                                            </div>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <button
-                                            onClick={() => onToggleStatus(id)}
-                                            className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors ${active
-                                                ? 'bg-green-50 text-green-700 hover:bg-green-100'
-                                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                                }`}
-                                        >
-                                            <span className={`h-1.5 w-1.5 rounded-full ${active ? 'bg-green-600' : 'bg-gray-400'}`}></span>
-                                            {active ? 'Actif' : 'Inactif'}
-                                        </button>
+                                    <td className="px-4 py-4 whitespace-nowrap">
+                                        <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-[9px] font-black tracking-wider ${pct > 0 ? 'bg-primary/10 text-primary' : 'bg-slate-100 text-slate-500'}`}>
+                                            {typeLabel}
+                                        </span>
                                     </td>
-                                    <td className="px-6 py-4 text-right whitespace-nowrap text-sm font-medium">
-                                        <div className="flex justify-end gap-2">
+                                    <td className="px-4 py-4 whitespace-nowrap text-[13px] font-black text-slate-700">
+                                        {pct > 0 ? `${pct}%` : '-'}
+                                    </td>
+                                    <td className="px-4 py-4 whitespace-nowrap text-[13px] font-black text-slate-700">
+                                        {fixed > 0 ? `${fixed} F` : '-'}
+                                    </td>
+                                    <td className="px-4 py-4 whitespace-nowrap">
+                                        <div className="text-[13px] font-black text-slate-700">
+                                            {minAmt.toLocaleString()} - {maxAmt ? maxAmt.toLocaleString() : '∞'}
+                                        </div>
+                                        <div className="text-[9px] font-bold text-primary tracking-widest mt-0.5 opacity-60 uppercase">FCFA</div>
+                                    </td>
+                                    <td className="px-4 py-4 whitespace-nowrap">
+                                        <div className="flex items-center gap-1.5">
+                                            <div className={`w-1.5 h-1.5 rounded-full ${active ? 'bg-success' : 'bg-slate-300'}`} />
+                                            <span className={`text-[12px] font-bold ${active ? 'text-success' : 'text-slate-400'}`}>
+                                                {active ? 'Actif' : 'Inactif'}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td className="px-6 py-4 text-right whitespace-nowrap">
+                                        <div className="flex justify-end gap-2 translate-x-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
                                             <button
                                                 onClick={() => onEdit(config)}
-                                                className="rounded-lg p-2 text-gray-400 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                                className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all active:scale-90"
                                                 title="Modifier"
                                             >
-                                                <FiEdit2 size={16} />
+                                                <FiEdit2 size={14} strokeWidth={2.5} />
                                             </button>
                                             <button
                                                 onClick={() => onDelete(id)}
-                                                className="rounded-lg p-2 text-gray-400 hover:bg-red-50 hover:text-red-600 transition-colors"
+                                                className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-300 hover:bg-rose-50 hover:text-rose-500 transition-all active:scale-90"
                                                 title="Supprimer"
                                             >
-                                                <FiTrash2 size={16} />
+                                                <FiTrash2 size={14} strokeWidth={2.5} />
                                             </button>
                                         </div>
                                     </td>
@@ -82,6 +92,24 @@ const FeeTable = ({ configs, onEdit, onDelete, onToggleStatus }) => {
                         })}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Footer / Pagination Mockup */}
+            <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/30">
+                <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+                    Affichage de <span className="font-bold text-slate-600">1 à {configs.length}</span> sur <span className="font-bold text-slate-600">{configs.length}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                    <button className="p-1.5 rounded-lg text-slate-400 hover:bg-white hover:text-primary transition-all disabled:opacity-30" disabled>
+                        <FiChevronLeft size={18} />
+                    </button>
+                    <button className="w-8 h-8 rounded-lg bg-primary text-white font-bold text-xs shadow-md shadow-primary/20">1</button>
+                    <button className="w-8 h-8 rounded-lg bg-white text-slate-600 font-bold text-xs hover:bg-primary/5 hover:text-primary transition-all">2</button>
+                    <button className="w-8 h-8 rounded-lg bg-white text-slate-600 font-bold text-xs hover:bg-primary/5 hover:text-primary transition-all">3</button>
+                    <button className="p-1.5 rounded-lg text-slate-400 hover:bg-white hover:text-primary transition-all">
+                        <FiChevronRight size={18} />
+                    </button>
+                </div>
             </div>
         </div>
     );

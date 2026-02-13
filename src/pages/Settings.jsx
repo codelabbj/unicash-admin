@@ -49,23 +49,23 @@ const Settings = () => {
     };
 
     return (
-        <div className="max-w-4xl space-y-8">
+        <div className="max-w-4xl space-y-6">
             <div>
-                <h1 className="text-2xl font-bold text-gray-800">Paramètres Généraux</h1>
-                <p className="text-sm text-gray-500">Configurez les réglages globaux de la plateforme UniCash.</p>
+                <h1 className="text-xl font-black text-slate-900 tracking-tight">Paramètres Généraux</h1>
+                <p className="text-[13px] text-slate-500 font-medium">Configurez les réglages globaux de la plateforme UniCash.</p>
             </div>
 
-            <form onSubmit={handleSave} className="space-y-6">
+            <form onSubmit={handleSave} className="space-y-5">
                 {/* Informations de l'Entreprise */}
-                <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-                    <div className="mb-6 flex items-center gap-3 border-b border-gray-50 pb-4">
-                        <div className="rounded-lg bg-blue-50 p-2 text-primary">
-                            <FiBriefcase size={20} />
+                <section className="glass-card rounded-2xl p-5">
+                    <div className="mb-5 flex items-center gap-2.5 border-b border-slate-50 pb-3.5">
+                        <div className="rounded-xl bg-blue-50 p-1.5 text-primary shadow-sm shadow-blue-100/50">
+                            <FiBriefcase size={18} />
                         </div>
-                        <h2 className="text-lg font-semibold text-gray-800">Informations Plateforme</h2>
+                        <h2 className="text-base font-black text-slate-800 tracking-tight">Informations Plateforme</h2>
                     </div>
 
-                    <div className="grid gap-6 md:grid-cols-2">
+                    <div className="grid gap-5 md:grid-cols-2">
                         <SettingInput
                             label="Nom de la Plateforme"
                             name="companyName"
@@ -87,17 +87,17 @@ const Settings = () => {
                 </section>
 
                 {/* Limites de Transactions */}
-                <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-                    <div className="mb-6 flex items-center gap-3 border-b border-gray-50 pb-4">
-                        <div className="rounded-lg bg-blue-50 p-2 text-primary">
-                            <FiGlobe size={20} />
+                <section className="glass-card rounded-2xl p-5">
+                    <div className="mb-5 flex items-center gap-2.5 border-b border-slate-50 pb-3.5">
+                        <div className="rounded-xl bg-blue-50 p-1.5 text-primary shadow-sm shadow-blue-100/50">
+                            <FiGlobe size={18} />
                         </div>
-                        <h2 className="text-lg font-semibold text-gray-800">Limites & Devise</h2>
+                        <h2 className="text-base font-black text-slate-800 tracking-tight">Limites & Devise</h2>
                     </div>
 
-                    <div className="grid gap-6 md:grid-cols-3">
+                    <div className="grid gap-5 md:grid-cols-3">
                         <SettingInput
-                            label="Devise Par Défaut"
+                            label="Devise"
                             name="defaultCurrency"
                             value={settings.defaultCurrency}
                             onChange={handleChange}
@@ -105,7 +105,7 @@ const Settings = () => {
                             onEditClick={handleEditClick}
                         />
                         <SettingInput
-                            label="Montant Minimum"
+                            label="Min Amount"
                             name="minTransferAmount"
                             type="number"
                             value={settings.minTransferAmount}
@@ -114,7 +114,7 @@ const Settings = () => {
                             onEditClick={handleEditClick}
                         />
                         <SettingInput
-                            label="Montant Maximum"
+                            label="Max Amount"
                             name="maxTransferAmount"
                             type="number"
                             value={settings.maxTransferAmount}
@@ -126,29 +126,28 @@ const Settings = () => {
                 </section>
 
                 {/* Sécurité & Maintenance */}
-                <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-                    <div className="mb-6 flex items-center gap-3 border-b border-gray-50 pb-4">
-                        <div className="rounded-lg bg-red-50 p-2 text-red-600">
-                            <FiLock size={20} />
+                <section className="glass-card rounded-2xl p-5">
+                    <div className="mb-5 flex items-center gap-2.5 border-b border-slate-50 pb-3.5">
+                        <div className="rounded-xl bg-rose-50 p-1.5 text-rose-600 shadow-sm shadow-rose-100/50">
+                            <FiLock size={18} />
                         </div>
-                        <h2 className="text-lg font-semibold text-gray-800">Système & Maintenance</h2>
+                        <h2 className="text-base font-black text-slate-800 tracking-tight">Système & Maintenance</h2>
                     </div>
 
-                    <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-5">
                         <div className="flex items-center justify-between">
                             <div>
-                                <h3 className="text-sm font-medium text-gray-900">Mode Maintenance</h3>
-                                <p className="text-xs text-gray-500">Désactiver l'accès public à la plateforme pour maintenance.</p>
+                                <h3 className="text-[13px] font-bold text-slate-800 tracking-tight">Mode Maintenance</h3>
+                                <p className="text-[11px] text-slate-500 font-medium">Désactiver l'accès public à la plateforme pour maintenance.</p>
                             </div>
                             <button
                                 type="button"
                                 onClick={() => {
                                     handleChange('maintenanceMode', !settings.maintenanceMode);
-                                    // Normally toggle doesn't need "edit mode", it just changes value
                                 }}
-                                className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${settings.maintenanceMode ? 'bg-primary' : 'bg-gray-200'}`}
+                                className={`relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${settings.maintenanceMode ? 'bg-primary' : 'bg-slate-200'}`}
                             >
-                                <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${settings.maintenanceMode ? 'translate-x-5' : 'translate-x-0'}`} />
+                                <span className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${settings.maintenanceMode ? 'translate-x-4' : 'translate-x-0'}`} />
                             </button>
                         </div>
                     </div>

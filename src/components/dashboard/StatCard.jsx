@@ -2,14 +2,14 @@ import React from 'react';
 
 const StatCard = ({ title, value, icon: Icon, trend, color = 'blue' }) => {
     const gradients = {
-        blue: 'from-blue-500 to-blue-600',
+        blue: 'from-[#2534C1] to-[#2534C1]',
         green: 'from-emerald-500 to-emerald-600',
         yellow: 'from-amber-500 to-amber-600',
         red: 'from-rose-500 to-rose-600',
     };
 
     const iconBgs = {
-        blue: 'bg-blue-50 text-blue-600',
+        blue: 'bg-indigo-50 text-[#2534C1]',
         green: 'bg-emerald-50 text-emerald-600',
         yellow: 'bg-amber-50 text-amber-600',
         red: 'bg-rose-50 text-rose-600',

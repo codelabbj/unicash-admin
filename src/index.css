@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #3b82f6;
-  --color-primary-hover: #2563eb;
-  --color-primary-light: #60a5fa;
+  --color-primary: #2534C1;
+  --color-primary-hover: #1e2a9e;
+  --color-primary-light: #4b57d6;
   --color-glass-border: rgba(255, 255, 255, 0.5);
   --color-glass-surface: rgba(255, 255, 255, 0.7);
   --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
 
-  --font-family-sans: 'Outfit', sans-serif;
+  --font-family-sans: 'Inter', sans-serif;
 }
 
 @layer base {

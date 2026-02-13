@@ -81,42 +81,42 @@ const Banners = () => {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-5">
             <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-800">Gestion des Bannières</h1>
-                    <p className="text-sm text-gray-500">Gérez les images du carrousel d'accueil de l'application utilisateur.</p>
+                    <h1 className="text-xl font-black text-slate-900 tracking-tight">Gestion des Bannières</h1>
+                    <p className="text-[13px] text-slate-500 font-medium">Gérez les images du carrousel d'accueil de l'application utilisateur.</p>
                 </div>
                 <button
                     onClick={handleCreate}
-                    className="flex items-center gap-2 rounded-lg bg-blue-900 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-800 transition-colors"
+                    className="flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-1.5 text-[13px] font-bold text-white shadow-lg shadow-primary/20 hover:bg-primary-hover hover:scale-[1.02] transition-all"
                 >
-                    <FiPlus size={18} /> Nouvelle Bannière
+                    <FiPlus size={16} /> Nouvelle Bannière
                 </button>
             </div>
 
             {/* Stats Overview */}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
-                    <div className="flex items-center gap-4">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600">
-                            <FiImage size={24} />
+                <div className="glass-card rounded-xl p-3.5">
+                    <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 shadow-sm shadow-blue-100/50">
+                            <FiImage size={20} />
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500">Total Bannières</p>
-                            <p className="text-xl font-bold text-gray-800">{banners.length}</p>
+                            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Bannières</p>
+                            <p className="text-lg font-black text-slate-800 tracking-tight leading-none mt-1">{banners.length}</p>
                         </div>
                     </div>
                 </div>
-                <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
-                    <div className="flex items-center gap-4">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-50 text-green-600">
-                            <FiToggleRight size={24} />
+                <div className="glass-card rounded-xl p-3.5">
+                    <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 shadow-sm shadow-emerald-100/50">
+                            <FiToggleRight size={20} />
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500">Actives</p>
-                            <p className="text-xl font-bold text-gray-800">
-                                {banners.filter(b => b.isActive).length}
+                            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Actives</p>
+                            <p className="text-lg font-black text-slate-800 tracking-tight leading-none mt-1">
+                                {banners.filter(b => b.is_active).length}
                             </p>
                         </div>
                     </div>
@@ -166,15 +166,15 @@ const Banners = () => {
                                 <div className="p-4 space-y-4">
                                     {/* Carousel Simulation */}
                                     <div className="aspect-video w-full rounded-xl bg-gray-200 overflow-hidden relative shadow-sm group">
-                                        {banners.filter(b => b.isActive).length > 0 ? (
+                                        {banners.filter(b => b.is_active).length > 0 ? (
                                             <>
                                                 <img
-                                                    src={banners.filter(b => b.isActive)[0].image}
+                                                    src={banners.filter(b => b.is_active)[0].image}
                                                     className="w-full h-full object-cover"
                                                     alt="Preview"
                                                 />
                                                 <div className="absolute bottom-2 left-2 right-2 flex justify-center gap-1">
-                                                    {banners.filter(b => b.isActive).map((_, i) => (
+                                                    {banners.filter(b => b.is_active).map((_, i) => (
                                                         <div key={i} className={`h-1.5 rounded-full ${i === 0 ? 'w-4 bg-white' : 'w-1.5 bg-white/50'}`} />
                                                     ))}
                                                 </div>

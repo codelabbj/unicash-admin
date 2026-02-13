@@ -51,60 +51,60 @@ const NetworkTable = ({ networks, countries = [], onEdit, onDelete, onToggleStat
         <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-100">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-gray-50/50">
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 whitespace-nowrap">Réseau</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 whitespace-nowrap">Code</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 whitespace-nowrap">Pays</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 whitespace-nowrap">Statut</th>
-                            <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 whitespace-nowrap">Actions</th>
+                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Réseau</th>
+                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Code</th>
+                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Pays</th>
+                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Statut</th>
+                            <th className="px-4 py-3 text-right text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100 bg-white">
+                    <tbody className="divide-y divide-gray-100 bg-white/50">
                         {networks.map((network) => (
-                            <tr key={network.uid} className="hover:bg-gray-50 transition-colors">
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="flex items-center gap-3">
-                                        <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-full border border-gray-100 bg-white shadow-sm flex items-center justify-center">
+                            <tr key={network.uid} className="hover:bg-blue-50/30 transition-colors group">
+                                <td className="px-4 py-2.5 whitespace-nowrap">
+                                    <div className="flex items-center gap-2.5">
+                                        <div className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm flex items-center justify-center">
                                             <NetworkLogo network={network} />
                                         </div>
-                                        <div className="text-sm font-semibold text-gray-900">{network.name}</div>
+                                        <div className="text-[13px] font-bold text-slate-900 leading-none">{network.name}</div>
                                     </div>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <code className="rounded bg-gray-100 px-2 py-1 text-xs font-mono text-gray-600">
+                                <td className="px-4 py-2.5 whitespace-nowrap">
+                                    <code className="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-mono text-slate-600 font-bold">
                                         {network.code}
                                     </code>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                                <td className="px-4 py-2.5 whitespace-nowrap">
+                                    <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-0.5 text-[11px] font-bold text-blue-700 ring-1 ring-inset ring-blue-700/10">
                                         {countries.find(c => c.uid === network.country)?.name || network.country}
                                     </span>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="px-4 py-2.5 whitespace-nowrap">
                                     <button
                                         onClick={() => onToggleStatus(network.uid)}
-                                        className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors ${network.is_active
-                                            ? 'bg-green-50 text-green-700 hover:bg-green-100'
+                                        className={`flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[10px] font-black transition-colors ${network.is_active
+                                            ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
                                             : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                             }`}
                                     >
-                                        <span className={`h-1.5 w-1.5 rounded-full ${network.is_active ? 'bg-green-600' : 'bg-gray-400'}`}></span>
+                                        <span className={`h-1.5 w-1.5 rounded-full ${network.is_active ? 'bg-emerald-600' : 'bg-gray-400'}`}></span>
                                         {network.is_active ? 'Actif' : 'Inactif'}
                                     </button>
                                 </td>
-                                <td className="px-6 py-4 text-right whitespace-nowrap text-sm font-medium">
-                                    <div className="flex justify-end gap-2">
+                                <td className="px-4 py-2.5 text-right whitespace-nowrap">
+                                    <div className="flex justify-end gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
                                         <button
                                             onClick={() => onEdit(network)}
-                                            className="rounded-lg p-2 text-gray-400 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                            className="rounded-lg p-1.5 text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                                             title="Modifier"
                                         >
                                             <FiEdit2 size={16} />
                                         </button>
                                         <button
                                             onClick={() => onDelete(network.uid)}
-                                            className="rounded-lg p-2 text-gray-400 hover:bg-red-50 hover:text-red-600 transition-colors"
+                                            className="rounded-lg p-1.5 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
                                             title="Supprimer"
                                         >
                                             <FiTrash2 size={16} />

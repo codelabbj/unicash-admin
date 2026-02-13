@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
@@ -24,21 +22,9 @@ const AdminLayout = () => {
 
     return (
         <div className="flex h-screen overflow-hidden">
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
             {/* Sidebar Desktop */}
             <aside className={`
-                hidden lg:block w-72 h-screen p-4
+                hidden lg:block w-60 h-screen p-3
                 transition-all duration-300
             `}>
                 <Sidebar />
@@ -51,7 +37,7 @@ const AdminLayout = () => {
                         className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity"
                         onClick={() => setSidebarOpen(false)}
                     />
-                    <aside className="fixed inset-y-0 left-0 w-72 p-4 z-50 transform transition-transform duration-300">
+                    <aside className="fixed inset-y-0 left-0 w-64 p-3 z-50 transform transition-transform duration-300">
                         <Sidebar onClose={() => setSidebarOpen(false)} />
                     </aside>
                 </>
@@ -61,7 +47,7 @@ const AdminLayout = () => {
             <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
                 <Header onMenuClick={() => setSidebarOpen(true)} />
 
-                <main className="flex-1 overflow-y-auto p-3 md:p-6 lg:p-8 pb-24 md:pb-6 scroll-smooth">
+                <main className="flex-1 overflow-y-auto p-3 md:p-5 lg:p-6 pb-20 md:pb-5 scroll-smooth">
                     <Outlet />
                 </main>
             </div>
