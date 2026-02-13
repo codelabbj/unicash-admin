@@ -3,7 +3,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FiLock, FiMail, FiShield } from 'react-icons/fi';
-import logo from '../../assets/Unicash.png';
+import logo from '../../assets/Unicash-logo.png';
 
 const AdminLogin = () => {
     const [email, setEmail] = useState('');
@@ -57,7 +57,7 @@ const AdminLogin = () => {
                             </div>
                             <input
                                 type="email"
-                                placeholder="admin@unicash.ci"
+                                placeholder="adresse email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-[13px] text-slate-700 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all"

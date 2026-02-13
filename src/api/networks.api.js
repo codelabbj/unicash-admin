@@ -25,7 +25,6 @@ export const networksAPI = {
     },
 
     toggleStatus: async (id, currentStatus) => {
-        // Assuming toggle is just an update of is_active
         const response = await apiClient.patch(`/core/admin/networks/${id}/`, {
             is_active: !currentStatus
         });

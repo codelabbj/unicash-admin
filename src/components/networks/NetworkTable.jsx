@@ -6,7 +6,8 @@ const LOGO_MAPPING = {
     'MOOV': 'https://upload.wikimedia.org/wikipedia/commons/2/22/Moov_Africa_logo.png',
     'ORANGE': 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg',
     'WAVE': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Wave_logo.svg/1200px-Wave_logo.svg.png',
-    'CELTIIS': 'https://pbs.twimg.com/profile_images/1583486303038685186/tnk-aQq__400x400.jpg'
+    'CELTIIS': 'https://pbs.twimg.com/profile_images/1583486303038685186/tnk-aQq__400x400.jpg',
+    'VODAFONE': 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Vodafone_2017_logo.svg' // Added extra
 };
 
 const getAutoLogo = (network) => {
@@ -20,6 +21,7 @@ const getAutoLogo = (network) => {
     if (code.includes('ORANGE') || name.includes('ORANGE')) return LOGO_MAPPING.ORANGE;
     if (code.includes('WAVE') || name.includes('WAVE')) return LOGO_MAPPING.WAVE;
     if (code.includes('CELTIIS') || name.includes('CELTIIS') || code.includes('CELTIS')) return LOGO_MAPPING.CELTIIS;
+    if (code.includes('VODAFONE') || name.includes('VODAFONE')) return LOGO_MAPPING.VODAFONE;
 
     return null;
 };
@@ -40,11 +42,24 @@ const NetworkLogo = ({ network }) => {
     }
 
     return (
-        <span className="text-lg font-bold text-primary">
+        <span className="text-lg font-bold text-slate-700">
             {network.name?.charAt(0).toUpperCase()}
         </span>
     );
 };
+
+const ToggleSwitch = ({ checked, onChange }) => (
+    <button
+        onClick={onChange}
+        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${checked ? 'bg-primary' : 'bg-gray-200'
+            }`}
+    >
+        <span
+            className={`${checked ? 'translate-x-6' : 'translate-x-1'
+                } inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
+        />
+    </button>
+);
 
 const NetworkTable = ({ networks, countries = [], onEdit, onDelete, onToggleStatus }) => {
     return (
@@ -53,66 +68,71 @@ const NetworkTable = ({ networks, countries = [], onEdit, onDelete, onToggleStat
                 <table className="min-w-full divide-y divide-gray-100">
                     <thead className="bg-gray-50/50">
                         <tr>
-                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Réseau</th>
-                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Code</th>
-                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Pays</th>
-                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Statut</th>
-                            <th className="px-4 py-3 text-right text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Actions</th>
+                            <th className="px-6 py-4 text-left text-[11px] font-black uppercase tracking-wider text-slate-400">OPÉRATEUR</th>
+                            <th className="px-6 py-4 text-left text-[11px] font-black uppercase tracking-wider text-slate-400">PAYS</th>
+                            <th className="px-6 py-4 text-left text-[11px] font-black uppercase tracking-wider text-slate-400">CODE RÉSEAU</th>
+                            <th className="px-6 py-4 text-left text-[11px] font-black uppercase tracking-wider text-slate-400">TYPE DE SERVICE</th>
+                            <th className="px-6 py-4 text-left text-[11px] font-black uppercase tracking-wider text-slate-400">STATUT</th>
+                            <th className="px-6 py-4 text-right text-[11px] font-black uppercase tracking-wider text-slate-400">ACTIONS</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100 bg-white/50">
-                        {networks.map((network) => (
-                            <tr key={network.uid} className="hover:bg-blue-50/30 transition-colors group">
-                                <td className="px-4 py-2.5 whitespace-nowrap">
-                                    <div className="flex items-center gap-2.5">
-                                        <div className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm flex items-center justify-center">
-                                            <NetworkLogo network={network} />
+                    <tbody className="divide-y divide-gray-100 bg-white">
+                        {networks.map((network) => {
+                            const country = countries.find(c => c.uid === network.country);
+                            return (
+                                <tr key={network.uid} className="hover:bg-slate-50/50 transition-colors group">
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="flex items-center gap-3">
+                                            <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm flex items-center justify-center p-1">
+                                                <NetworkLogo network={network} />
+                                            </div>
+                                            <span className="text-sm font-bold text-slate-900">{network.name}</span>
                                         </div>
-                                        <div className="text-[13px] font-bold text-slate-900 leading-none">{network.name}</div>
-                                    </div>
-                                </td>
-                                <td className="px-4 py-2.5 whitespace-nowrap">
-                                    <code className="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-mono text-slate-600 font-bold">
-                                        {network.code}
-                                    </code>
-                                </td>
-                                <td className="px-4 py-2.5 whitespace-nowrap">
-                                    <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-0.5 text-[11px] font-bold text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                                        {countries.find(c => c.uid === network.country)?.name || network.country}
-                                    </span>
-                                </td>
-                                <td className="px-4 py-2.5 whitespace-nowrap">
-                                    <button
-                                        onClick={() => onToggleStatus(network.uid)}
-                                        className={`flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[10px] font-black transition-colors ${network.is_active
-                                            ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
-                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                            }`}
-                                    >
-                                        <span className={`h-1.5 w-1.5 rounded-full ${network.is_active ? 'bg-emerald-600' : 'bg-gray-400'}`}></span>
-                                        {network.is_active ? 'Actif' : 'Inactif'}
-                                    </button>
-                                </td>
-                                <td className="px-4 py-2.5 text-right whitespace-nowrap">
-                                    <div className="flex justify-end gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
-                                        <button
-                                            onClick={() => onEdit(network)}
-                                            className="rounded-lg p-1.5 text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                                            title="Modifier"
-                                        >
-                                            <FiEdit2 size={16} />
-                                        </button>
-                                        <button
-                                            onClick={() => onDelete(network.uid)}
-                                            className="rounded-lg p-1.5 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
-                                            title="Supprimer"
-                                        >
-                                            <FiTrash2 size={16} />
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="flex items-center gap-2">
+                                            {/* Minimalistic flag representation if no image available, using emoji if possible or just name */}
+                                            {/* Assuming country object might have a flag url or iso code later. For now, simple text or emoji mapping could go here. */}
+                                            <span className="text-sm font-medium text-slate-700">{country?.name || network.country}</span>
+                                        </div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <span className="inline-flex items-center rounded-md bg-primary/10 px-2.5 py-1 text-xs font-bold text-primary">
+                                            {network.code}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <span className="inline-flex items-center rounded-md bg-primary/10 px-2.5 py-1 text-xs font-bold text-primary">
+                                            Mobile Money
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <ToggleSwitch
+                                            checked={network.is_active}
+                                            onChange={() => onToggleStatus(network.uid)}
+                                        />
+                                    </td>
+                                    <td className="px-6 py-4 text-right whitespace-nowrap">
+                                        <div className="flex justify-end gap-2 opacity-100">
+                                            <button
+                                                onClick={() => onEdit(network)}
+                                                className="p-2 text-slate-400 hover:text-primary transition-colors"
+                                                title="Modifier"
+                                            >
+                                                <FiEdit2 size={16} />
+                                            </button>
+                                            <button
+                                                onClick={() => onDelete(network.uid)}
+                                                className="p-2 text-slate-400 hover:text-rose-600 transition-colors"
+                                                title="Supprimer"
+                                            >
+                                                <FiTrash2 size={16} />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

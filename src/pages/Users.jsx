@@ -4,6 +4,7 @@ import ConfirmationModal from '../components/common/ConfirmationModal';
 import UserTable from '../components/users/UserTable';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import EmptyState from '../components/common/EmptyState';
+import UserDetailsModal from '../components/users/UserDetailsModal';
 import { usersAPI } from '../api/users.api';
 
 const Users = () => {
@@ -14,6 +15,10 @@ const Users = () => {
         isOpen: false,
         userId: null,
         action: ''
+    });
+    const [detailsModal, setDetailsModal] = useState({
+        isOpen: false,
+        userId: null
     });
 
     const fetchUsers = async () => {
@@ -36,8 +41,10 @@ const Users = () => {
     }, [searchTerm]);
 
     const handleViewDetails = (user) => {
-        // Details view logic could be added here
-        console.log("Details for user:", user);
+        setDetailsModal({
+            isOpen: true,
+            userId: user.uid
+        });
     };
 
     const handleUpdateStatus = (userId, action) => {
@@ -94,6 +101,13 @@ const Users = () => {
                     onUpdateStatus={handleUpdateStatus}
                 />
             )}
+
+            {/* User Details Modal */}
+            <UserDetailsModal
+                isOpen={detailsModal.isOpen}
+                onClose={() => setDetailsModal({ isOpen: false, userId: null })}
+                userId={detailsModal.userId}
+            />
 
             {/* Confirmation Modal */}
             <ConfirmationModal

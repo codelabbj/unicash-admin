@@ -5,4 +5,9 @@ export const statsAPI = {
         const response = await apiClient.get('/core/stats/admin/');
         return response.data;
     },
+
+    getKycStats: async () => {
+        const response = await apiClient.get('/core/admin/kyc/statistics/');
+        return response.data;
+    },
 };

@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { FiPlus, FiImage, FiToggleRight } from 'react-icons/fi';
 import Modal from '../components/common/Modal';
 import ConfirmationModal from '../components/common/ConfirmationModal';
-import BannerTable from '../components/banners/BannerTable';
+import BannerCard from '../components/banners/BannerCard';
 import BannerForm from '../components/banners/BannerForm';
 import EmptyState from '../components/common/EmptyState';
-import PhoneMockup from '../components/common/PhoneMockup';
 import { bannersAPI } from '../api/banners.api';
 
 const Banners = () => {
@@ -61,144 +60,139 @@ const Banners = () => {
         }
     };
 
-    const handleToggleStatus = async (id) => {
-        await bannersAPI.toggleStatus(id);
-        fetchBanners();
+    const handleToggleStatus = async (banner) => {
+        try {
+            await bannersAPI.toggleStatus(banner.id, banner.is_active);
+            fetchBanners();
+        } catch (error) {
+            console.error("Error toggling status:", error);
+        }
     };
 
     const handleSubmit = async (data) => {
         try {
-            if (currentBanner) {
-                await bannersAPI.updateBanner(currentBanner.id, data);
+            let payload;
+
+            if (data.imageFile) {
+                // If a new file is provided, use FormData
+                payload = new FormData();
+                payload.append('title', data.title || '');
+                payload.append('description', data.description || '');
+                payload.append('action_url', data.action_url || '');
+                payload.append('is_active', String(data.is_active));
+                payload.append('image', data.imageFile);
             } else {
-                await bannersAPI.createBanner(data);
+                // If no new file, send JSON but remove 'image' related experimental fields
+                // Backends often reject string URLs in file fields during PATCH
+                const { image, imagePreview, imageFile, ...rest } = data;
+                payload = rest;
+            }
+
+            if (currentBanner) {
+                await bannersAPI.updateBanner(currentBanner.id, payload);
+            } else {
+                await bannersAPI.createBanner(payload);
             }
             setIsModalOpen(false);
             fetchBanners();
         } catch (error) {
             console.error("Error saving banner:", error);
+            toast.error("Erreur lors de l'enregistrement de la bannière");
         }
     };
 
+
+    const activeBanners = banners.filter(b => b.is_active).length;
+
     return (
-        <div className="space-y-5">
-            <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+        <div className="space-y-8">
+            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 className="text-xl font-black text-slate-900 tracking-tight">Gestion des Bannières</h1>
-                    <p className="text-[13px] text-slate-500 font-medium">Gérez les images du carrousel d'accueil de l'application utilisateur.</p>
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">Gestion des Bannières</h1>
+                    <p className="text-slate-500 font-medium mt-1">Configurez les visuels promotionnels de votre application mobile.</p>
                 </div>
                 <button
                     onClick={handleCreate}
-                    className="flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-1.5 text-[13px] font-bold text-white shadow-lg shadow-primary/20 hover:bg-primary-hover hover:scale-[1.02] transition-all"
+                    className="flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/30 hover:bg-primary-hover hover:scale-[1.02] transition-all"
                 >
-                    <FiPlus size={16} /> Nouvelle Bannière
+                    <FiPlus size={18} /> Nouvelle Bannière
                 </button>
             </div>
 
             {/* Stats Overview */}
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div className="glass-card rounded-xl p-3.5">
-                    <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 shadow-sm shadow-blue-100/50">
-                            <FiImage size={20} />
-                        </div>
-                        <div>
-                            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Bannières</p>
-                            <p className="text-lg font-black text-slate-800 tracking-tight leading-none mt-1">{banners.length}</p>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+                    <div className="relative z-10">
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Total Bannières</p>
+                        <p className="text-4xl font-black text-slate-900 tracking-tight">{banners.length}</p>
+                        <div className="mt-4 flex items-center gap-2 text-xs font-medium text-slate-400">
+                            <FiImage /> Aucun contenu créé pour le moment
                         </div>
                     </div>
+                    <div className="absolute right-6 top-6 h-12 w-12 rounded-2xl bg-gray-50 flex items-center justify-center text-gray-400">
+                        <FiImage size={24} />
+                    </div>
                 </div>
-                <div className="glass-card rounded-xl p-3.5">
-                    <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 shadow-sm shadow-emerald-100/50">
-                            <FiToggleRight size={20} />
+
+                <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+                    <div className="relative z-10">
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Bannières Actives</p>
+                        <p className="text-4xl font-black text-slate-900 tracking-tight">{activeBanners}</p>
+                        <div className="mt-4 flex items-center gap-2 text-xs font-medium text-slate-400">
+                            <div className={`h-2 w-2 rounded-full ${activeBanners > 0 ? 'bg-emerald-500' : 'bg-gray-300'}`}></div>
+                            Visibilité actuelle sur l'application
                         </div>
-                        <div>
-                            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Actives</p>
-                            <p className="text-lg font-black text-slate-800 tracking-tight leading-none mt-1">
-                                {banners.filter(b => b.is_active).length}
-                            </p>
-                        </div>
+                    </div>
+                    <div className="absolute right-6 top-6 h-12 w-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-primary">
+                        <FiToggleRight size={24} />
                     </div>
                 </div>
             </div>
 
-            {/* List & Preview */}
+            {/* Grid Layout */}
             {isLoading ? (
-                <div className="py-12 text-center text-gray-500">Chargement...</div>
+                <div className="flex justify-center py-20">
+                    <div className="text-slate-400 animate-pulse">Chargement...</div>
+                </div>
             ) : banners.length === 0 ? (
                 <EmptyState
                     title="Aucune bannière active"
-                    description="Commencez par ajouter une bannière pour animer l'accueil de l'application."
-                    icon={<FiImage size={32} />}
+                    description="Commencez par ajouter du contenu visuel pour vos utilisateurs en créant votre première bannière publicitaire ou d'information."
+                    icon={<FiImage size={48} />}
                     action={
                         <button
                             onClick={handleCreate}
-                            className="flex items-center gap-2 rounded-lg bg-blue-900 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-800 transition-colors"
+                            className="mt-4 flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white shadow-lg shadow-primary/30 hover:bg-primary-hover hover:scale-[1.05] transition-all"
                         >
                             <FiPlus size={18} /> Créer ma première bannière
                         </button>
                     }
                 />
             ) : (
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Table List */}
-                    <div className="lg:col-span-2 space-y-4">
-                        <BannerTable
-                            banners={banners}
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {banners.map((banner) => (
+                        <BannerCard
+                            key={banner.id}
+                            banner={banner}
                             onEdit={handleEdit}
                             onDelete={handleDelete}
                             onToggleStatus={handleToggleStatus}
                         />
-                    </div>
+                    ))}
 
-                    {/* Live Mobile Preview */}
-                    <div className="hidden lg:block">
-                        <div className="sticky top-6">
-                            <h3 className="text-sm font-medium text-gray-500 mb-4 text-center">Aperçu Live App</h3>
-                            <PhoneMockup>
-                                {/* Simulated App Header */}
-                                <div className="bg-blue-900 h-16 p-4 flex items-center justify-between text-white">
-                                    <div className="w-8 h-8 rounded-full bg-blue-800"></div>
-                                    <div className="font-bold">UniCash</div>
-                                    <div className="w-6 h-6"></div>
-                                </div>
-                                <div className="p-4 space-y-4">
-                                    {/* Carousel Simulation */}
-                                    <div className="aspect-video w-full rounded-xl bg-gray-200 overflow-hidden relative shadow-sm group">
-                                        {banners.filter(b => b.is_active).length > 0 ? (
-                                            <>
-                                                <img
-                                                    src={banners.filter(b => b.is_active)[0].image}
-                                                    className="w-full h-full object-cover"
-                                                    alt="Preview"
-                                                />
-                                                <div className="absolute bottom-2 left-2 right-2 flex justify-center gap-1">
-                                                    {banners.filter(b => b.is_active).map((_, i) => (
-                                                        <div key={i} className={`h-1.5 rounded-full ${i === 0 ? 'w-4 bg-white' : 'w-1.5 bg-white/50'}`} />
-                                                    ))}
-                                                </div>
-                                            </>
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
-                                                Aucune bannière active
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    {/* Dummy App Content */}
-                                    <div className="grid grid-cols-4 gap-2">
-                                        {[1, 2, 3, 4].map(i => (
-                                            <div key={i} className="aspect-square rounded-xl bg-gray-100 flex flex-col items-center justify-center gap-1">
-                                                <div className="w-8 h-8 rounded-full bg-white"></div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                    <div className="h-24 rounded-xl bg-gray-100"></div>
-                                </div>
-                            </PhoneMockup>
+                    {/* Add New Card */}
+                    <button
+                        onClick={handleCreate}
+                        className="group flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50/50 p-8 transition-all hover:border-primary/50 hover:bg-blue-50/50 min-h-[320px]"
+                    >
+                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white text-gray-400 shadow-sm transition-colors group-hover:text-primary group-hover:scale-110 duration-300">
+                            <FiPlus size={32} />
                         </div>
-                    </div>
+                        <div className="text-center">
+                            <h3 className="text-lg font-bold text-slate-900">Nouvelle Bannière</h3>
+                            <p className="mt-2 text-sm text-slate-500 font-medium">Ajouter un visuel promotionnel</p>
+                        </div>
+                    </button>
                 </div>
             )}
 

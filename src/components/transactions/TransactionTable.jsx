@@ -1,7 +1,7 @@
 import React from 'react';
-import { FiClock, FiCheckCircle, FiXCircle, FiInfo } from 'react-icons/fi';
+import { FiClock, FiCheckCircle, FiXCircle, FiInfo, FiRefreshCw } from 'react-icons/fi';
 
-const TransactionTable = ({ transactions, onViewDetails }) => {
+const TransactionTable = ({ transactions, onViewDetails, onRetryCredit }) => {
     const getStatusBadge = (status) => {
         const styles = {
             COMPLETED: 'bg-emerald-100/80 text-emerald-700 border border-emerald-200/50',
@@ -68,12 +68,24 @@ const TransactionTable = ({ transactions, onViewDetails }) => {
                                     {getStatusBadge(txn.status)}
                                 </td>
                                 <td className="px-5 py-2.5 text-right whitespace-nowrap">
-                                    <button
-                                        onClick={() => onViewDetails(txn)}
-                                        className="rounded-lg p-1.5 text-slate-400 hover:bg-blue-50/80 hover:text-blue-600 transition-all hover:shadow-sm active:scale-95"
-                                    >
-                                        <FiInfo size={16} />
-                                    </button>
+                                    <div className="flex items-center justify-end gap-2">
+                                        {txn.status === 'FAILED' && (
+                                            <button
+                                                onClick={() => onRetryCredit(txn)}
+                                                className="rounded-lg p-1.5 text-amber-500 hover:bg-amber-50 hover:text-amber-600 transition-all hover:shadow-sm active:scale-95"
+                                                title="Re-créditer"
+                                            >
+                                                <FiRefreshCw size={16} />
+                                            </button>
+                                        )}
+                                        <button
+                                            onClick={() => onViewDetails(txn)}
+                                            className="rounded-lg p-1.5 text-slate-400 hover:bg-blue-50/80 hover:text-blue-600 transition-all hover:shadow-sm active:scale-95"
+                                            title="Détails"
+                                        >
+                                            <FiInfo size={16} />
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { FiPlus, FiGlobe, FiMap } from 'react-icons/fi';
+import { FiPlus, FiGlobe, FiSearch } from 'react-icons/fi';
 import Modal from '../components/common/Modal';
 import ConfirmationModal from '../components/common/ConfirmationModal';
-import CountryTable from '../components/countries/CountryTable';
+import CountryCard from '../components/countries/CountryCard';
 import CountryForm from '../components/countries/CountryForm';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import EmptyState from '../components/common/EmptyState';
@@ -81,28 +81,45 @@ const Countries = () => {
     };
 
     return (
-        <div className="space-y-5">
-            <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+        <div className="space-y-8">
+            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 className="text-xl font-black text-slate-900 tracking-tight">Pays Supportés</h1>
-                    <p className="text-[13px] text-slate-500 font-medium">Gérez les pays dans lesquels UniCash opère.</p>
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">Pays Supportés</h1>
+                    <p className="text-slate-500 font-medium mt-1">Gérez la présence internationale et les paramètres monétaires d'UniCash.</p>
                 </div>
                 <button
                     onClick={handleCreate}
-                    className="flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-1.5 text-[13px] font-bold text-white shadow-lg shadow-primary/20 hover:bg-primary-hover hover:scale-[1.02] transition-all"
+                    className="flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/30 hover:bg-primary-hover hover:scale-[1.02] transition-all"
                 >
-                    <FiPlus size={16} /> Ajouter un Pays
+                    <FiPlus size={18} /> Ajouter un Pays
                 </button>
             </div>
 
-            {/* List */}
+            {/* Search Bar */}
+            <div className="relative">
+                <input
+                    type="text"
+                    placeholder="Rechercher un pays ou un code..."
+                    className="w-full rounded-2xl border border-gray-200 bg-white px-5 py-3.5 pl-12 text-sm font-medium shadow-sm transition-all focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none"
+                    // Add state binding here if needed, or keeping it visual for now as per image request
+                    // For full functionality we would bind this to a state
+                    onChange={(e) => {
+                        // Simple filtering logic could go here
+                    }}
+                />
+                <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+            </div>
+
+            {/* Grid */}
             {isLoading ? (
-                <LoadingSpinner text="Chargement des pays..." />
+                <div className="flex justify-center py-20">
+                    <LoadingSpinner text="Chargement des pays..." />
+                </div>
             ) : countries.length === 0 ? (
                 <EmptyState
                     title="Aucun pays configuré"
                     description="Ajoutez les pays pris en charge par UniCash."
-                    icon={<FiMap size={32} />}
+                    icon={<FiGlobe size={32} />}
                     action={
                         <button
                             onClick={handleCreate}
@@ -113,12 +130,31 @@ const Countries = () => {
                     }
                 />
             ) : (
-                <CountryTable
-                    countries={countries}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                    onToggleStatus={handleToggleStatus}
-                />
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {countries.map((country) => (
+                        <CountryCard
+                            key={country.uid}
+                            country={country}
+                            onEdit={handleEdit}
+                            onDelete={handleDelete}
+                            onToggleStatus={handleToggleStatus}
+                        />
+                    ))}
+
+                    {/* Add New Card */}
+                    <button
+                        onClick={handleCreate}
+                        className="group flex flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50/50 p-6 transition-all hover:border-primary/50 hover:bg-blue-50/50 min-h-[220px]"
+                    >
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-gray-400 shadow-sm transition-colors group-hover:text-primary">
+                            <FiPlus size={24} />
+                        </div>
+                        <div className="text-center">
+                            <h3 className="text-sm font-bold text-slate-900">Ajouter un nouveau marché</h3>
+                            <p className="mt-1 text-xs text-slate-500 font-medium">Configurez les passerelles<br />de paiement locales.</p>
+                        </div>
+                    </button>
+                </div>
             )}
 
             {/* Modal */}

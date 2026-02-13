@@ -74,9 +74,13 @@ const Aggregators = () => {
         }
     };
 
-    const handleToggleStatus = async (id) => {
-        await aggregatorsAPI.toggleStatus(id);
-        fetchAggregators();
+    const handleToggleStatus = async (aggregator) => {
+        try {
+            await aggregatorsAPI.toggleStatus(aggregator.id, aggregator.is_active);
+            fetchAggregators();
+        } catch (error) {
+            console.error("Error toggling status:", error);
+        }
     };
 
     const handleSubmit = async (data) => {

@@ -1,55 +1,72 @@
 import React from 'react';
-import { FiMenu, FiBell, FiLogOut } from 'react-icons/fi';
+import { FiMenu, FiLogOut } from 'react-icons/fi';
 import { useAuth } from '../../hooks/useAuth';
+import logo from '../../assets/Unicash-logo.png';
 
 const Header = ({ onMenuClick }) => {
-    const { logout } = useAuth(); // Assuming useAuth provides logout
+    const { logout, user } = useAuth();
+    const [isProfileOpen, setIsProfileOpen] = React.useState(false);
 
     return (
-        <header className="glass-panel mb-4 rounded-xl mx-4 md:mx-6 lg:mx-8 mt-3 sticky top-3 z-30 px-2 py-1.5">
-            <div className="flex items-center justify-between px-1">
-                {/* Mobile Menu Button */}
-                <button
-                    onClick={onMenuClick}
-                    className="md:hidden p-2 rounded-lg hover:bg-slate-100/80 transition-colors text-slate-600 active:scale-95 transform"
-                >
-                    <FiMenu className="w-5.5 h-5.5" />
-                </button>
+        <header className="bg-white border-b border-gray-100 px-6 py-3 sticky top-0 z-30">
+            <div className="flex items-center justify-between">
+                {/* Left: Logo & Mobile Menu */}
+                <div className="flex items-center gap-4">
+                    <button
+                        onClick={onMenuClick}
+                        className="lg:hidden p-2 rounded-xl hover:bg-gray-50 text-slate-600 transition-colors"
+                    >
+                        <FiMenu className="w-6 h-6" />
+                    </button>
 
-                {/* Search Bar (Hidden on mobile) */}
-                <div className="hidden md:block flex-1 max-w-md ml-3">
-                    <div className="relative group">
-                        <input
-                            type="search"
-                            placeholder="Rechercher..."
-                            className="w-full pl-9 pr-3 py-1.5 glass-input rounded-lg text-[13px] placeholder-slate-400 text-slate-700 transition-all focus:w-[102%]"
-                        />
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg className="h-4 w-4 text-slate-400 group-focus-within:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
+                    <div className="flex items-center gap-3">
+                        <img src={logo} alt="UniCash" className="h-10 w-auto" />
+                        <div className="flex flex-col">
+                            <span className="text-xl font-black text-primary tracking-tight leading-none hidden md:block">UniCash Admin</span>
+                            <span className="text-xs font-medium text-slate-400 hidden md:block mt-0.5">Gérer votre plateforme</span>
                         </div>
                     </div>
                 </div>
 
-                {/* Right Actions */}
-                <div className="flex items-center gap-2 md:gap-3 pl-3">
-                    {/* Notifications */}
-                    <button className="relative p-2 rounded-lg hover:bg-white/60 hover:shadow-sm transition-all text-slate-600 active:scale-95 group">
-                        <FiBell className="w-[18px] h-[18px] group-hover:text-primary transition-colors" />
-                        <span className="absolute top-1.5 right-2 w-1.5 h-1.5 bg-rose-500 rounded-full ring-2 ring-white animate-pulse"></span>
-                    </button>
+                {/* Right: Actions */}
+                <div className="flex items-center gap-4 relative">
+                    <div className="h-8 w-[1px] bg-gray-200 hidden md:block"></div>
 
-                    <div className="h-6 w-[1px] bg-slate-200/60 hidden md:block"></div>
+                    <div className="relative">
+                        <button
+                            onClick={() => setIsProfileOpen(!isProfileOpen)}
+                            className="flex items-center gap-2 p-1 rounded-full hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100"
+                        >
+                            <div className="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
+                                {user?.email ? user.email.substring(0, 2).toUpperCase() : 'AD'}
+                            </div>
+                        </button>
 
-                    {/* Logout */}
-                    <button
-                        onClick={logout}
-                        className="flex items-center gap-1.5 px-3 py-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-all font-semibold text-[13px] hover:shadow-sm active:scale-95"
-                    >
-                        <FiLogOut className="w-4 h-4" />
-                        <span className="hidden md:inline">Déconnexion</span>
-                    </button>
+                        {/* Profile Dropdown */}
+                        {isProfileOpen && (
+                            <>
+                                <div
+                                    className="fixed inset-0 z-30"
+                                    onClick={() => setIsProfileOpen(false)}
+                                ></div>
+                                <div className="absolute right-0 top-12 z-40 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
+                                    <div className="p-4 border-b border-gray-50 bg-gray-50/50">
+                                        <p className="text-sm font-bold text-slate-800">Administrateur</p>
+                                        <p className="text-xs text-slate-500 font-medium truncate mt-0.5">{user?.email || 'admin@unicash.com'}</p>
+                                    </div>
+                                    <div className="p-1.5">
+                                        <button
+                                            onClick={logout}
+                                            className="w-full flex items-center gap-2 px-3 py-2 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors font-medium text-sm"
+                                        >
+                                            <FiLogOut className="w-4 h-4" />
+                                            Déconnexion
+                                        </button>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
         </header>

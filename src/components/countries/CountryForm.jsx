@@ -5,21 +5,34 @@ const CountryForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
     const [formData, setFormData] = useState({
         name: '',
         code: '',
-        currency: '',
-        phoneCode: '',
+        currency: 'XOF', // Default or from data
+        phone_prefix: '',
+        phone_length: 10,
         flag: '',
-        isActive: true
+        is_active: true
     });
 
     useEffect(() => {
         if (initialData) {
-            setFormData(initialData);
+            setFormData({
+                ...formData,
+                ...initialData,
+                // Handle possible naming variations from different endpoints
+                phone_prefix: initialData.phone_prefix || initialData.phoneCode || '',
+                is_active: initialData.is_active ?? initialData.isActive ?? true,
+                phone_length: initialData.phone_length || 10
+            });
         }
     }, [initialData]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(formData);
+        const submitData = {
+            ...formData,
+            phone_length: Number(formData.phone_length),
+            is_active: Boolean(formData.is_active)
+        };
+        onSubmit(submitData);
     };
 
     return (
@@ -38,7 +51,7 @@ const CountryForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
 
             <div className="grid grid-cols-2 gap-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Code ISO</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Code ISO (2 lett.)</label>
                     <input
                         type="text"
                         required
@@ -50,28 +63,53 @@ const CountryForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Indicatif Tél.</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Indicatif (+225)</label>
                     <input
                         type="text"
                         required
-                        value={formData.phoneCode}
-                        onChange={(e) => setFormData({ ...formData, phoneCode: e.target.value })}
+                        value={formData.phone_prefix}
+                        onChange={(e) => setFormData({ ...formData, phone_prefix: e.target.value })}
                         className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50"
-                        placeholder="Ex: +229"
+                        placeholder="Ex: 229"
                     />
                 </div>
             </div>
 
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Devise</label>
-                <input
-                    type="text"
-                    required
-                    value={formData.currency}
-                    onChange={(e) => setFormData({ ...formData, currency: e.target.value.toUpperCase() })}
-                    className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50 uppercase"
-                    placeholder="Ex: XOF"
-                />
+            <div className="grid grid-cols-2 gap-4">
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Long. Numéro</label>
+                    <input
+                        type="number"
+                        required
+                        value={formData.phone_length}
+                        onChange={(e) => setFormData({ ...formData, phone_length: e.target.value })}
+                        className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50"
+                        placeholder="Ex: 10"
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Devise (XOF)</label>
+                    <input
+                        type="text"
+                        required
+                        value={formData.currency}
+                        onChange={(e) => setFormData({ ...formData, currency: e.target.value.toUpperCase() })}
+                        className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50 uppercase"
+                        placeholder="Ex: XOF"
+                    />
+                </div>
+            </div>
+
+            <div className="flex items-center gap-6 py-2">
+                <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                        type="checkbox"
+                        checked={formData.is_active}
+                        onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
+                        className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
+                    />
+                    <span className="text-sm font-medium text-gray-700">Pays Actif</span>
+                </label>
             </div>
 
             <div>
@@ -83,7 +121,6 @@ const CountryForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
                     className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50"
                     placeholder="https://flagcdn.com/w80/bj.png"
                 />
-                <p className="mt-1 text-xs text-gray-500">Si laissé vide, le drapeau sera généré automatiquement à partir du code pays.</p>
             </div>
 
             {formData.flag && (
@@ -92,7 +129,7 @@ const CountryForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
                 </div>
             )}
 
-            <div className="flex flex-wrap justify-end gap-3 pt-4">
+            <div className="flex flex-wrap justify-end gap-3 pt-4 border-t">
                 <button
                     type="button"
                     onClick={onCancel}
@@ -103,7 +140,7 @@ const CountryForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="flex items-center gap-2 rounded-xl btn-primary px-6 py-2.5 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50 transition-all shadow-lg shadow-blue-500/30"
+                    className="flex items-center gap-2 rounded-xl bg-primary px-6 py-2.5 text-sm font-medium text-white hover:bg-primary-hover disabled:opacity-50 transition-all shadow-lg shadow-primary/30"
                 >
                     <FiSave /> {isLoading ? 'Enregistrement...' : 'Enregistrer'}
                 </button>

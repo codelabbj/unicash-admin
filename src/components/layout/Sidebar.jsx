@@ -5,7 +5,7 @@ import {
     FiHome, FiUsers, FiGlobe, FiWifi, FiDollarSign,
     FiCreditCard, FiList, FiSettings, FiX, FiImage
 } from 'react-icons/fi';
-import logo from '../../assets/Unicash-logo.png';
+
 
 
 const Sidebar = ({ onClose }) => {
@@ -24,52 +24,43 @@ const Sidebar = ({ onClose }) => {
     ];
 
     return (
-        <div className="glass-panel h-full rounded-2xl flex flex-col overflow-hidden border-white/60 shadow-xl">
-            {/* Logo & Close Button */}
-            <div className="flex items-center justify-between px-5 py-4">
-                <img src={logo} alt="UniCash Admin" className="h-7 w-auto" />
-                {onClose && (
-                    <button onClick={onClose} className="md:hidden p-1.5 rounded-lg hover:bg-slate-100/50 text-slate-500 transition-colors">
-                        <FiX className="w-4 h-4" />
+        <div className="h-full flex flex-col py-6">
+            {/* Mobile Close Button (only if onClose is provided) */}
+            {onClose && (
+                <div className="flex justify-end px-6 mb-4 lg:hidden">
+                    <button onClick={onClose} className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 transition-colors">
+                        <FiX className="w-5 h-5" />
                     </button>
-                )}
-            </div>
+                </div>
+            )}
 
             {/* Navigation */}
-            <nav className="flex-1 overflow-y-auto px-3 space-y-1 scroll-smooth">
+            <nav className="flex-1 overflow-y-auto px-4 space-y-1 scroll-smooth">
                 {menuItems.map((item) => (
                     <NavLink
                         key={item.path}
                         to={item.path}
                         onClick={onClose}
                         className={({ isActive }) => `
-              flex items-center gap-2.5 px-3 py-2 rounded-xl transition-all duration-200 group relative overflow-hidden
+              flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative
               ${isActive
-                                ? 'bg-primary text-white shadow-lg shadow-primary/20 font-semibold'
-                                : 'text-slate-600 hover:bg-slate-100/60 hover:text-slate-900'
+                                ? 'bg-primary/5 text-primary font-bold'
+                                : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900 font-medium'
                             }
             `}
                     >
-                        <item.icon className={`w-[18px] h-[18px] transition-transform duration-300 group-hover:scale-110 ${({ isActive }) => isActive ? 'text-white' : 'text-slate-400 group-hover:text-primary'}`} />
-                        <span className="text-[13px] tracking-tight">{item.label}</span>
+                        {({ isActive }) => (
+                            <>
+                                <item.icon className={`w-[20px] h-[20px] transition-transform duration-300 group-hover:scale-105 ${isActive ? 'text-primary' : 'text-slate-400 group-hover:text-slate-600'}`} />
+                                <span className="text-[14px] tracking-tight">{item.label}</span>
+                                {isActive && (
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full"></div>
+                                )}
+                            </>
+                        )}
                     </NavLink>
                 ))}
             </nav>
-
-            {/* User Info */}
-            <div className="p-3 mt-1">
-                <div className="glass-card p-2 rounded-xl flex items-center gap-2.5 hover:bg-white/80 transition-colors cursor-pointer border border-white/60 shadow-sm">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-blue-400 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/10 text-xs">
-                        AD
-                    </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-[12.5px] font-bold text-slate-800 truncate">Admin</p>
-                        <p className="text-[10px] font-medium text-slate-500 truncate" title={user?.email}>
-                            {user?.email || 'admin@unicash.com'}
-                        </p>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 };

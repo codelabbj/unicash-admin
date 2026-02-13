@@ -5,13 +5,18 @@ const AggregatorForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
     const [formData, setFormData] = useState({
         name: '',
         code: '',
-        logo: '',
-        isActive: true
+        logo_url: '',
+        is_active: true
     });
 
     useEffect(() => {
         if (initialData) {
-            setFormData(initialData);
+            setFormData({
+                ...formData,
+                ...initialData,
+                logo_url: initialData.logo_url || initialData.logo || '',
+                is_active: initialData.is_active ?? initialData.isActive ?? true
+            });
         }
     }, [initialData]);
 
@@ -29,7 +34,7 @@ const AggregatorForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50 transition-all font-body"
+                    className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50 transition-all font-bold"
                     placeholder="Ex: Fedapay"
                 />
             </div>
@@ -50,16 +55,28 @@ const AggregatorForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
                 <label className="block text-sm font-medium text-gray-700 mb-1">URL du Logo</label>
                 <input
                     type="url"
-                    value={formData.logo}
-                    onChange={(e) => setFormData({ ...formData, logo: e.target.value })}
-                    className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50 transition-all font-body"
+                    value={formData.logo_url}
+                    onChange={(e) => setFormData({ ...formData, logo_url: e.target.value })}
+                    className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50 transition-all"
                     placeholder="https://..."
                 />
-                {formData.logo && (
-                    <div className="mt-2 h-10 w-24 rounded border border-gray-200 bg-white p-1 overflow-hidden">
-                        <img src={formData.logo} alt="Preview" className="h-full w-full object-contain" />
+                {formData.logo_url && (
+                    <div className="mt-2 h-12 w-28 rounded-lg border border-gray-200 bg-white p-2 flex items-center justify-center overflow-hidden">
+                        <img src={formData.logo_url} alt="Preview" className="max-h-full max-w-full object-contain" />
                     </div>
                 )}
+            </div>
+
+            <div className="flex items-center gap-6 py-2">
+                <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                        type="checkbox"
+                        checked={formData.is_active}
+                        onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
+                        className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
+                    />
+                    <span className="text-sm font-medium text-gray-700">Agrégateur Actif</span>
+                </label>
             </div>
 
             <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
@@ -73,7 +90,7 @@ const AggregatorForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="flex items-center gap-2 rounded-xl bg-primary px-6 py-2 text-sm font-medium text-white hover:bg-primary-hover disabled:opacity-50 transition-colors shadow-sm"
+                    className="flex items-center gap-2 rounded-xl bg-primary px-6 py-2.5 text-sm font-medium text-white hover:bg-primary-hover disabled:opacity-50 transition-colors shadow-sm"
                 >
                     <FiSave /> {isLoading ? 'Enregistrement...' : 'Enregistrer'}
                 </button>

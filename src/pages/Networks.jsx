@@ -9,6 +9,8 @@ import EmptyState from '../components/common/EmptyState';
 import { networksAPI } from '../api/networks.api';
 import { countriesAPI } from '../api/countries.api';
 
+import NetworkStats from '../components/networks/NetworkStats';
+
 const Networks = () => {
     const [networks, setNetworks] = useState([]);
     const [countries, setCountries] = useState([]);
@@ -77,8 +79,11 @@ const Networks = () => {
     };
 
     const handleToggleStatus = async (id) => {
-        await networksAPI.toggleStatus(id);
-        fetchNetworks();
+        const network = networks.find(n => n.uid === id);
+        if (network) {
+            await networksAPI.toggleStatus(id, network.is_active);
+            fetchNetworks();
+        }
     };
 
     const handleSubmit = async (data) => {
@@ -96,19 +101,21 @@ const Networks = () => {
     };
 
     return (
-        <div className="space-y-5">
-            <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+        <div className="space-y-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-xl font-black text-slate-900 tracking-tight">Réseaux Mobiles</h1>
-                    <p className="text-[13px] text-slate-500 font-medium">Gérez les opérateurs et leurs configurations.</p>
+                    <h1 className="text-2xl font-black text-slate-900 tracking-tight">Gestion des Réseaux</h1>
+                    <p className="text-sm text-slate-500 font-medium">Configurez et supervisez les opérateurs mobiles et leurs services.</p>
                 </div>
                 <button
                     onClick={handleCreate}
-                    className="flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-1.5 text-[13px] font-bold text-white shadow-lg shadow-primary/20 hover:bg-primary-hover hover:scale-[1.02] transition-all"
+                    className="flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/30 hover:bg-primary-hover hover:scale-[1.02] transition-all"
                 >
-                    <FiPlus size={16} /> Nouveau Réseau
+                    <FiPlus size={20} /> Nouveau Réseau
                 </button>
             </div>
+
+            <NetworkStats networks={networks} />
 
             {/* List */}
             {isLoading ? (

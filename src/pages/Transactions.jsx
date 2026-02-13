@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { FiSearch, FiFilter, FiDownload, FiCreditCard } from 'react-icons/fi';
+import { FiSearch, FiFilter, FiDownload, FiCreditCard, FiRefreshCw, FiAlertCircle } from 'react-icons/fi';
 import GlassSelect from '../components/common/GlassSelect';
 import TransactionTable from '../components/transactions/TransactionTable';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import EmptyState from '../components/common/EmptyState';
+import ConfirmationModal from '../components/common/ConfirmationModal';
 import { transactionsAPI } from '../api/transactions.api';
 
 const Transactions = () => {
@@ -11,6 +12,10 @@ const Transactions = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
+    const [confirmModal, setConfirmModal] = useState({
+        isOpen: false,
+        txn: null
+    });
 
     const fetchTransactions = async () => {
         setIsLoading(true);
@@ -36,6 +41,26 @@ const Transactions = () => {
 
     const handleViewDetails = (txn) => {
         console.log("View details for:", txn);
+    };
+
+    const handleRetryCredit = (txn) => {
+        setConfirmModal({
+            isOpen: true,
+            txn
+        });
+    };
+
+    const confirmRetryCredit = async () => {
+        const { txn } = confirmModal;
+        if (!txn) return;
+
+        try {
+            await transactionsAPI.retryCredit(txn.uid);
+            setConfirmModal({ isOpen: false, txn: null });
+            fetchTransactions();
+        } catch (error) {
+            console.error("Error retrying credit:", error);
+        }
     };
     return (
         <div className="space-y-5">
@@ -85,8 +110,19 @@ const Transactions = () => {
                 <TransactionTable
                     transactions={transactions}
                     onViewDetails={handleViewDetails}
+                    onRetryCredit={handleRetryCredit}
                 />
             )}
+
+            <ConfirmationModal
+                isOpen={confirmModal.isOpen}
+                onClose={() => setConfirmModal({ isOpen: false, txn: null })}
+                onConfirm={confirmRetryCredit}
+                title="Confirmer le re-crédit"
+                message={`Êtes-vous sûr de vouloir re-créditer la transaction ${confirmModal.txn?.reference} ?`}
+                confirmText="Re-créditer"
+                variant="warning"
+            />
         </div>
     );
 };

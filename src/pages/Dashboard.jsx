@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
     FiDollarSign, FiUsers, FiCreditCard, FiActivity,
-    FiArrowUpRight, FiArrowDownRight, FiPlus, FiGlobe, FiSend, FiMoreVertical
+    FiArrowUpRight, FiArrowDownRight, FiPlus, FiGlobe, FiSend, FiMoreVertical, FiClock
 } from 'react-icons/fi';
 // No charts used currently
 import StatCard from '../components/dashboard/StatCard';
@@ -19,7 +19,8 @@ const Dashboard = () => {
         totalVolume: 0,
         totalUsers: 0,
         totalTransactions: 0,
-        feesCollected: 0
+        feesCollected: 0,
+        pendingKyc: 0
     });
     const [recentTransactions, setRecentTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -31,10 +32,11 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [txData, usersData, statsData] = await Promise.all([
+                const [txData, usersData, statsData, kycData] = await Promise.all([
                     transactionsAPI.getTransactions(),
                     usersAPI.getUsers(),
-                    statsAPI.getAdminStats()
+                    statsAPI.getAdminStats(),
+                    statsAPI.getKycStats()
                 ]);
 
                 const transactions = txData.data || [];
@@ -67,7 +69,8 @@ const Dashboard = () => {
                     totalVolume: statsData.total_volume || transactions.reduce((sum, tx) => sum + parseFloat(tx.amount || 0), 0),
                     totalUsers: statsData.total_users || users.length,
                     totalTransactions: statsData.total_transactions || transactions.length,
-                    feesCollected: statsData.total_fees || 0
+                    feesCollected: statsData.total_fees || 0,
+                    pendingKyc: kycData.pending || 0
                 });
 
                 setCharts({
@@ -129,11 +132,14 @@ const Dashboard = () => {
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${stats.pendingKyc > 0 ? '5' : '4'} gap-5`}>
                 <StatCard title="Volume Total" value={formatCurrency(stats.totalVolume)} icon={FiDollarSign} color="blue" />
                 <StatCard title="Utilisateurs" value={stats.totalUsers.toString()} icon={FiUsers} color="green" />
                 <StatCard title="Transactions" value={stats.totalTransactions.toString()} icon={FiCreditCard} color="yellow" />
                 <StatCard title="Frais Collectés" value={formatCurrency(stats.feesCollected)} icon={FiActivity} color="red" />
+                {stats.pendingKyc > 0 && (
+                    <StatCard title="KYC en attente" value={stats.pendingKyc.toString()} icon={FiClock} color="indigo" />
+                )}
             </div>
 
             <div className="grid grid-cols-1 gap-6">
