@@ -5,7 +5,6 @@ const AggregatorForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
     const [formData, setFormData] = useState({
         name: '',
         code: '',
-        logo: '',
         isActive: true
     });
 
@@ -44,22 +43,6 @@ const AggregatorForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
                     className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50 transition-all uppercase font-mono"
                     placeholder="Ex: FEDAPAY"
                 />
-            </div>
-
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">URL du Logo</label>
-                <input
-                    type="url"
-                    value={formData.logo}
-                    onChange={(e) => setFormData({ ...formData, logo: e.target.value })}
-                    className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-gray-50 transition-all font-body"
-                    placeholder="https://..."
-                />
-                {formData.logo && (
-                    <div className="mt-2 h-10 w-24 rounded border border-gray-200 bg-white p-1 overflow-hidden">
-                        <img src={formData.logo} alt="Preview" className="h-full w-full object-contain" />
-                    </div>
-                )}
             </div>
 
             <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
