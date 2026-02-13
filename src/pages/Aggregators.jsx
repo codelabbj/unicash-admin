@@ -76,7 +76,7 @@ const Aggregators = () => {
 
     const handleToggleStatus = async (aggregator) => {
         try {
-            await aggregatorsAPI.toggleStatus(aggregator.id, aggregator.is_active);
+            await aggregatorsAPI.toggleStatus(aggregator.uid, aggregator.is_active);
             fetchAggregators();
         } catch (error) {
             console.error("Error toggling status:", error);
@@ -86,7 +86,7 @@ const Aggregators = () => {
     const handleSubmit = async (data) => {
         try {
             if (currentAggregator) {
-                await aggregatorsAPI.updateAggregator(currentAggregator.id, data);
+                await aggregatorsAPI.updateAggregator(currentAggregator.uid, data);
             } else {
                 await aggregatorsAPI.createAggregator(data);
             }
@@ -147,7 +147,7 @@ const Aggregators = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {filteredAggregators.map((aggregator) => (
                         <AggregatorCard
-                            key={aggregator.id}
+                            key={aggregator.uid}
                             aggregator={aggregator}
                             onEdit={handleEdit}
                             onToggleStatus={handleToggleStatus}
