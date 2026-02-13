@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FiPlus, FiImage, FiToggleRight } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 import Modal from '../components/common/Modal';
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import BannerCard from '../components/banners/BannerCard';
 import BannerForm from '../components/banners/BannerForm';
 import EmptyState from '../components/common/EmptyState';
 import { bannersAPI } from '../api/banners.api';
+import { formatErrorForDisplay } from '../utils/errorHandler';
 
 const Banners = () => {
     const [banners, setBanners] = useState([]);
@@ -22,7 +24,7 @@ const Banners = () => {
             const response = await bannersAPI.getBanners();
             setBanners(response.data);
         } catch (error) {
-            console.error("Error fetching banners:", error);
+            toast.error(formatErrorForDisplay(error));
         } finally {
             setIsLoading(false);
         }
@@ -51,11 +53,12 @@ const Banners = () => {
         if (bannerToDelete) {
             try {
                 await bannersAPI.deleteBanner(bannerToDelete);
+                toast.success('Bannière supprimée avec succès');
                 fetchBanners();
                 setIsDeleteModalOpen(false);
                 setBannerToDelete(null);
             } catch (error) {
-                console.error("Error deleting banner:", error);
+                toast.error(formatErrorForDisplay(error));
             }
         }
     };
@@ -63,9 +66,10 @@ const Banners = () => {
     const handleToggleStatus = async (banner) => {
         try {
             await bannersAPI.toggleStatus(banner.id, banner.is_active);
+            toast.success('Statut mis à jour');
             fetchBanners();
         } catch (error) {
-            console.error("Error toggling status:", error);
+            toast.error(formatErrorForDisplay(error));
         }
     };
 

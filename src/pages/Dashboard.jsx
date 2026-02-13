@@ -12,6 +12,7 @@ import EmptyState from '../components/common/EmptyState';
 import { transactionsAPI } from '../api/transactions.api';
 import { usersAPI } from '../api/users.api';
 import { statsAPI } from '../api/stats.api';
+import { formatErrorForDisplay } from '../utils/errorHandler';
 
 const Dashboard = () => {
     const navigate = useNavigate();

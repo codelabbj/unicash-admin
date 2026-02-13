@@ -3,6 +3,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FiLock, FiMail, FiShield } from 'react-icons/fi';
+import { formatErrorForDisplay } from '../../utils/errorHandler';
 import logo from '../../assets/Unicash-logo.png';
 
 const AdminLogin = () => {
@@ -21,7 +22,7 @@ const AdminLogin = () => {
             toast.success('Connexion réussie !');
             navigate('/admin/dashboard');
         } catch (err) {
-            toast.error('Identifiants invalides ou erreur serveur.');
+            toast.error(formatErrorForDisplay(err));
         } finally {
             setIsSubmitting(false);
         }

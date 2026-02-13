@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FiSearch, FiDownload, FiUsers } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import UserTable from '../components/users/UserTable';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import EmptyState from '../components/common/EmptyState';
 import UserDetailsModal from '../components/users/UserDetailsModal';
 import { usersAPI } from '../api/users.api';
+import { formatErrorForDisplay } from '../utils/errorHandler';
 
 const Users = () => {
     const [users, setUsers] = useState([]);
