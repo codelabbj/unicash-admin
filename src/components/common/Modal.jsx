@@ -37,12 +37,12 @@ const Modal = ({ isOpen, onClose, title, children, icon, size = 'md' }) => {
 
             {/* Modal Content */}
             <div className={clsx(
-                "relative z-10 w-full transform rounded-3xl bg-white/95 backdrop-blur-xl shadow-2xl transition-all border border-white/60",
+                "relative z-10 w-full transform rounded-3xl bg-white/95 backdrop-blur-xl shadow-2xl transition-all border border-white/60 flex flex-col max-h-[90vh]",
                 "animate-in fade-in zoom-in-95 duration-200",
                 sizeClasses[size]
             )}>
                 {/* Header */}
-                <div className="flex items-center justify-between border-b border-gray-100/50 p-6 pb-4">
+                <div className="flex items-center justify-between border-b border-gray-100/50 p-6 pb-4 shrink-0">
                     <h2 className="text-xl font-bold text-gray-800 flex items-center gap-3 tracking-tight">
                         {icon && (
                             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 shadow-sm">
@@ -60,7 +60,7 @@ const Modal = ({ isOpen, onClose, title, children, icon, size = 'md' }) => {
                 </div>
 
                 {/* Body */}
-                <div className="p-6 pt-2">
+                <div className="p-6 pt-2 overflow-y-auto custom-scrollbar">
                     {children}
                 </div>
             </div>
