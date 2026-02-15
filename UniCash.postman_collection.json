@@ -1605,7 +1605,7 @@
           },
           "response": [
             {
-              "name": "New Request",
+              "name": "Admin User List",
               "originalRequest": {
                 "method": "GET",
                 "header": [],
@@ -1646,20 +1646,28 @@
               "_postman_previewlanguage": null,
               "header": [
                 {
-                  "key": "Date",
-                  "value": "Thu, 04 Dec 2025 19:53:18 GMT"
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
                 },
                 {
-                  "key": "Server",
-                  "value": "WSGIServer/0.2 CPython/3.14.0"
+                  "key": "Date",
+                  "value": "Sat, 14 Feb 2026 09:57:33 GMT"
                 },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 },
                 {
+                  "key": "Content-Length",
+                  "value": "4783"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
                   "key": "Vary",
-                  "value": "Accept"
+                  "value": "Accept, origin"
                 },
                 {
                   "key": "Allow",
@@ -1670,8 +1678,8 @@
                   "value": "DENY"
                 },
                 {
-                  "key": "Content-Length",
-                  "value": "473"
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
                 },
                 {
                   "key": "X-Content-Type-Options",
@@ -1687,7 +1695,7 @@
                 }
               ],
               "cookie": [],
-              "body": "[\n    {\n        \"uid\": \"a385a0b8-7034-4894-ac64-810b8abe392b\",\n        \"email\": \"user@example.com\",\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"phone_number\": \"+221771234567\",\n        \"is_active\": true,\n        \"is_email_verified\": false,\n        \"created_at\": \"2025-12-04T12:53:58.441202Z\",\n        \"last_login\": null\n    },\n    {\n        \"uid\": \"7e965ff8-3cd6-475e-9132-d6249a9d60a3\",\n        \"email\": \"admin@gmail.com\",\n        \"first_name\": \"\",\n        \"last_name\": \"\",\n        \"phone_number\": \"\",\n        \"is_active\": true,\n        \"is_email_verified\": true,\n        \"created_at\": \"2025-12-04T12:04:10.775861Z\",\n        \"last_login\": null\n    }\n]"
+              "body": "{\n    \"count\": 10,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"uid\": \"4882d103-c0ae-4def-be77-71c1238a137b\",\n            \"email\": null,\n            \"first_name\": \"AMSTRONG\",\n            \"last_name\": \"DAH\",\n            \"phone_number\": \"0788407970\",\n            \"status\": \"ACTIVE\",\n            \"transaction_fee_rate\": \"2.95\",\n            \"is_email_verified\": false,\n            \"is_phone_verified\": true,\n            \"profile_image\": null,\n            \"profile_image_url\": null,\n            \"birth_date\": null,\n            \"gender\": null,\n            \"preferences\": {},\n            \"kyc_status\": \"none\",\n            \"kyc_rejection_reason\": null,\n            \"is_active\": true,\n            \"created_at\": \"2026-02-13T14:26:19.161436Z\",\n            \"last_login\": null\n        },\n        {\n            \"uid\": \"4379cc75-cf87-475f-b3f9-24999f459a9b\",\n            \"email\": null,\n            \"first_name\": \"IBRAHIM\",\n            \"last_name\": \"DIABY\",\n            \"phone_number\": \"0787718771\",\n            \"status\": \"ACTIVE\",\n            \"transaction_fee_rate\": \"2.95\",\n            \"is_email_verified\": false,\n            \"is_phone_verified\": true,\n            \"profile_image\": null,\n            \"profile_image_url\": null,\n            \"birth_date\": null,\n            \"gender\": null,\n            \"preferences\": {},\n            \"kyc_status\": \"none\",\n            \"kyc_rejection_reason\": null,\n            \"is_active\": true,\n            \"created_at\": \"2026-02-13T12:46:38.824796Z\",\n            \"last_login\": null\n        },\n        {\n            \"uid\": \"139a7d52-d73a-438b-99d0-e69eee3d74c3\",\n            \"email\": null,\n            \"first_name\": \"saka\",\n            \"last_name\": \"hdhdh\",\n            \"phone_number\": \"0196062441\",\n            \"status\": \"INACTIVE\",\n            \"transaction_fee_rate\": \"2.95\",\n            \"is_email_verified\": false,\n            \"is_phone_verified\": true,\n            \"profile_image\": null,\n            \"profile_image_url\": null,\n            \"birth_date\": null,\n            \"gender\": null,\n            \"preferences\": {},\n            \"kyc_status\": \"approved\",\n            \"kyc_rejection_reason\": null,\n            \"is_active\": false,\n            \"created_at\": \"2026-02-12T17:23:46.322654Z\",\n            \"last_login\": null\n        },\n        {\n            \"uid\": \"b06408a5-a09b-44de-a832-6d5a64262db4\",\n            \"email\": null,\n            \"first_name\": \"sero\",\n            \"last_name\": \"chabi\",\n            \"phone_number\": \"0196062440\",\n            \"status\": \"ACTIVE\",\n            \"transaction_fee_rate\": \"2.95\",\n            \"is_email_verified\": false,\n            \"is_phone_verified\": true,\n            \"profile_image\": null,\n            \"profile_image_url\": null,\n            \"birth_date\": null,\n            \"gender\": null,\n            \"preferences\": {},\n            \"kyc_status\": \"approved\",\n            \"kyc_rejection_reason\": \"\",\n            \"is_active\": true,\n            \"created_at\": \"2026-02-12T16:31:39.974786Z\",\n            \"last_login\": null\n        },\n        {\n            \"uid\": \"c04f0d9d-dced-45bc-8a7e-769ff36734f9\",\n            \"email\": null,\n            \"first_name\": \"Miracle\",\n            \"last_name\": \"Dossou\",\n            \"phone_number\": \"0168021401\",\n            \"status\": \"ACTIVE\",\n            \"transaction_fee_rate\": \"2.95\",\n            \"is_email_verified\": false,\n            \"is_phone_verified\": false,\n            \"profile_image\": null,\n            \"profile_image_url\": null,\n            \"birth_date\": null,\n            \"gender\": null,\n            \"preferences\": {},\n            \"kyc_status\": \"none\",\n            \"kyc_rejection_reason\": null,\n            \"is_active\": true,\n            \"created_at\": \"2026-02-11T18:23:49.501529Z\",\n            \"last_login\": null\n        },\n        {\n            \"uid\": \"af772e8e-040b-4ef2-8b6f-db3f88d279e9\",\n            \"email\": null,\n            \"first_name\": \"Bassiriki\",\n            \"last_name\": \"Diabagate\",\n            \"phone_number\": \"0787590800\",\n            \"status\": \"ACTIVE\",\n            \"transaction_fee_rate\": \"2.95\",\n            \"is_email_verified\": false,\n            \"is_phone_verified\": true,\n            \"profile_image\": null,\n            \"profile_image_url\": null,\n            \"birth_date\": null,\n            \"gender\": null,\n            \"preferences\": {},\n            \"kyc_status\": \"approved\",\n            \"kyc_rejection_reason\": \"\",\n            \"is_active\": true,\n            \"created_at\": \"2026-02-11T00:02:50.180629Z\",\n            \"last_login\": null\n        },\n        {\n            \"uid\": \"15cbd60d-057f-4982-8e4e-63bc9d1b84bf\",\n            \"email\": null,\n            \"first_name\": \"wakilan\",\n            \"last_name\": \"saka\",\n            \"phone_number\": \"0196062447\",\n            \"status\": \"ACTIVE\",\n            \"transaction_fee_rate\": \"2.95\",\n            \"is_email_verified\": false,\n            \"is_phone_verified\": true,\n            \"profile_image\": \"https://api.unicash.ci/media/profiles/1000931220.jpg\",\n            \"profile_image_url\": \"https://api.unicash.ci/media/profiles/1000931220.jpg\",\n            \"birth_date\": null,\n            \"gender\": null,\n            \"preferences\": {},\n            \"kyc_status\": \"pending\",\n            \"kyc_rejection_reason\": \"\",\n            \"is_active\": true,\n            \"created_at\": \"2026-02-10T23:37:00.105353Z\",\n            \"last_login\": null\n        },\n        {\n            \"uid\": \"364c85b4-b549-4d7a-a105-0cb67bdcd856\",\n            \"email\": null,\n            \"first_name\": \"sero\",\n            \"last_name\": \"SAKA\",\n            \"phone_number\": \"0196062448\",\n            \"status\": \"ACTIVE\",\n            \"transaction_fee_rate\": \"2.95\",\n            \"is_email_verified\": false,\n            \"is_phone_verified\": true,\n            \"profile_image\": \"https://api.unicash.ci/media/profiles/MTN-CI.jpg\",\n            \"profile_image_url\": \"https://api.unicash.ci/media/profiles/MTN-CI.jpg\",\n            \"birth_date\": null,\n            \"gender\": null,\n            \"preferences\": {},\n            \"kyc_status\": \"approved\",\n            \"kyc_rejection_reason\": null,\n            \"is_active\": true,\n            \"created_at\": \"2026-02-09T15:19:17.889758Z\",\n            \"last_login\": null\n        },\n        {\n            \"uid\": \"e1722763-2fd0-453f-8923-3927c00b5085\",\n            \"email\": \"admin@gmail.com\",\n            \"first_name\": \"\",\n            \"last_name\": \"\",\n            \"phone_number\": null,\n            \"status\": \"ACTIVE\",\n            \"transaction_fee_rate\": \"3.00\",\n            \"is_email_verified\": true,\n            \"is_phone_verified\": false,\n            \"profile_image\": null,\n            \"profile_image_url\": null,\n            \"birth_date\": null,\n            \"gender\": null,\n            \"preferences\": {},\n            \"kyc_status\": \"none\",\n            \"kyc_rejection_reason\": null,\n            \"is_active\": true,\n            \"created_at\": \"2026-01-09T11:30:15.823695Z\",\n            \"last_login\": \"2026-02-14T07:56:30.768563Z\"\n        },\n        {\n            \"uid\": \"6cfb0ce3-e6ac-42b5-96b4-247738c80931\",\n            \"email\": \"vignonalex179@gmail.com\",\n            \"first_name\": \"\",\n            \"last_name\": \"\",\n            \"phone_number\": \"\",\n            \"status\": \"ACTIVE\",\n            \"transaction_fee_rate\": \"3.00\",\n            \"is_email_verified\": true,\n            \"is_phone_verified\": false,\n            \"profile_image\": null,\n            \"profile_image_url\": null,\n            \"birth_date\": null,\n            \"gender\": null,\n            \"preferences\": {},\n            \"kyc_status\": \"none\",\n            \"kyc_rejection_reason\": null,\n            \"is_active\": true,\n            \"created_at\": \"2026-01-09T11:06:44.309954Z\",\n            \"last_login\": null\n        }\n    ]\n}"
             }
           ]
         },
@@ -1779,6 +1787,208 @@
               ],
               "cookie": [],
               "body": "{\n    \"uid\": \"a385a0b8-7034-4894-ac64-810b8abe392b\",\n    \"email\": \"user@example.com\",\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"phone_number\": \"+221771234567\",\n    \"is_active\": true,\n    \"is_email_verified\": false,\n    \"created_at\": \"2025-12-04T12:53:58.441202Z\",\n    \"last_login\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "block user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/auth/admin/users/{{user_id}}}/block/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "admin",
+                "users",
+                "{{user_id}}}",
+                "block",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "block user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/auth/admin/users/{{user_id}}}/block/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "admin",
+                    "users",
+                    "{{user_id}}}",
+                    "block",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Feb 2026 09:39:29 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "39"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "POST, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"detail\": \"User blocked successfully.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "unblock user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/auth/admin/users/{{user_id}}}/unblock/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "admin",
+                "users",
+                "{{user_id}}}",
+                "unblock",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unblock user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/auth/admin/users/{{user_id}}}/unblock/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "admin",
+                    "users",
+                    "{{user_id}}}",
+                    "unblock",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Feb 2026 09:39:43 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "41"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "POST, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"detail\": \"User unblocked successfully.\"\n}"
             }
           ]
         }
@@ -2563,6 +2773,72 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "transactions commmissions stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/core/admin/stats-detailed/commission-stats/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "admin",
+                "stats-detailed",
+                "commission-stats",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "transactions commmissions graphs stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/core/admin/stats-detailed/chart-data/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "admin",
+                "stats-detailed",
+                "chart-data",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "transactions commmissions months graphs stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/core/admin/stats-detailed/monthly-chart-data/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "admin",
+                "stats-detailed",
+                "monthly-chart-data",
+                ""
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -2614,7 +2890,109 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Admin Transaction List",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/core/admin/transactions/?search=&status=&reference=&source_network__code=&dest_network__code=&ordering=",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "core",
+                    "admin",
+                    "transactions",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": ""
+                    },
+                    {
+                      "key": "status",
+                      "value": ""
+                    },
+                    {
+                      "key": "reference",
+                      "value": ""
+                    },
+                    {
+                      "key": "source_network__code",
+                      "value": ""
+                    },
+                    {
+                      "key": "dest_network__code",
+                      "value": ""
+                    },
+                    {
+                      "key": "ordering",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Feb 2026 10:42:02 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "40709"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"count\": 28,\n    \"next\": \"https://api.unicash.ci/api/core/admin/transactions/?dest_network__code=&ordering=&page=2&reference=&search=&source_network__code=&status=\",\n    \"previous\": null,\n    \"results\": [\n        {\n            \"uid\": \"7cd9c0f3-ee59-4615-8ef7-2ad2618d3c8b\",\n            \"user\": \"af772e8e-040b-4ef2-8b6f-db3f88d279e9\",\n            \"status\": \"DEBIT_INITIATED\",\n            \"amount\": \"515.00\",\n            \"fees\": \"15.00\",\n            \"net_amount\": \"500.00\",\n            \"sender_pays_fees\": true,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"source_number\": \"0596423412\",\n            \"dest_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"dest_number\": \"0787590800\",\n            \"reference\": \"TX-28A476C7116E\",\n            \"external_reference\": \"39ca0605-59fe-474d-a539-97cd3a970eda\",\n            \"payment_link\": null,\n            \"initiated_at\": \"2026-02-14T10:41:29.265453Z\",\n            \"completed_at\": null,\n            \"error_message\": \"\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"b88c9683-e678-44b9-8023-0af27417b296\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"PENDING\",\n                    \"reference\": \"OP-A8D5B6FBED3D4406\",\n                    \"external_reference\": \"39ca0605-59fe-474d-a539-97cd3a970eda\",\n                    \"request_data\": {\n                        \"amount\": \"515.0\",\n                        \"source\": \"0596423412\"\n                    },\n                    \"response_data\": {\n                        \"date\": \"2026-02-14T10:41:28.050Z\",\n                        \"status\": \"PENDING\",\n                        \"message\": \"Accepted\",\n                        \"reference\": \"39ca0605-59fe-474d-a539-97cd3a970eda\",\n                        \"callback_info\": \"\"\n                    },\n                    \"raw_response\": \"{\\\"callback_info\\\":\\\"\\\",\\\"reference\\\":\\\"39ca0605-59fe-474d-a539-97cd3a970eda\\\",\\\"message\\\":\\\"Accepted\\\",\\\"status\\\":\\\"PENDING\\\",\\\"date\\\":\\\"2026-02-14T10:41:28.050Z\\\"}\",\n                    \"webhook_data\": {},\n                    \"error_message\": \"\",\n                    \"created_at\": \"2026-02-14T10:41:27.121759Z\",\n                    \"updated_at\": \"2026-02-14T10:41:29.267447Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-14T10:41:27.040253Z\",\n            \"updated_at\": \"2026-02-14T10:41:29.265612Z\",\n            \"user_phone\": \"0787590800\",\n            \"user_email\": null\n        },\n        {\n            \"uid\": \"82e40afc-4436-4ca3-b682-425304015180\",\n            \"user\": \"af772e8e-040b-4ef2-8b6f-db3f88d279e9\",\n            \"status\": \"CREDIT_FAILED\",\n            \"amount\": \"1000.00\",\n            \"fees\": \"30.00\",\n            \"net_amount\": \"970.00\",\n            \"sender_pays_fees\": false,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"source_number\": \"0596423412\",\n            \"dest_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"dest_number\": \"0787590800\",\n            \"reference\": \"TX-7C5F87EF532B\",\n            \"external_reference\": \"e7938c62-2eed-4c01-a9f5-d8cc3ef35048\",\n            \"payment_link\": null,\n            \"initiated_at\": \"2026-02-14T10:05:42.129762Z\",\n            \"completed_at\": null,\n            \"error_message\": \"Échec du crédit\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"f33fff6d-94b9-4b82-96d7-e5f0095a961f\",\n                    \"operation_type\": \"CREDIT\",\n                    \"status\": \"FAILED\",\n                    \"reference\": \"OP-FED8026E411B4AB8\",\n                    \"external_reference\": \"OP-FED8026E411B4AB8\",\n                    \"request_data\": {\n                        \"dest\": \"0787590800\",\n                        \"amount\": \"970.00\"\n                    },\n                    \"response_data\": {\n                        \"error\": \"Solde insuffisant: 627 XOF < 983 XOF\"\n                    },\n                    \"raw_response\": \"{\\\"error\\\":\\\"Solde insuffisant: 627 XOF < 983 XOF\\\"}\",\n                    \"webhook_data\": {},\n                    \"error_message\": \"Échec du crédit\",\n                    \"created_at\": \"2026-02-14T10:09:20.104639Z\",\n                    \"updated_at\": \"2026-02-14T10:09:20.325691Z\"\n                },\n                {\n                    \"uid\": \"b80836c7-3eb0-4f58-b546-516e2319641d\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"SUCCESS\",\n                    \"reference\": \"OP-00777BDCAB2D4B6D\",\n                    \"external_reference\": \"e7938c62-2eed-4c01-a9f5-d8cc3ef35048\",\n                    \"request_data\": {\n                        \"amount\": \"1000.0\",\n                        \"source\": \"0596423412\"\n                    },\n                    \"response_data\": {\n                        \"date\": \"2026-02-14T10:05:40.106Z\",\n                        \"type\": \"Paiement\",\n                        \"email\": \"client@unicash.com\",\n                        \"amount\": 1000,\n                        \"reason\": \"\",\n                        \"reseau\": \"MTN CI\",\n                        \"status\": \"SUCCESSFUL\",\n                        \"message\": \"Accepted\",\n                        \"order_id\": \"e7938c62-2eed-4c01-a9f5-d8cc3ef35048\",\n                        \"ref_link\": \"\",\n                        \"last_name\": \"\",\n                        \"reference\": \"e7938c62-2eed-4c01-a9f5-d8cc3ef35048\",\n                        \"first_name\": \"\",\n                        \"description\": \"Transaction UniCash - OP-00777BDCAB2D4B6D\",\n                        \"phoneNumber\": 2250596423412,\n                        \"callback_info\": \"\"\n                    },\n                    \"raw_response\": \"{\\\"callback_info\\\":\\\"\\\",\\\"reference\\\":\\\"e7938c62-2eed-4c01-a9f5-d8cc3ef35048\\\",\\\"message\\\":\\\"Accepted\\\",\\\"status\\\":\\\"PENDING\\\",\\\"date\\\":\\\"2026-02-14T10:05:40.106Z\\\"}\",\n                    \"webhook_data\": {\n                        \"date\": \"2026-02-14T10:05:40.106Z\",\n                        \"type\": \"Paiement\",\n                        \"email\": \"client@unicash.com\",\n                        \"amount\": 1000,\n                        \"reason\": \"\",\n                        \"reseau\": \"MTN CI\",\n                        \"status\": \"SUCCESSFUL\",\n                        \"order_id\": \"e7938c62-2eed-4c01-a9f5-d8cc3ef35048\",\n                        \"ref_link\": \"\",\n                        \"last_name\": \"\",\n                        \"reference\": \"e7938c62-2eed-4c01-a9f5-d8cc3ef35048\",\n                        \"first_name\": \"\",\n                        \"description\": \"Transaction UniCash - OP-00777BDCAB2D4B6D\",\n                        \"phoneNumber\": 2250596423412,\n                        \"callback_info\": \"\"\n                    },\n                    \"error_message\": \"\",\n                    \"created_at\": \"2026-02-14T10:05:39.155324Z\",\n                    \"updated_at\": \"2026-02-14T10:09:20.047427Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-14T10:05:39.117155Z\",\n            \"updated_at\": \"2026-02-14T10:09:20.326664Z\",\n            \"user_phone\": \"0787590800\",\n            \"user_email\": null\n        },\n        {\n            \"uid\": \"73963c8d-2e2a-4af2-a1af-845156f07256\",\n            \"user\": \"af772e8e-040b-4ef2-8b6f-db3f88d279e9\",\n            \"status\": \"COMPLETED\",\n            \"amount\": \"2059.00\",\n            \"fees\": \"59.00\",\n            \"net_amount\": \"2000.00\",\n            \"sender_pays_fees\": true,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"source_number\": \"0596423412\",\n            \"dest_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"dest_number\": \"0787590800\",\n            \"reference\": \"TX-BFDA17774476\",\n            \"external_reference\": \"b8ded6d6-b1ef-4d60-9fc6-aece79245651\",\n            \"payment_link\": null,\n            \"initiated_at\": \"2026-02-14T09:53:30.374146Z\",\n            \"completed_at\": \"2026-02-14T09:58:22.811782Z\",\n            \"error_message\": \"\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"3ffea3fd-e81d-4254-908a-8430feb1a3f3\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"SUCCESS\",\n                    \"reference\": \"OP-CB2BDB08844E4C8B\",\n                    \"external_reference\": \"b8ded6d6-b1ef-4d60-9fc6-aece79245651\",\n                    \"request_data\": {\n                        \"amount\": \"2059.0\",\n                        \"source\": \"0596423412\"\n                    },\n                    \"response_data\": {\n                        \"date\": \"2026-02-14T09:53:29.071Z\",\n                        \"type\": \"Paiement\",\n                        \"email\": \"client@unicash.com\",\n                        \"amount\": 2059,\n                        \"reason\": \"\",\n                        \"reseau\": \"MTN CI\",\n                        \"status\": \"SUCCESSFUL\",\n                        \"message\": \"Accepted\",\n                        \"order_id\": \"b8ded6d6-b1ef-4d60-9fc6-aece79245651\",\n                        \"ref_link\": \"\",\n                        \"last_name\": \"\",\n                        \"reference\": \"b8ded6d6-b1ef-4d60-9fc6-aece79245651\",\n                        \"first_name\": \"\",\n                        \"description\": \"Transaction UniCash - OP-CB2BDB08844E4C8B\",\n                        \"phoneNumber\": 2250596423412,\n                        \"callback_info\": \"\"\n                    },\n                    \"raw_response\": \"{\\\"callback_info\\\":\\\"\\\",\\\"reference\\\":\\\"b8ded6d6-b1ef-4d60-9fc6-aece79245651\\\",\\\"message\\\":\\\"Accepted\\\",\\\"status\\\":\\\"PENDING\\\",\\\"date\\\":\\\"2026-02-14T09:53:29.071Z\\\"}\",\n                    \"webhook_data\": {\n                        \"date\": \"2026-02-14T09:53:29.071Z\",\n                        \"type\": \"Paiement\",\n                        \"email\": \"client@unicash.com\",\n                        \"amount\": 2059,\n                        \"reason\": \"\",\n                        \"reseau\": \"MTN CI\",\n                        \"status\": \"SUCCESSFUL\",\n                        \"order_id\": \"b8ded6d6-b1ef-4d60-9fc6-aece79245651\",\n                        \"ref_link\": \"\",\n                        \"last_name\": \"\",\n                        \"reference\": \"b8ded6d6-b1ef-4d60-9fc6-aece79245651\",\n                        \"first_name\": \"\",\n                        \"description\": \"Transaction UniCash - OP-CB2BDB08844E4C8B\",\n                        \"phoneNumber\": 2250596423412,\n                        \"callback_info\": \"\"\n                    },\n                    \"error_message\": \"\",\n                    \"created_at\": \"2026-02-14T09:53:28.025838Z\",\n                    \"updated_at\": \"2026-02-14T09:58:22.377314Z\"\n                },\n                {\n                    \"uid\": \"27a80076-2a1b-48eb-875e-9542c7f86d62\",\n                    \"operation_type\": \"CREDIT\",\n                    \"status\": \"SUCCESS\",\n                    \"reference\": \"OP-5FBD0CD1A2584678\",\n                    \"external_reference\": \"OP-5FBD0CD1A2584678\",\n                    \"request_data\": {\n                        \"dest\": \"0787590800\",\n                        \"amount\": \"2000.00\"\n                    },\n                    \"response_data\": {\n                        \"uid\": \"278e232d-ea10-4deb-b720-ceb90999c9e3\",\n                        \"phone\": \"2250787590800\",\n                        \"amount\": 2000,\n                        \"status\": \"success\",\n                        \"reference\": \"AGG-20260214095822-E66673B1\",\n                        \"created_at\": \"2026-02-14T09:58:22.511789Z\",\n                        \"type_trans\": \"payout\",\n                        \"description\": \"Payout UniCash - OP-5FBD0CD1A2584678\",\n                        \"error_message\": \"\",\n                        \"operator_name\": \"wave\",\n                        \"status_display\": \"Réussie\",\n                        \"redirection_url\": null,\n                        \"client_reference\": \"OP-5FBD0CD1A2584678\",\n                        \"formatted_amount\": \"2,000 XOF\",\n                        \"commission_amount\": 26,\n                        \"type_trans_display\": \"Retrait\",\n                        \"customer_balance_after\": 627\n                    },\n                    \"raw_response\": \"{\\\"uid\\\":\\\"278e232d-ea10-4deb-b720-ceb90999c9e3\\\",\\\"reference\\\":\\\"AGG-20260214095822-E66673B1\\\",\\\"type_trans\\\":\\\"payout\\\",\\\"type_trans_display\\\":\\\"Retrait\\\",\\\"amount\\\":2000,\\\"formatted_amount\\\":\\\"2,000 XOF\\\",\\\"phone\\\":\\\"2250787590800\\\",\\\"status\\\":\\\"success\\\",\\\"status_display\\\":\\\"Réussie\\\",\\\"redirection_url\\\":null,\\\"operator_name\\\":\\\"wave\\\",\\\"description\\\":\\\"Payout UniCash - OP-5FBD0CD1A2584678\\\",\\\"client_reference\\\":\\\"OP-5FBD0CD1A2584678\\\",\\\"commission_amount\\\":26,\\\"customer_balance_after\\\":627,\\\"error_message\\\":\\\"\\\",\\\"created_at\\\":\\\"2026-02-14T09:58:22.511789Z\\\"}\",\n                    \"webhook_data\": {},\n                    \"error_message\": \"\",\n                    \"created_at\": \"2026-02-14T09:58:22.429922Z\",\n                    \"updated_at\": \"2026-02-14T09:58:22.813081Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-14T09:53:27.950866Z\",\n            \"updated_at\": \"2026-02-14T09:58:22.813904Z\",\n            \"user_phone\": \"0787590800\",\n            \"user_email\": null\n        },\n        {\n            \"uid\": \"e795f6f2-bb61-4fca-a60f-451321782de4\",\n            \"user\": \"af772e8e-040b-4ef2-8b6f-db3f88d279e9\",\n            \"status\": \"CREDIT_FAILED\",\n            \"amount\": \"1030.00\",\n            \"fees\": \"30.00\",\n            \"net_amount\": \"1000.00\",\n            \"sender_pays_fees\": true,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"source_number\": \"0787590800\",\n            \"dest_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"dest_number\": \"0596423412\",\n            \"reference\": \"TX-1F6FF6BF1872\",\n            \"external_reference\": \"OP-B80C720338B64B74\",\n            \"payment_link\": \"https://pay.wave.com/c/cos-230ffbt282nmc?a=1030&c=XOF&m=Dgs%20Sarl\",\n            \"initiated_at\": \"2026-02-14T08:08:57.901581Z\",\n            \"completed_at\": null,\n            \"error_message\": \"Solde insuffisant\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"914cbaf7-07be-452d-8b17-23aa13239784\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"SUCCESS\",\n                    \"reference\": \"OP-B80C720338B64B74\",\n                    \"external_reference\": \"OP-B80C720338B64B74\",\n                    \"request_data\": {\n                        \"amount\": \"1030.0\",\n                        \"source\": \"0787590800\"\n                    },\n                    \"response_data\": {\n                        \"uid\": \"8f13a0c2-eac9-44e4-96c8-a83b5759dfa8\",\n                        \"data\": {\n                            \"type\": \"payin\",\n                            \"amount\": 1030,\n                            \"status\": \"success\",\n                            \"reference\": \"AGG-20260214080857-4C886F1B\",\n                            \"created_at\": \"2026-02-14T08:08:57.778839+00:00\",\n                            \"external_id\": \"cos-230ffbt282nmc\",\n                            \"completed_at\": \"2026-02-14T08:09:11.688829+00:00\",\n                            \"error_message\": null,\n                            \"client_reference\": \"OP-B80C720338B64B74\",\n                            \"customer_balance\": 2653\n                        },\n                        \"event\": \"transaction.processing\",\n                        \"phone\": \"2250787590800\",\n                        \"amount\": 1030,\n                        \"status\": \"processing\",\n                        \"reference\": \"AGG-20260214080857-4C886F1B\",\n                        \"timestamp\": \"2026-02-14T08:09:16.729378+00:00\",\n                        \"created_at\": \"2026-02-14T08:08:57.778839Z\",\n                        \"type_trans\": \"payin\",\n                        \"description\": \"Transaction UniCash - OP-B80C720338B64B74\",\n                        \"error_message\": \"\",\n                        \"operator_name\": \"wave\",\n                        \"status_display\": \"En cours\",\n                        \"redirection_url\": \"https://pay.wave.com/c/cos-230ffbt282nmc?a=1030&c=XOF&m=Dgs%20Sarl\",\n                        \"client_reference\": \"OP-B80C720338B64B74\",\n                        \"formatted_amount\": \"1,030 XOF\",\n                        \"commission_amount\": 13,\n                        \"type_trans_display\": \"Dépôt\",\n                        \"customer_balance_after\": null\n                    },\n                    \"raw_response\": \"{\\\"uid\\\":\\\"8f13a0c2-eac9-44e4-96c8-a83b5759dfa8\\\",\\\"reference\\\":\\\"AGG-20260214080857-4C886F1B\\\",\\\"type_trans\\\":\\\"payin\\\",\\\"type_trans_display\\\":\\\"Dépôt\\\",\\\"amount\\\":1030,\\\"formatted_amount\\\":\\\"1,030 XOF\\\",\\\"phone\\\":\\\"2250787590800\\\",\\\"status\\\":\\\"processing\\\",\\\"status_display\\\":\\\"En cours\\\",\\\"redirection_url\\\":\\\"https://pay.wave.com/c/cos-230ffbt282nmc?a=1030&c=XOF&m=Dgs%20Sarl\\\",\\\"operator_name\\\":\\\"wave\\\",\\\"description\\\":\\\"Transaction UniCash - OP-B80C720338B64B74\\\",\\\"client_reference\\\":\\\"OP-B80C720338B64B74\\\",\\\"commission_amount\\\":13,\\\"customer_balance_after\\\":null,\\\"error_message\\\":\\\"\\\",\\\"created_at\\\":\\\"2026-02-14T08:08:57.778839Z\\\"}\",\n                    \"webhook_data\": {\n                        \"data\": {\n                            \"type\": \"payin\",\n                            \"amount\": 1030,\n                            \"status\": \"success\",\n                            \"reference\": \"AGG-20260214080857-4C886F1B\",\n                            \"created_at\": \"2026-02-14T08:08:57.778839+00:00\",\n                            \"external_id\": \"cos-230ffbt282nmc\",\n                            \"completed_at\": \"2026-02-14T08:09:11.688829+00:00\",\n                            \"error_message\": null,\n                            \"client_reference\": \"OP-B80C720338B64B74\",\n                            \"customer_balance\": 2653\n                        },\n                        \"event\": \"transaction.processing\",\n                        \"timestamp\": \"2026-02-14T08:09:16.729378+00:00\"\n                    },\n                    \"error_message\": \"\",\n                    \"created_at\": \"2026-02-14T08:08:57.563962Z\",\n                    \"updated_at\": \"2026-02-14T08:09:16.891852Z\"\n                },\n                {\n                    \"uid\": \"7bfa819c-6cc9-4a6a-aa5d-538ab4be0d5d\",\n                    \"operation_type\": \"CREDIT\",\n                    \"status\": \"FAILED\",\n                    \"reference\": \"OP-5471A4DEE6BD44EC\",\n                    \"external_reference\": \"OP-5471A4DEE6BD44EC\",\n                    \"request_data\": {\n                        \"dest\": \"0596423412\",\n                        \"amount\": \"1000.00\"\n                    },\n                    \"response_data\": {\n                        \"code\": 400,\n                        \"status\": \"FAILED\",\n                        \"message\": \"Solde insuffisant\",\n                        \"description\": \"Paiement UniCash\"\n                    },\n                    \"raw_response\": \"{\\\"code\\\":400,\\\"status\\\":\\\"FAILED\\\",\\\"message\\\":\\\"Solde insuffisant\\\",\\\"description\\\":\\\"Paiement UniCash\\\"}\",\n                    \"webhook_data\": {},\n                    \"error_message\": \"Solde insuffisant\",\n                    \"created_at\": \"2026-02-14T08:09:16.927665Z\",\n                    \"updated_at\": \"2026-02-14T08:09:56.570888Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-14T08:08:57.545594Z\",\n            \"updated_at\": \"2026-02-14T08:09:56.572242Z\",\n            \"user_phone\": \"0787590800\",\n            \"user_email\": null\n        },\n        {\n            \"uid\": \"80e59400-e9c5-49e6-8221-13bb4f70155a\",\n            \"user\": \"af772e8e-040b-4ef2-8b6f-db3f88d279e9\",\n            \"status\": \"DEBIT_FAILED\",\n            \"amount\": \"1280.00\",\n            \"fees\": \"38.00\",\n            \"net_amount\": \"1242.00\",\n            \"sender_pays_fees\": false,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"source_number\": \"0196062447\",\n            \"dest_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"dest_number\": \"0196062448\",\n            \"reference\": \"TX-A4A3EBE093A2\",\n            \"external_reference\": \"07ba274d-f801-4546-a021-f139ccd15c5f\",\n            \"payment_link\": null,\n            \"initiated_at\": \"2026-02-14T08:00:02.475107Z\",\n            \"completed_at\": null,\n            \"error_message\": \"Debit failed\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"8ea0e9ce-2c24-467b-bd31-0819319c89e8\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"FAILED\",\n                    \"reference\": \"OP-431A1DF8DAF54118\",\n                    \"external_reference\": \"07ba274d-f801-4546-a021-f139ccd15c5f\",\n                    \"request_data\": {\n                        \"amount\": \"1280.0\",\n                        \"source\": \"0196062447\"\n                    },\n                    \"response_data\": {\n                        \"date\": \"2026-02-14T08:00:01.088Z\",\n                        \"type\": \"Paiement\",\n                        \"email\": \"client@unicash.com\",\n                        \"amount\": 1280,\n                        \"reason\": \"PAYER_NOT_FOUND\",\n                        \"reseau\": \"MTN CI\",\n                        \"status\": \"FAILED\",\n                        \"message\": \"Accepted\",\n                        \"order_id\": \"07ba274d-f801-4546-a021-f139ccd15c5f\",\n                        \"ref_link\": \"\",\n                        \"last_name\": \"\",\n                        \"reference\": \"07ba274d-f801-4546-a021-f139ccd15c5f\",\n                        \"first_name\": \"\",\n                        \"description\": \"Transaction UniCash - OP-431A1DF8DAF54118\",\n                        \"phoneNumber\": 2250196062447,\n                        \"callback_info\": \"\"\n                    },\n                    \"raw_response\": \"{\\\"callback_info\\\":\\\"\\\",\\\"reference\\\":\\\"07ba274d-f801-4546-a021-f139ccd15c5f\\\",\\\"message\\\":\\\"Accepted\\\",\\\"status\\\":\\\"PENDING\\\",\\\"date\\\":\\\"2026-02-14T08:00:01.088Z\\\"}\",\n                    \"webhook_data\": {\n                        \"date\": \"2026-02-14T08:00:01.088Z\",\n                        \"type\": \"Paiement\",\n                        \"email\": \"client@unicash.com\",\n                        \"amount\": 1280,\n                        \"reason\": \"PAYER_NOT_FOUND\",\n                        \"reseau\": \"MTN CI\",\n                        \"status\": \"FAILED\",\n                        \"order_id\": \"07ba274d-f801-4546-a021-f139ccd15c5f\",\n                        \"ref_link\": \"\",\n                        \"last_name\": \"\",\n                        \"reference\": \"07ba274d-f801-4546-a021-f139ccd15c5f\",\n                        \"first_name\": \"\",\n                        \"description\": \"Transaction UniCash - OP-431A1DF8DAF54118\",\n                        \"phoneNumber\": 2250196062447,\n                        \"callback_info\": \"\"\n                    },\n                    \"error_message\": \"Debit failed\",\n                    \"created_at\": \"2026-02-14T07:59:59.771090Z\",\n                    \"updated_at\": \"2026-02-14T08:00:27.795235Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-14T07:59:59.686749Z\",\n            \"updated_at\": \"2026-02-14T08:00:27.797827Z\",\n            \"user_phone\": \"0787590800\",\n            \"user_email\": null\n        },\n        {\n            \"uid\": \"16eff645-ab02-4aee-b11d-a4bfabfabe46\",\n            \"user\": \"4379cc75-cf87-475f-b3f9-24999f459a9b\",\n            \"status\": \"COMPLETED\",\n            \"amount\": \"1030.00\",\n            \"fees\": \"30.00\",\n            \"net_amount\": \"1000.00\",\n            \"sender_pays_fees\": true,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"source_number\": \"0574000058\",\n            \"dest_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"dest_number\": \"0574000058\",\n            \"reference\": \"TX-408FC69AD16B\",\n            \"external_reference\": \"f77a4927-96b8-461d-824e-3fd08bfc4e52\",\n            \"payment_link\": null,\n            \"initiated_at\": \"2026-02-13T13:36:42.676560Z\",\n            \"completed_at\": \"2026-02-13T13:38:16.832080Z\",\n            \"error_message\": \"\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"c728f01b-a4fc-423f-aef2-0c6a2102531a\",\n                    \"operation_type\": \"CREDIT\",\n                    \"status\": \"SUCCESS\",\n                    \"reference\": \"OP-30018FA3F42F4FA5\",\n                    \"external_reference\": \"OP-30018FA3F42F4FA5\",\n                    \"request_data\": {\n                        \"dest\": \"0574000058\",\n                        \"amount\": \"1000.00\"\n                    },\n                    \"response_data\": {\n                        \"uid\": \"033f4581-629b-4b99-87df-e0a2c3e45035\",\n                        \"phone\": \"2250574000058\",\n                        \"amount\": 1000,\n                        \"status\": \"success\",\n                        \"reference\": \"AGG-20260213133816-28F7A775\",\n                        \"created_at\": \"2026-02-13T13:38:16.532117Z\",\n                        \"type_trans\": \"payout\",\n                        \"description\": \"Payout UniCash - OP-30018FA3F42F4FA5\",\n                        \"error_message\": \"\",\n                        \"operator_name\": \"wave\",\n                        \"status_display\": \"Réussie\",\n                        \"redirection_url\": null,\n                        \"client_reference\": \"OP-30018FA3F42F4FA5\",\n                        \"formatted_amount\": \"1,000 XOF\",\n                        \"commission_amount\": 13,\n                        \"type_trans_display\": \"Retrait\",\n                        \"customer_balance_after\": 1636\n                    },\n                    \"raw_response\": \"{\\\"uid\\\":\\\"033f4581-629b-4b99-87df-e0a2c3e45035\\\",\\\"reference\\\":\\\"AGG-20260213133816-28F7A775\\\",\\\"type_trans\\\":\\\"payout\\\",\\\"type_trans_display\\\":\\\"Retrait\\\",\\\"amount\\\":1000,\\\"formatted_amount\\\":\\\"1,000 XOF\\\",\\\"phone\\\":\\\"2250574000058\\\",\\\"status\\\":\\\"success\\\",\\\"status_display\\\":\\\"Réussie\\\",\\\"redirection_url\\\":null,\\\"operator_name\\\":\\\"wave\\\",\\\"description\\\":\\\"Payout UniCash - OP-30018FA3F42F4FA5\\\",\\\"client_reference\\\":\\\"OP-30018FA3F42F4FA5\\\",\\\"commission_amount\\\":13,\\\"customer_balance_after\\\":1636,\\\"error_message\\\":\\\"\\\",\\\"created_at\\\":\\\"2026-02-13T13:38:16.532117Z\\\"}\",\n                    \"webhook_data\": {},\n                    \"error_message\": \"\",\n                    \"created_at\": \"2026-02-13T13:38:16.454624Z\",\n                    \"updated_at\": \"2026-02-13T13:38:16.832301Z\"\n                },\n                {\n                    \"uid\": \"86063b4b-cc54-40f7-bf58-3ad7ec376b49\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"SUCCESS\",\n                    \"reference\": \"OP-8044BE6B0DDB4BAF\",\n                    \"external_reference\": \"f77a4927-96b8-461d-824e-3fd08bfc4e52\",\n                    \"request_data\": {\n                        \"amount\": \"1030\",\n                        \"source\": \"0574000058\"\n                    },\n                    \"response_data\": {\n                        \"date\": \"2026-02-13T13:36:41.583Z\",\n                        \"type\": \"Paiement\",\n                        \"email\": \"client@unicash.com\",\n                        \"amount\": 1030,\n                        \"reason\": \"\",\n                        \"reseau\": \"MTN CI\",\n                        \"status\": \"SUCCESSFUL\",\n                        \"message\": \"Accepted\",\n                        \"order_id\": \"f77a4927-96b8-461d-824e-3fd08bfc4e52\",\n                        \"ref_link\": \"\",\n                        \"last_name\": \"\",\n                        \"reference\": \"f77a4927-96b8-461d-824e-3fd08bfc4e52\",\n                        \"first_name\": \"\",\n                        \"description\": \"Transaction UniCash - OP-8044BE6B0DDB4BAF\",\n                        \"phoneNumber\": 2250574000058,\n                        \"callback_info\": \"\"\n                    },\n                    \"raw_response\": \"{\\\"callback_info\\\":\\\"\\\",\\\"reference\\\":\\\"f77a4927-96b8-461d-824e-3fd08bfc4e52\\\",\\\"message\\\":\\\"Accepted\\\",\\\"status\\\":\\\"PENDING\\\",\\\"date\\\":\\\"2026-02-13T13:36:41.583Z\\\"}\",\n                    \"webhook_data\": {\n                        \"date\": \"2026-02-13T13:36:41.583Z\",\n                        \"type\": \"Paiement\",\n                        \"email\": \"client@unicash.com\",\n                        \"amount\": 1030,\n                        \"reason\": \"\",\n                        \"reseau\": \"MTN CI\",\n                        \"status\": \"SUCCESSFUL\",\n                        \"order_id\": \"f77a4927-96b8-461d-824e-3fd08bfc4e52\",\n                        \"ref_link\": \"\",\n                        \"last_name\": \"\",\n                        \"reference\": \"f77a4927-96b8-461d-824e-3fd08bfc4e52\",\n                        \"first_name\": \"\",\n                        \"description\": \"Transaction UniCash - OP-8044BE6B0DDB4BAF\",\n                        \"phoneNumber\": 2250574000058,\n                        \"callback_info\": \"\"\n                    },\n                    \"error_message\": \"\",\n                    \"created_at\": \"2026-02-13T13:36:40.423399Z\",\n                    \"updated_at\": \"2026-02-13T13:38:16.429640Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-13T13:36:40.299632Z\",\n            \"updated_at\": \"2026-02-13T13:38:16.833606Z\",\n            \"user_phone\": \"0787718771\",\n            \"user_email\": null\n        },\n        {\n            \"uid\": \"db7b93cf-4653-4761-afc1-f1ab3fc81873\",\n            \"user\": \"af772e8e-040b-4ef2-8b6f-db3f88d279e9\",\n            \"status\": \"COMPLETED\",\n            \"amount\": \"309.00\",\n            \"fees\": \"9.00\",\n            \"net_amount\": \"300.00\",\n            \"sender_pays_fees\": true,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"source_number\": \"0596423412\",\n            \"dest_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"dest_number\": \"0787590800\",\n            \"reference\": \"TX-146310D90A05\",\n            \"external_reference\": \"b79b12ca-fc99-4376-b72a-6e25ca0d8dd1\",\n            \"payment_link\": null,\n            \"initiated_at\": \"2026-02-12T09:15:49.621335Z\",\n            \"completed_at\": \"2026-02-12T09:20:17.490057Z\",\n            \"error_message\": \"\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"de26b9b6-e583-42a2-aa46-bf2459318144\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"SUCCESS\",\n                    \"reference\": \"OP-BFB2FAA47F1045E2\",\n                    \"external_reference\": \"b79b12ca-fc99-4376-b72a-6e25ca0d8dd1\",\n                    \"request_data\": {\n                        \"amount\": \"309\",\n                        \"source\": \"0596423412\"\n                    },\n                    \"response_data\": {\n                        \"date\": \"2026-02-12T09:15:48.397Z\",\n                        \"type\": \"Paiement\",\n                        \"email\": \"client@unicash.com\",\n                        \"amount\": 309,\n                        \"reason\": \"\",\n                        \"reseau\": \"MTN CI\",\n                        \"status\": \"SUCCESSFUL\",\n                        \"message\": \"Accepted\",\n                        \"order_id\": \"b79b12ca-fc99-4376-b72a-6e25ca0d8dd1\",\n                        \"ref_link\": \"\",\n                        \"last_name\": \"\",\n                        \"reference\": \"b79b12ca-fc99-4376-b72a-6e25ca0d8dd1\",\n                        \"first_name\": \"\",\n                        \"description\": \"Transaction UniCash - OP-BFB2FAA47F1045E2\",\n                        \"phoneNumber\": 2250596423412,\n                        \"callback_info\": \"\"\n                    },\n                    \"raw_response\": \"{\\\"callback_info\\\":\\\"\\\",\\\"reference\\\":\\\"b79b12ca-fc99-4376-b72a-6e25ca0d8dd1\\\",\\\"message\\\":\\\"Accepted\\\",\\\"status\\\":\\\"PENDING\\\",\\\"date\\\":\\\"2026-02-12T09:15:48.397Z\\\"}\",\n                    \"webhook_data\": {\n                        \"date\": \"2026-02-12T09:15:48.397Z\",\n                        \"type\": \"Paiement\",\n                        \"email\": \"client@unicash.com\",\n                        \"amount\": 309,\n                        \"reason\": \"\",\n                        \"reseau\": \"MTN CI\",\n                        \"status\": \"SUCCESSFUL\",\n                        \"order_id\": \"b79b12ca-fc99-4376-b72a-6e25ca0d8dd1\",\n                        \"ref_link\": \"\",\n                        \"last_name\": \"\",\n                        \"reference\": \"b79b12ca-fc99-4376-b72a-6e25ca0d8dd1\",\n                        \"first_name\": \"\",\n                        \"description\": \"Transaction UniCash - OP-BFB2FAA47F1045E2\",\n                        \"phoneNumber\": 2250596423412,\n                        \"callback_info\": \"\"\n                    },\n                    \"error_message\": \"\",\n                    \"created_at\": \"2026-02-12T09:15:47.281049Z\",\n                    \"updated_at\": \"2026-02-12T09:20:16.915455Z\"\n                },\n                {\n                    \"uid\": \"15bc3d11-6676-43de-9e9d-5145e34b85fd\",\n                    \"operation_type\": \"CREDIT\",\n                    \"status\": \"SUCCESS\",\n                    \"reference\": \"OP-791E168B66224909\",\n                    \"external_reference\": \"OP-791E168B66224909\",\n                    \"request_data\": {\n                        \"dest\": \"0787590800\",\n                        \"amount\": \"300.00\"\n                    },\n                    \"response_data\": {\n                        \"uid\": \"59dc06b8-489a-45e1-87c2-1be5da62d084\",\n                        \"phone\": \"2250787590800\",\n                        \"amount\": 300,\n                        \"status\": \"success\",\n                        \"reference\": \"AGG-20260212092017-CE26C08D\",\n                        \"created_at\": \"2026-02-12T09:20:17.119721Z\",\n                        \"type_trans\": \"payout\",\n                        \"description\": \"Payout UniCash - OP-791E168B66224909\",\n                        \"error_message\": \"\",\n                        \"operator_name\": \"wave\",\n                        \"status_display\": \"Réussie\",\n                        \"redirection_url\": null,\n                        \"client_reference\": \"OP-791E168B66224909\",\n                        \"formatted_amount\": \"300 XOF\",\n                        \"commission_amount\": 4,\n                        \"type_trans_display\": \"Retrait\",\n                        \"customer_balance_after\": 2649\n                    },\n                    \"raw_response\": \"{\\\"uid\\\":\\\"59dc06b8-489a-45e1-87c2-1be5da62d084\\\",\\\"reference\\\":\\\"AGG-20260212092017-CE26C08D\\\",\\\"type_trans\\\":\\\"payout\\\",\\\"type_trans_display\\\":\\\"Retrait\\\",\\\"amount\\\":300,\\\"formatted_amount\\\":\\\"300 XOF\\\",\\\"phone\\\":\\\"2250787590800\\\",\\\"status\\\":\\\"success\\\",\\\"status_display\\\":\\\"Réussie\\\",\\\"redirection_url\\\":null,\\\"operator_name\\\":\\\"wave\\\",\\\"description\\\":\\\"Payout UniCash - OP-791E168B66224909\\\",\\\"client_reference\\\":\\\"OP-791E168B66224909\\\",\\\"commission_amount\\\":4,\\\"customer_balance_after\\\":2649,\\\"error_message\\\":\\\"\\\",\\\"created_at\\\":\\\"2026-02-12T09:20:17.119721Z\\\"}\",\n                    \"webhook_data\": {},\n                    \"error_message\": \"\",\n                    \"created_at\": \"2026-02-12T09:20:17.042951Z\",\n                    \"updated_at\": \"2026-02-12T09:20:17.491554Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-12T09:15:47.046160Z\",\n            \"updated_at\": \"2026-02-12T09:20:17.492940Z\",\n            \"user_phone\": \"0787590800\",\n            \"user_email\": null\n        },\n        {\n            \"uid\": \"a8164c34-2bcc-48b6-8fb6-bcea2a755c2b\",\n            \"user\": \"364c85b4-b549-4d7a-a105-0cb67bdcd856\",\n            \"status\": \"DEBIT_FAILED\",\n            \"amount\": \"1030.00\",\n            \"fees\": \"30.00\",\n            \"net_amount\": \"1000.00\",\n            \"sender_pays_fees\": true,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"source_number\": \"0196969696\",\n            \"dest_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"dest_number\": \"0199999999\",\n            \"reference\": \"TX-53895BDFFCAB\",\n            \"external_reference\": \"45dab7f7-0ea2-469a-9807-deafd68dd5ab\",\n            \"payment_link\": null,\n            \"initiated_at\": \"2026-02-12T08:25:21.042551Z\",\n            \"completed_at\": null,\n            \"error_message\": \"Debit failed\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"0061a0d0-c99f-4796-8f0f-83d2e6551545\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"FAILED\",\n                    \"reference\": \"OP-8E110C9E04804A8F\",\n                    \"external_reference\": \"45dab7f7-0ea2-469a-9807-deafd68dd5ab\",\n                    \"request_data\": {\n                        \"amount\": \"1030.0\",\n                        \"source\": \"0196969696\"\n                    },\n                    \"response_data\": {\n                        \"date\": \"2026-02-12T08:25:19.888Z\",\n                        \"type\": \"Paiement\",\n                        \"email\": \"client@unicash.com\",\n                        \"amount\": 1030,\n                        \"reason\": \"PAYER_NOT_FOUND\",\n                        \"reseau\": \"MTN CI\",\n                        \"status\": \"FAILED\",\n                        \"message\": \"Accepted\",\n                        \"order_id\": \"45dab7f7-0ea2-469a-9807-deafd68dd5ab\",\n                        \"ref_link\": \"\",\n                        \"last_name\": \"\",\n                        \"reference\": \"45dab7f7-0ea2-469a-9807-deafd68dd5ab\",\n                        \"first_name\": \"\",\n                        \"description\": \"Transaction UniCash - OP-8E110C9E04804A8F\",\n                        \"phoneNumber\": 2250196969696,\n                        \"callback_info\": \"\"\n                    },\n                    \"raw_response\": \"{\\\"callback_info\\\":\\\"\\\",\\\"reference\\\":\\\"45dab7f7-0ea2-469a-9807-deafd68dd5ab\\\",\\\"message\\\":\\\"Accepted\\\",\\\"status\\\":\\\"PENDING\\\",\\\"date\\\":\\\"2026-02-12T08:25:19.888Z\\\"}\",\n                    \"webhook_data\": {\n                        \"date\": \"2026-02-12T08:25:19.888Z\",\n                        \"type\": \"Paiement\",\n                        \"email\": \"client@unicash.com\",\n                        \"amount\": 1030,\n                        \"reason\": \"PAYER_NOT_FOUND\",\n                        \"reseau\": \"MTN CI\",\n                        \"status\": \"FAILED\",\n                        \"order_id\": \"45dab7f7-0ea2-469a-9807-deafd68dd5ab\",\n                        \"ref_link\": \"\",\n                        \"last_name\": \"\",\n                        \"reference\": \"45dab7f7-0ea2-469a-9807-deafd68dd5ab\",\n                        \"first_name\": \"\",\n                        \"description\": \"Transaction UniCash - OP-8E110C9E04804A8F\",\n                        \"phoneNumber\": 2250196969696,\n                        \"callback_info\": \"\"\n                    },\n                    \"error_message\": \"Debit failed\",\n                    \"created_at\": \"2026-02-12T08:25:18.804197Z\",\n                    \"updated_at\": \"2026-02-12T08:26:25.304707Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-12T08:25:18.787008Z\",\n            \"updated_at\": \"2026-02-12T08:26:25.306136Z\",\n            \"user_phone\": \"0196062448\",\n            \"user_email\": null\n        },\n        {\n            \"uid\": \"5eb9cc0f-c77e-48e1-86db-51eb496f0a4e\",\n            \"user\": \"15cbd60d-057f-4982-8e4e-63bc9d1b84bf\",\n            \"status\": \"DEBIT_FAILED\",\n            \"amount\": \"211.00\",\n            \"fees\": \"7.00\",\n            \"net_amount\": \"204.00\",\n            \"sender_pays_fees\": false,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"source_number\": \"0196062225\",\n            \"dest_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"dest_number\": \"0196969696\",\n            \"reference\": \"TX-696DFE5C5E7B\",\n            \"external_reference\": \"OP-4E525E21561D4606\",\n            \"payment_link\": \"https://pay.wave.com/c/cos-22yxvw7yr2avc?a=211&c=XOF&m=Dgs%20Sarl\",\n            \"initiated_at\": \"2026-02-11T22:21:02.883288Z\",\n            \"completed_at\": null,\n            \"error_message\": \"Transaction failed\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"f7c1cad6-1a88-4ab8-8e5b-b71c6b092ef2\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"FAILED\",\n                    \"reference\": \"OP-4E525E21561D4606\",\n                    \"external_reference\": \"OP-4E525E21561D4606\",\n                    \"request_data\": {\n                        \"amount\": \"211.0\",\n                        \"source\": \"0196062225\"\n                    },\n                    \"response_data\": {\n                        \"uid\": \"916749fa-37d7-4ed2-9755-d5e1ceb2e2ba\",\n                        \"data\": {\n                            \"type\": \"payin\",\n                            \"amount\": 211,\n                            \"status\": \"failed\",\n                            \"reference\": \"AGG-20260211222102-72205C9E\",\n                            \"created_at\": \"2026-02-11T22:21:02.760711+00:00\",\n                            \"external_id\": \"cos-22yxvw7yr2avc\",\n                            \"completed_at\": \"2026-02-11T23:00:00.603382+00:00\",\n                            \"error_message\": \"Transaction failed\",\n                            \"client_reference\": \"OP-4E525E21561D4606\",\n                            \"customer_balance\": null\n                        },\n                        \"event\": \"transaction.processing\",\n                        \"phone\": \"2250196062225\",\n                        \"amount\": 211,\n                        \"status\": \"processing\",\n                        \"reference\": \"AGG-20260211222102-72205C9E\",\n                        \"timestamp\": \"2026-02-11T23:00:05.849123+00:00\",\n                        \"created_at\": \"2026-02-11T22:21:02.760711Z\",\n                        \"type_trans\": \"payin\",\n                        \"description\": \"Transaction UniCash - OP-4E525E21561D4606\",\n                        \"error_message\": \"\",\n                        \"operator_name\": \"wave\",\n                        \"status_display\": \"En cours\",\n                        \"redirection_url\": \"https://pay.wave.com/c/cos-22yxvw7yr2avc?a=211&c=XOF&m=Dgs%20Sarl\",\n                        \"client_reference\": \"OP-4E525E21561D4606\",\n                        \"formatted_amount\": \"211 XOF\",\n                        \"commission_amount\": 3,\n                        \"type_trans_display\": \"Dépôt\",\n                        \"customer_balance_after\": null\n                    },\n                    \"raw_response\": \"{\\\"uid\\\":\\\"916749fa-37d7-4ed2-9755-d5e1ceb2e2ba\\\",\\\"reference\\\":\\\"AGG-20260211222102-72205C9E\\\",\\\"type_trans\\\":\\\"payin\\\",\\\"type_trans_display\\\":\\\"Dépôt\\\",\\\"amount\\\":211,\\\"formatted_amount\\\":\\\"211 XOF\\\",\\\"phone\\\":\\\"2250196062225\\\",\\\"status\\\":\\\"processing\\\",\\\"status_display\\\":\\\"En cours\\\",\\\"redirection_url\\\":\\\"https://pay.wave.com/c/cos-22yxvw7yr2avc?a=211&c=XOF&m=Dgs%20Sarl\\\",\\\"operator_name\\\":\\\"wave\\\",\\\"description\\\":\\\"Transaction UniCash - OP-4E525E21561D4606\\\",\\\"client_reference\\\":\\\"OP-4E525E21561D4606\\\",\\\"commission_amount\\\":3,\\\"customer_balance_after\\\":null,\\\"error_message\\\":\\\"\\\",\\\"created_at\\\":\\\"2026-02-11T22:21:02.760711Z\\\"}\",\n                    \"webhook_data\": {\n                        \"data\": {\n                            \"type\": \"payin\",\n                            \"amount\": 211,\n                            \"status\": \"failed\",\n                            \"reference\": \"AGG-20260211222102-72205C9E\",\n                            \"created_at\": \"2026-02-11T22:21:02.760711+00:00\",\n                            \"external_id\": \"cos-22yxvw7yr2avc\",\n                            \"completed_at\": \"2026-02-11T23:00:00.603382+00:00\",\n                            \"error_message\": \"Transaction failed\",\n                            \"client_reference\": \"OP-4E525E21561D4606\",\n                            \"customer_balance\": null\n                        },\n                        \"event\": \"transaction.processing\",\n                        \"timestamp\": \"2026-02-11T23:00:05.849123+00:00\"\n                    },\n                    \"error_message\": \"Transaction failed\",\n                    \"created_at\": \"2026-02-11T22:21:02.685990Z\",\n                    \"updated_at\": \"2026-02-11T23:00:06.264626Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-11T22:21:02.676506Z\",\n            \"updated_at\": \"2026-02-11T23:00:06.266472Z\",\n            \"user_phone\": \"0196062447\",\n            \"user_email\": null\n        },\n        {\n            \"uid\": \"e3d1faf1-fab0-4193-a19a-32e6f1b6932f\",\n            \"user\": \"15cbd60d-057f-4982-8e4e-63bc9d1b84bf\",\n            \"status\": \"DEBIT_FAILED\",\n            \"amount\": \"218.00\",\n            \"fees\": \"7.00\",\n            \"net_amount\": \"211.00\",\n            \"sender_pays_fees\": true,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"source_number\": \"0196062225\",\n            \"dest_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"dest_number\": \"0196969696\",\n            \"reference\": \"TX-C4B229285C30\",\n            \"external_reference\": \"OP-A4793E1078AF4B81\",\n            \"payment_link\": \"https://pay.wave.com/c/cos-22yxvgbqr283r?a=218&c=XOF&m=Dgs%20Sarl\",\n            \"initiated_at\": \"2026-02-11T22:20:14.202270Z\",\n            \"completed_at\": null,\n            \"error_message\": \"Transaction failed\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"aa95a45a-2b93-4ec1-92fd-c0589e81534c\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"FAILED\",\n                    \"reference\": \"OP-A4793E1078AF4B81\",\n                    \"external_reference\": \"OP-A4793E1078AF4B81\",\n                    \"request_data\": {\n                        \"amount\": \"218.0\",\n                        \"source\": \"0196062225\"\n                    },\n                    \"response_data\": {\n                        \"uid\": \"5570074f-c6e7-41c9-97f9-333fb8863e10\",\n                        \"data\": {\n                            \"type\": \"payin\",\n                            \"amount\": 218,\n                            \"status\": \"failed\",\n                            \"reference\": \"AGG-20260211222014-C73FA4C6\",\n                            \"created_at\": \"2026-02-11T22:20:14.091309+00:00\",\n                            \"external_id\": \"cos-22yxvgbqr283r\",\n                            \"completed_at\": \"2026-02-11T23:00:00.704437+00:00\",\n                            \"error_message\": \"Transaction failed\",\n                            \"client_reference\": \"OP-A4793E1078AF4B81\",\n                            \"customer_balance\": null\n                        },\n                        \"event\": \"transaction.processing\",\n                        \"phone\": \"2250196062225\",\n                        \"amount\": 218,\n                        \"status\": \"processing\",\n                        \"reference\": \"AGG-20260211222014-C73FA4C6\",\n                        \"timestamp\": \"2026-02-11T23:00:06.050555+00:00\",\n                        \"created_at\": \"2026-02-11T22:20:14.091309Z\",\n                        \"type_trans\": \"payin\",\n                        \"description\": \"Transaction UniCash - OP-A4793E1078AF4B81\",\n                        \"error_message\": \"\",\n                        \"operator_name\": \"wave\",\n                        \"status_display\": \"En cours\",\n                        \"redirection_url\": \"https://pay.wave.com/c/cos-22yxvgbqr283r?a=218&c=XOF&m=Dgs%20Sarl\",\n                        \"client_reference\": \"OP-A4793E1078AF4B81\",\n                        \"formatted_amount\": \"218 XOF\",\n                        \"commission_amount\": 3,\n                        \"type_trans_display\": \"Dépôt\",\n                        \"customer_balance_after\": null\n                    },\n                    \"raw_response\": \"{\\\"uid\\\":\\\"5570074f-c6e7-41c9-97f9-333fb8863e10\\\",\\\"reference\\\":\\\"AGG-20260211222014-C73FA4C6\\\",\\\"type_trans\\\":\\\"payin\\\",\\\"type_trans_display\\\":\\\"Dépôt\\\",\\\"amount\\\":218,\\\"formatted_amount\\\":\\\"218 XOF\\\",\\\"phone\\\":\\\"2250196062225\\\",\\\"status\\\":\\\"processing\\\",\\\"status_display\\\":\\\"En cours\\\",\\\"redirection_url\\\":\\\"https://pay.wave.com/c/cos-22yxvgbqr283r?a=218&c=XOF&m=Dgs%20Sarl\\\",\\\"operator_name\\\":\\\"wave\\\",\\\"description\\\":\\\"Transaction UniCash - OP-A4793E1078AF4B81\\\",\\\"client_reference\\\":\\\"OP-A4793E1078AF4B81\\\",\\\"commission_amount\\\":3,\\\"customer_balance_after\\\":null,\\\"error_message\\\":\\\"\\\",\\\"created_at\\\":\\\"2026-02-11T22:20:14.091309Z\\\"}\",\n                    \"webhook_data\": {\n                        \"data\": {\n                            \"type\": \"payin\",\n                            \"amount\": 218,\n                            \"status\": \"failed\",\n                            \"reference\": \"AGG-20260211222014-C73FA4C6\",\n                            \"created_at\": \"2026-02-11T22:20:14.091309+00:00\",\n                            \"external_id\": \"cos-22yxvgbqr283r\",\n                            \"completed_at\": \"2026-02-11T23:00:00.704437+00:00\",\n                            \"error_message\": \"Transaction failed\",\n                            \"client_reference\": \"OP-A4793E1078AF4B81\",\n                            \"customer_balance\": null\n                        },\n                        \"event\": \"transaction.processing\",\n                        \"timestamp\": \"2026-02-11T23:00:06.050555+00:00\"\n                    },\n                    \"error_message\": \"Transaction failed\",\n                    \"created_at\": \"2026-02-11T22:20:14.030422Z\",\n                    \"updated_at\": \"2026-02-11T23:00:06.888827Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-11T22:20:14.023739Z\",\n            \"updated_at\": \"2026-02-11T23:00:06.891717Z\",\n            \"user_phone\": \"0196062447\",\n            \"user_email\": null\n        }\n    ]\n}"
+            }
+          ]
         },
         {
           "name": "Admin Transaction Detail",
@@ -2636,7 +3014,304 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Admin Transaction Detail",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/core/admin/transactions/{{transaction_uid}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "core",
+                    "admin",
+                    "transactions",
+                    "{{transaction_uid}}",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Feb 2026 10:44:10 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "3272"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"uid\": \"80e59400-e9c5-49e6-8221-13bb4f70155a\",\n    \"user\": \"af772e8e-040b-4ef2-8b6f-db3f88d279e9\",\n    \"status\": \"FAILED\",\n    \"amount\": \"1280.00\",\n    \"fees\": \"38.00\",\n    \"net_amount\": \"1242.00\",\n    \"sender_pays_fees\": false,\n    \"authorization_code\": null,\n    \"source_network\": {\n        \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n        \"name\": \"MTN\",\n        \"code\": \"MTN\",\n        \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n        \"country_name\": \"Côte-d’ivoire\",\n        \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n        \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n        \"description\": \"\",\n        \"min_transfer_amount\": \"500.00\",\n        \"max_transfer_amount\": \"2000000.00\",\n        \"daily_limit\": \"5000000.00\",\n        \"can_send_money\": true,\n        \"can_receive_money\": true,\n        \"is_active\": true,\n        \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n        \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n    },\n    \"source_number\": \"0196062447\",\n    \"dest_network\": {\n        \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n        \"name\": \"Wave\",\n        \"code\": \"WAVE-CI\",\n        \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n        \"country_name\": \"Côte-d’ivoire\",\n        \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n        \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n        \"description\": \"\",\n        \"min_transfer_amount\": \"500.00\",\n        \"max_transfer_amount\": \"2000000.00\",\n        \"daily_limit\": \"0.00\",\n        \"can_send_money\": true,\n        \"can_receive_money\": true,\n        \"is_active\": true,\n        \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n        \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n    },\n    \"dest_number\": \"0196062448\",\n    \"reference\": \"TX-A4A3EBE093A2\",\n    \"external_reference\": \"07ba274d-f801-4546-a021-f139ccd15c5f\",\n    \"payment_link\": null,\n    \"initiated_at\": \"2026-02-14T08:00:02.475107Z\",\n    \"completed_at\": null,\n    \"error_message\": \"Erreur réseau manuelle\",\n    \"retry_count\": 0,\n    \"operations\": [\n        {\n            \"uid\": \"8ea0e9ce-2c24-467b-bd31-0819319c89e8\",\n            \"operation_type\": \"DEBIT\",\n            \"status\": \"FAILED\",\n            \"reference\": \"OP-431A1DF8DAF54118\",\n            \"external_reference\": \"07ba274d-f801-4546-a021-f139ccd15c5f\",\n            \"request_data\": {\n                \"amount\": \"1280.0\",\n                \"source\": \"0196062447\"\n            },\n            \"response_data\": {\n                \"date\": \"2026-02-14T08:00:01.088Z\",\n                \"type\": \"Paiement\",\n                \"email\": \"client@unicash.com\",\n                \"amount\": 1280,\n                \"reason\": \"PAYER_NOT_FOUND\",\n                \"reseau\": \"MTN CI\",\n                \"status\": \"FAILED\",\n                \"message\": \"Accepted\",\n                \"order_id\": \"07ba274d-f801-4546-a021-f139ccd15c5f\",\n                \"ref_link\": \"\",\n                \"last_name\": \"\",\n                \"reference\": \"07ba274d-f801-4546-a021-f139ccd15c5f\",\n                \"first_name\": \"\",\n                \"description\": \"Transaction UniCash - OP-431A1DF8DAF54118\",\n                \"phoneNumber\": 2250196062447,\n                \"callback_info\": \"\"\n            },\n            \"raw_response\": \"{\\\"callback_info\\\":\\\"\\\",\\\"reference\\\":\\\"07ba274d-f801-4546-a021-f139ccd15c5f\\\",\\\"message\\\":\\\"Accepted\\\",\\\"status\\\":\\\"PENDING\\\",\\\"date\\\":\\\"2026-02-14T08:00:01.088Z\\\"}\",\n            \"webhook_data\": {\n                \"date\": \"2026-02-14T08:00:01.088Z\",\n                \"type\": \"Paiement\",\n                \"email\": \"client@unicash.com\",\n                \"amount\": 1280,\n                \"reason\": \"PAYER_NOT_FOUND\",\n                \"reseau\": \"MTN CI\",\n                \"status\": \"FAILED\",\n                \"order_id\": \"07ba274d-f801-4546-a021-f139ccd15c5f\",\n                \"ref_link\": \"\",\n                \"last_name\": \"\",\n                \"reference\": \"07ba274d-f801-4546-a021-f139ccd15c5f\",\n                \"first_name\": \"\",\n                \"description\": \"Transaction UniCash - OP-431A1DF8DAF54118\",\n                \"phoneNumber\": 2250196062447,\n                \"callback_info\": \"\"\n            },\n            \"error_message\": \"Debit failed\",\n            \"created_at\": \"2026-02-14T07:59:59.771090Z\",\n            \"updated_at\": \"2026-02-14T08:00:27.795235Z\"\n        }\n    ],\n    \"created_at\": \"2026-02-14T07:59:59.686749Z\",\n    \"updated_at\": \"2026-02-14T10:43:53.252604Z\",\n    \"user_phone\": \"0787590800\",\n    \"user_email\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "mark-completed",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/core/admin/transactions/{{transaction_uid}}/mark-completed/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "admin",
+                "transactions",
+                "{{transaction_uid}}",
+                "mark-completed",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "mark-completed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/core/admin/transactions/{{transaction_uid}}/mark-completed/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "core",
+                    "admin",
+                    "transactions",
+                    "{{transaction_uid}}",
+                    "mark-completed",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Feb 2026 10:47:08 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "45"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "POST, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"detail\": \"Transaction marked as COMPLETED.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "mark-failed",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"reason\": \"Erreur réseau manuelle\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/core/admin/transactions/{{transaction_uid}}/mark-failed/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "admin",
+                "transactions",
+                "{{transaction_uid}}",
+                "mark-failed",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "mark-failed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"reason\": \"Erreur réseau manuelle\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/core/admin/transactions/{{transaction_uid}}/mark-failed/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "core",
+                    "admin",
+                    "transactions",
+                    "{{transaction_uid}}",
+                    "mark-failed",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Feb 2026 10:43:53 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "42"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "POST, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"detail\": \"Transaction marked as FAILED.\"\n}"
+            }
+          ]
         },
         {
           "name": "Admin Transaction Retry Credit",
@@ -2708,7 +3383,111 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Admin User Transaction List",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/core/admin/users/{{user_id}}/transactions/?search=&status=&reference=&source_network__code=&dest_network__code=&ordering=",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "core",
+                    "admin",
+                    "users",
+                    "{{user_id}}",
+                    "transactions",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": ""
+                    },
+                    {
+                      "key": "status",
+                      "value": ""
+                    },
+                    {
+                      "key": "reference",
+                      "value": ""
+                    },
+                    {
+                      "key": "source_network__code",
+                      "value": ""
+                    },
+                    {
+                      "key": "dest_network__code",
+                      "value": ""
+                    },
+                    {
+                      "key": "ordering",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Feb 2026 09:50:24 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "12937"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"count\": 3,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"uid\": \"5eb9cc0f-c77e-48e1-86db-51eb496f0a4e\",\n            \"user\": \"15cbd60d-057f-4982-8e4e-63bc9d1b84bf\",\n            \"status\": \"DEBIT_FAILED\",\n            \"amount\": \"211.00\",\n            \"fees\": \"7.00\",\n            \"net_amount\": \"204.00\",\n            \"sender_pays_fees\": false,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"source_number\": \"0196062225\",\n            \"dest_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"dest_number\": \"0196969696\",\n            \"reference\": \"TX-696DFE5C5E7B\",\n            \"external_reference\": \"OP-4E525E21561D4606\",\n            \"payment_link\": \"https://pay.wave.com/c/cos-22yxvw7yr2avc?a=211&c=XOF&m=Dgs%20Sarl\",\n            \"initiated_at\": \"2026-02-11T22:21:02.883288Z\",\n            \"completed_at\": null,\n            \"error_message\": \"Transaction failed\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"f7c1cad6-1a88-4ab8-8e5b-b71c6b092ef2\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"FAILED\",\n                    \"reference\": \"OP-4E525E21561D4606\",\n                    \"external_reference\": \"OP-4E525E21561D4606\",\n                    \"request_data\": {\n                        \"amount\": \"211.0\",\n                        \"source\": \"0196062225\"\n                    },\n                    \"response_data\": {\n                        \"uid\": \"916749fa-37d7-4ed2-9755-d5e1ceb2e2ba\",\n                        \"data\": {\n                            \"type\": \"payin\",\n                            \"amount\": 211,\n                            \"status\": \"failed\",\n                            \"reference\": \"AGG-20260211222102-72205C9E\",\n                            \"created_at\": \"2026-02-11T22:21:02.760711+00:00\",\n                            \"external_id\": \"cos-22yxvw7yr2avc\",\n                            \"completed_at\": \"2026-02-11T23:00:00.603382+00:00\",\n                            \"error_message\": \"Transaction failed\",\n                            \"client_reference\": \"OP-4E525E21561D4606\",\n                            \"customer_balance\": null\n                        },\n                        \"event\": \"transaction.processing\",\n                        \"phone\": \"2250196062225\",\n                        \"amount\": 211,\n                        \"status\": \"processing\",\n                        \"reference\": \"AGG-20260211222102-72205C9E\",\n                        \"timestamp\": \"2026-02-11T23:00:05.849123+00:00\",\n                        \"created_at\": \"2026-02-11T22:21:02.760711Z\",\n                        \"type_trans\": \"payin\",\n                        \"description\": \"Transaction UniCash - OP-4E525E21561D4606\",\n                        \"error_message\": \"\",\n                        \"operator_name\": \"wave\",\n                        \"status_display\": \"En cours\",\n                        \"redirection_url\": \"https://pay.wave.com/c/cos-22yxvw7yr2avc?a=211&c=XOF&m=Dgs%20Sarl\",\n                        \"client_reference\": \"OP-4E525E21561D4606\",\n                        \"formatted_amount\": \"211 XOF\",\n                        \"commission_amount\": 3,\n                        \"type_trans_display\": \"Dépôt\",\n                        \"customer_balance_after\": null\n                    },\n                    \"raw_response\": \"{\\\"uid\\\":\\\"916749fa-37d7-4ed2-9755-d5e1ceb2e2ba\\\",\\\"reference\\\":\\\"AGG-20260211222102-72205C9E\\\",\\\"type_trans\\\":\\\"payin\\\",\\\"type_trans_display\\\":\\\"Dépôt\\\",\\\"amount\\\":211,\\\"formatted_amount\\\":\\\"211 XOF\\\",\\\"phone\\\":\\\"2250196062225\\\",\\\"status\\\":\\\"processing\\\",\\\"status_display\\\":\\\"En cours\\\",\\\"redirection_url\\\":\\\"https://pay.wave.com/c/cos-22yxvw7yr2avc?a=211&c=XOF&m=Dgs%20Sarl\\\",\\\"operator_name\\\":\\\"wave\\\",\\\"description\\\":\\\"Transaction UniCash - OP-4E525E21561D4606\\\",\\\"client_reference\\\":\\\"OP-4E525E21561D4606\\\",\\\"commission_amount\\\":3,\\\"customer_balance_after\\\":null,\\\"error_message\\\":\\\"\\\",\\\"created_at\\\":\\\"2026-02-11T22:21:02.760711Z\\\"}\",\n                    \"webhook_data\": {\n                        \"data\": {\n                            \"type\": \"payin\",\n                            \"amount\": 211,\n                            \"status\": \"failed\",\n                            \"reference\": \"AGG-20260211222102-72205C9E\",\n                            \"created_at\": \"2026-02-11T22:21:02.760711+00:00\",\n                            \"external_id\": \"cos-22yxvw7yr2avc\",\n                            \"completed_at\": \"2026-02-11T23:00:00.603382+00:00\",\n                            \"error_message\": \"Transaction failed\",\n                            \"client_reference\": \"OP-4E525E21561D4606\",\n                            \"customer_balance\": null\n                        },\n                        \"event\": \"transaction.processing\",\n                        \"timestamp\": \"2026-02-11T23:00:05.849123+00:00\"\n                    },\n                    \"error_message\": \"Transaction failed\",\n                    \"created_at\": \"2026-02-11T22:21:02.685990Z\",\n                    \"updated_at\": \"2026-02-11T23:00:06.264626Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-11T22:21:02.676506Z\",\n            \"updated_at\": \"2026-02-11T23:00:06.266472Z\"\n        },\n        {\n            \"uid\": \"e3d1faf1-fab0-4193-a19a-32e6f1b6932f\",\n            \"user\": \"15cbd60d-057f-4982-8e4e-63bc9d1b84bf\",\n            \"status\": \"DEBIT_FAILED\",\n            \"amount\": \"218.00\",\n            \"fees\": \"7.00\",\n            \"net_amount\": \"211.00\",\n            \"sender_pays_fees\": true,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"source_number\": \"0196062225\",\n            \"dest_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"dest_number\": \"0196969696\",\n            \"reference\": \"TX-C4B229285C30\",\n            \"external_reference\": \"OP-A4793E1078AF4B81\",\n            \"payment_link\": \"https://pay.wave.com/c/cos-22yxvgbqr283r?a=218&c=XOF&m=Dgs%20Sarl\",\n            \"initiated_at\": \"2026-02-11T22:20:14.202270Z\",\n            \"completed_at\": null,\n            \"error_message\": \"Transaction failed\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"aa95a45a-2b93-4ec1-92fd-c0589e81534c\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"FAILED\",\n                    \"reference\": \"OP-A4793E1078AF4B81\",\n                    \"external_reference\": \"OP-A4793E1078AF4B81\",\n                    \"request_data\": {\n                        \"amount\": \"218.0\",\n                        \"source\": \"0196062225\"\n                    },\n                    \"response_data\": {\n                        \"uid\": \"5570074f-c6e7-41c9-97f9-333fb8863e10\",\n                        \"data\": {\n                            \"type\": \"payin\",\n                            \"amount\": 218,\n                            \"status\": \"failed\",\n                            \"reference\": \"AGG-20260211222014-C73FA4C6\",\n                            \"created_at\": \"2026-02-11T22:20:14.091309+00:00\",\n                            \"external_id\": \"cos-22yxvgbqr283r\",\n                            \"completed_at\": \"2026-02-11T23:00:00.704437+00:00\",\n                            \"error_message\": \"Transaction failed\",\n                            \"client_reference\": \"OP-A4793E1078AF4B81\",\n                            \"customer_balance\": null\n                        },\n                        \"event\": \"transaction.processing\",\n                        \"phone\": \"2250196062225\",\n                        \"amount\": 218,\n                        \"status\": \"processing\",\n                        \"reference\": \"AGG-20260211222014-C73FA4C6\",\n                        \"timestamp\": \"2026-02-11T23:00:06.050555+00:00\",\n                        \"created_at\": \"2026-02-11T22:20:14.091309Z\",\n                        \"type_trans\": \"payin\",\n                        \"description\": \"Transaction UniCash - OP-A4793E1078AF4B81\",\n                        \"error_message\": \"\",\n                        \"operator_name\": \"wave\",\n                        \"status_display\": \"En cours\",\n                        \"redirection_url\": \"https://pay.wave.com/c/cos-22yxvgbqr283r?a=218&c=XOF&m=Dgs%20Sarl\",\n                        \"client_reference\": \"OP-A4793E1078AF4B81\",\n                        \"formatted_amount\": \"218 XOF\",\n                        \"commission_amount\": 3,\n                        \"type_trans_display\": \"Dépôt\",\n                        \"customer_balance_after\": null\n                    },\n                    \"raw_response\": \"{\\\"uid\\\":\\\"5570074f-c6e7-41c9-97f9-333fb8863e10\\\",\\\"reference\\\":\\\"AGG-20260211222014-C73FA4C6\\\",\\\"type_trans\\\":\\\"payin\\\",\\\"type_trans_display\\\":\\\"Dépôt\\\",\\\"amount\\\":218,\\\"formatted_amount\\\":\\\"218 XOF\\\",\\\"phone\\\":\\\"2250196062225\\\",\\\"status\\\":\\\"processing\\\",\\\"status_display\\\":\\\"En cours\\\",\\\"redirection_url\\\":\\\"https://pay.wave.com/c/cos-22yxvgbqr283r?a=218&c=XOF&m=Dgs%20Sarl\\\",\\\"operator_name\\\":\\\"wave\\\",\\\"description\\\":\\\"Transaction UniCash - OP-A4793E1078AF4B81\\\",\\\"client_reference\\\":\\\"OP-A4793E1078AF4B81\\\",\\\"commission_amount\\\":3,\\\"customer_balance_after\\\":null,\\\"error_message\\\":\\\"\\\",\\\"created_at\\\":\\\"2026-02-11T22:20:14.091309Z\\\"}\",\n                    \"webhook_data\": {\n                        \"data\": {\n                            \"type\": \"payin\",\n                            \"amount\": 218,\n                            \"status\": \"failed\",\n                            \"reference\": \"AGG-20260211222014-C73FA4C6\",\n                            \"created_at\": \"2026-02-11T22:20:14.091309+00:00\",\n                            \"external_id\": \"cos-22yxvgbqr283r\",\n                            \"completed_at\": \"2026-02-11T23:00:00.704437+00:00\",\n                            \"error_message\": \"Transaction failed\",\n                            \"client_reference\": \"OP-A4793E1078AF4B81\",\n                            \"customer_balance\": null\n                        },\n                        \"event\": \"transaction.processing\",\n                        \"timestamp\": \"2026-02-11T23:00:06.050555+00:00\"\n                    },\n                    \"error_message\": \"Transaction failed\",\n                    \"created_at\": \"2026-02-11T22:20:14.030422Z\",\n                    \"updated_at\": \"2026-02-11T23:00:06.888827Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-11T22:20:14.023739Z\",\n            \"updated_at\": \"2026-02-11T23:00:06.891717Z\"\n        },\n        {\n            \"uid\": \"d13bf0ec-16d5-4371-b7c5-3bad23171b63\",\n            \"user\": \"15cbd60d-057f-4982-8e4e-63bc9d1b84bf\",\n            \"status\": \"DEBIT_FAILED\",\n            \"amount\": \"211.00\",\n            \"fees\": \"6.22\",\n            \"net_amount\": \"204.78\",\n            \"sender_pays_fees\": true,\n            \"authorization_code\": null,\n            \"source_network\": {\n                \"uid\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n                \"name\": \"Wave\",\n                \"code\": \"WAVE-CI\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"logo_url\": \"/media/network_logos/5c2fa67d916a2e78a5eae7aeb5e1b5ef938932042c57e769d8cf038425f62ac9_200.webp\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"0.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-02-09T22:39:28.931099Z\",\n                \"updated_at\": \"2026-02-13T10:12:44.601852Z\"\n            },\n            \"source_number\": \"0196062225\",\n            \"dest_network\": {\n                \"uid\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n                \"name\": \"MTN\",\n                \"code\": \"MTN\",\n                \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n                \"country_name\": \"Côte-d’ivoire\",\n                \"logo\": \"https://api.unicash.ci/media/network_logos/MTN-CI.jpg\",\n                \"logo_url\": \"/media/network_logos/MTN-CI.jpg\",\n                \"description\": \"\",\n                \"min_transfer_amount\": \"500.00\",\n                \"max_transfer_amount\": \"2000000.00\",\n                \"daily_limit\": \"5000000.00\",\n                \"can_send_money\": true,\n                \"can_receive_money\": true,\n                \"is_active\": true,\n                \"created_at\": \"2026-01-17T11:20:25.821447Z\",\n                \"updated_at\": \"2026-02-09T22:38:52.876538Z\"\n            },\n            \"dest_number\": \"0196969696\",\n            \"reference\": \"TX-220102DE677B\",\n            \"external_reference\": \"OP-9D77670F8DAE46FF\",\n            \"payment_link\": \"https://pay.wave.com/c/cos-22yxrwqjg2mm4?a=211&c=XOF&m=Dgs%20Sarl\",\n            \"initiated_at\": \"2026-02-11T22:14:33.363737Z\",\n            \"completed_at\": null,\n            \"error_message\": \"Transaction failed\",\n            \"retry_count\": 0,\n            \"operations\": [\n                {\n                    \"uid\": \"67aab0d0-cfe8-4ec0-bed7-aa41015cd37d\",\n                    \"operation_type\": \"DEBIT\",\n                    \"status\": \"FAILED\",\n                    \"reference\": \"OP-9D77670F8DAE46FF\",\n                    \"external_reference\": \"OP-9D77670F8DAE46FF\",\n                    \"request_data\": {\n                        \"amount\": \"211.0\",\n                        \"source\": \"0196062225\"\n                    },\n                    \"response_data\": {\n                        \"uid\": \"104c8deb-22c4-4023-9d6e-9f294a8e06a1\",\n                        \"data\": {\n                            \"type\": \"payin\",\n                            \"amount\": 211,\n                            \"status\": \"failed\",\n                            \"reference\": \"AGG-20260211221431-9153AEE1\",\n                            \"created_at\": \"2026-02-11T22:14:31.543764+00:00\",\n                            \"external_id\": \"cos-22yxrwqjg2mm4\",\n                            \"completed_at\": \"2026-02-11T22:50:00.693438+00:00\",\n                            \"error_message\": \"Transaction failed\",\n                            \"client_reference\": \"OP-9D77670F8DAE46FF\",\n                            \"customer_balance\": null\n                        },\n                        \"event\": \"transaction.processing\",\n                        \"phone\": \"2250196062225\",\n                        \"amount\": 211,\n                        \"status\": \"processing\",\n                        \"reference\": \"AGG-20260211221431-9153AEE1\",\n                        \"timestamp\": \"2026-02-11T22:50:05.729443+00:00\",\n                        \"created_at\": \"2026-02-11T22:14:31.543764Z\",\n                        \"type_trans\": \"payin\",\n                        \"description\": \"Transaction UniCash - OP-9D77670F8DAE46FF\",\n                        \"error_message\": \"\",\n                        \"operator_name\": \"wave\",\n                        \"status_display\": \"En cours\",\n                        \"redirection_url\": \"https://pay.wave.com/c/cos-22yxrwqjg2mm4?a=211&c=XOF&m=Dgs%20Sarl\",\n                        \"client_reference\": \"OP-9D77670F8DAE46FF\",\n                        \"formatted_amount\": \"211 XOF\",\n                        \"commission_amount\": 3,\n                        \"type_trans_display\": \"Dépôt\",\n                        \"customer_balance_after\": null\n                    },\n                    \"raw_response\": \"{\\\"uid\\\":\\\"104c8deb-22c4-4023-9d6e-9f294a8e06a1\\\",\\\"reference\\\":\\\"AGG-20260211221431-9153AEE1\\\",\\\"type_trans\\\":\\\"payin\\\",\\\"type_trans_display\\\":\\\"Dépôt\\\",\\\"amount\\\":211,\\\"formatted_amount\\\":\\\"211 XOF\\\",\\\"phone\\\":\\\"2250196062225\\\",\\\"status\\\":\\\"processing\\\",\\\"status_display\\\":\\\"En cours\\\",\\\"redirection_url\\\":\\\"https://pay.wave.com/c/cos-22yxrwqjg2mm4?a=211&c=XOF&m=Dgs%20Sarl\\\",\\\"operator_name\\\":\\\"wave\\\",\\\"description\\\":\\\"Transaction UniCash - OP-9D77670F8DAE46FF\\\",\\\"client_reference\\\":\\\"OP-9D77670F8DAE46FF\\\",\\\"commission_amount\\\":3,\\\"customer_balance_after\\\":null,\\\"error_message\\\":\\\"\\\",\\\"created_at\\\":\\\"2026-02-11T22:14:31.543764Z\\\"}\",\n                    \"webhook_data\": {\n                        \"data\": {\n                            \"type\": \"payin\",\n                            \"amount\": 211,\n                            \"status\": \"failed\",\n                            \"reference\": \"AGG-20260211221431-9153AEE1\",\n                            \"created_at\": \"2026-02-11T22:14:31.543764+00:00\",\n                            \"external_id\": \"cos-22yxrwqjg2mm4\",\n                            \"completed_at\": \"2026-02-11T22:50:00.693438+00:00\",\n                            \"error_message\": \"Transaction failed\",\n                            \"client_reference\": \"OP-9D77670F8DAE46FF\",\n                            \"customer_balance\": null\n                        },\n                        \"event\": \"transaction.processing\",\n                        \"timestamp\": \"2026-02-11T22:50:05.729443+00:00\"\n                    },\n                    \"error_message\": \"Transaction failed\",\n                    \"created_at\": \"2026-02-11T22:14:31.251329Z\",\n                    \"updated_at\": \"2026-02-11T22:50:05.893500Z\"\n                }\n            ],\n            \"created_at\": \"2026-02-11T22:14:31.231394Z\",\n            \"updated_at\": \"2026-02-11T22:50:05.896171Z\"\n        }\n    ]\n}"
+            }
+          ]
         }
       ]
     },
@@ -4315,10 +5094,33 @@
           ]
         },
         {
-          "name": "New Request",
+          "name": "patch",
           "request": {
-            "method": "GET",
-            "header": []
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"name\": \"PAL (Pals Africa)\",\n        \"is_active\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/core/admin/payment-aggregators/{{aggregator_uid}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "admin",
+                "payment-aggregators",
+                "{{aggregator_uid}}",
+                ""
+              ]
+            }
           },
           "response": []
         }
@@ -6196,7 +6998,85 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "kyc appprove",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/core/admin/kyc/{{kyc_uid}}/approve/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "core",
+                    "admin",
+                    "kyc",
+                    "{{kyc_uid}}",
+                    "approve",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 11 Feb 2026 23:09:22 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "674"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "POST, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"uid\": \"b8dc45d2-7086-41cd-94ae-17347f178929\",\n    \"user_id\": \"364c85b4-b549-4d7a-a105-0cb67bdcd856\",\n    \"status\": \"approved\",\n    \"id_document\": \"https://api.unicash.ci/media/kyc/id_documents/scaled_1001008484_r3RdwMY.jpg\",\n    \"selfie_with_id\": \"https://api.unicash.ci/media/kyc/selfies/scaled_698e4200-3ebb-417b-a47f-f1ffe65c39d22667241678585569478.jpg\",\n    \"id_document_url\": \"https://api.unicash.ci/media/kyc/id_documents/scaled_1001008484_r3RdwMY.jpg\",\n    \"selfie_with_id_url\": \"https://api.unicash.ci/media/kyc/selfies/scaled_698e4200-3ebb-417b-a47f-f1ffe65c39d22667241678585569478.jpg\",\n    \"rejection_reason\": null,\n    \"submitted_at\": \"2026-02-11T23:06:08.160439Z\",\n    \"reviewed_at\": \"2026-02-11T23:09:22.914609Z\"\n}"
+            }
+          ]
         },
         {
           "name": "kyc stat",
@@ -6335,6 +7215,439 @@
       ]
     },
     {
+      "name": "Admin Network agregator mapping",
+      "item": [
+        {
+          "name": "network agregator mapping",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/core/admin/aggregator-mappings/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "admin",
+                "aggregator-mappings",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "network agregator mapping",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/core/admin/aggregator-mappings/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "core",
+                    "admin",
+                    "aggregator-mappings",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Feb 2026 11:08:19 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2319"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"uid\": \"26cdc458-69fe-4d8e-83fe-dea02cef3d44\",\n        \"network\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n        \"network_name\": \"Wave\",\n        \"aggregator\": \"991aa418-b411-4fc1-840f-71c3c393a6ea\",\n        \"aggregator_name\": \"DGS Pay\",\n        \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n        \"country_name\": \"Côte-d’ivoire\",\n        \"priority\": 2,\n        \"aggregator_network_code\": \"wave-ci\",\n        \"payin_url\": \"https://api.dgs-pay.com/api/v2/payin/\",\n        \"payout_url\": \"https://api.dgs-pay.com/api/v2/payout/\",\n        \"status_check_url\": \"https://api.dgs-pay.com/api/v2/transactions/\",\n        \"min_amount\": \"500.00\",\n        \"max_amount\": \"2000000.00\",\n        \"fixed_fee\": null,\n        \"payin_percentage_fee\": null,\n        \"payout_percentage_fee\": null,\n        \"is_active\": true,\n        \"created_at\": \"2026-02-10T09:17:41.985822Z\",\n        \"updated_at\": \"2026-02-14T10:56:14.865296Z\"\n    },\n    {\n        \"uid\": \"64603532-3a97-47c9-81cd-8cc58583cc52\",\n        \"network\": \"3f3927e2-7961-4543-80ba-14f5ba4d9218\",\n        \"network_name\": \"MTN\",\n        \"aggregator\": \"4ecfdb64-ef45-4ca6-9134-fe3d9b8bf934\",\n        \"aggregator_name\": \"FEEXPAY\",\n        \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n        \"country_name\": \"Côte-d’ivoire\",\n        \"priority\": 1,\n        \"aggregator_network_code\": \"mtn_ci\",\n        \"payin_url\": \"https://api.feexpay.me/api/transactions/public/requesttopay/mtn_ci\",\n        \"payout_url\": \"https://api.feexpay.me/api/payouts/public/transfer/global\",\n        \"status_check_url\": \"https://api.feexpay.me/api/transactions/public/single/status\",\n        \"min_amount\": \"200.00\",\n        \"max_amount\": \"2000000.00\",\n        \"fixed_fee\": null,\n        \"payin_percentage_fee\": null,\n        \"payout_percentage_fee\": null,\n        \"is_active\": true,\n        \"created_at\": \"2026-02-10T09:15:55.766990Z\",\n        \"updated_at\": \"2026-02-10T22:31:12.235263Z\"\n    },\n    {\n        \"uid\": \"380665e6-8e8c-4c05-b840-6d403b3456da\",\n        \"network\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n        \"network_name\": \"Wave\",\n        \"aggregator\": \"4ecfdb64-ef45-4ca6-9134-fe3d9b8bf934\",\n        \"aggregator_name\": \"FEEXPAY\",\n        \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n        \"country_name\": \"Côte-d’ivoire\",\n        \"priority\": 1,\n        \"aggregator_network_code\": \"wave_ci\",\n        \"payin_url\": \"https://api.feexpay.me/api/transactions/public/requesttopay/wave_ci\",\n        \"payout_url\": \"https://api.feexpay.me/api/transactions/public/requesttopay/wave_ci\",\n        \"status_check_url\": \"https://api.feexpay.me/api/transactions/public/single/status\",\n        \"min_amount\": \"500.00\",\n        \"max_amount\": \"2000000.00\",\n        \"fixed_fee\": null,\n        \"payin_percentage_fee\": null,\n        \"payout_percentage_fee\": null,\n        \"is_active\": true,\n        \"created_at\": \"2026-02-10T09:13:31.554270Z\",\n        \"updated_at\": \"2026-02-10T09:13:45.297255Z\"\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "network agregator mapping detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/core/admin/aggregator-mappings/{{mapping_uid}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "admin",
+                "aggregator-mappings",
+                "{{mapping_uid}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "network agregator mapping detail",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/core/admin/aggregator-mappings/{{mapping_uid}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "core",
+                    "admin",
+                    "aggregator-mappings",
+                    "{{mapping_uid}}",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Feb 2026 11:08:43 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "726"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, PATCH, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"uid\": \"26cdc458-69fe-4d8e-83fe-dea02cef3d44\",\n    \"network\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n    \"network_name\": \"Wave\",\n    \"aggregator\": \"991aa418-b411-4fc1-840f-71c3c393a6ea\",\n    \"aggregator_name\": \"DGS Pay\",\n    \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n    \"country_name\": \"Côte-d’ivoire\",\n    \"priority\": 2,\n    \"aggregator_network_code\": \"wave-ci\",\n    \"payin_url\": \"https://api.dgs-pay.com/api/v2/payin/\",\n    \"payout_url\": \"https://api.dgs-pay.com/api/v2/payout/\",\n    \"status_check_url\": \"https://api.dgs-pay.com/api/v2/transactions/\",\n    \"min_amount\": \"500.00\",\n    \"max_amount\": \"2000000.00\",\n    \"fixed_fee\": null,\n    \"payin_percentage_fee\": null,\n    \"payout_percentage_fee\": null,\n    \"is_active\": true,\n    \"created_at\": \"2026-02-10T09:17:41.985822Z\",\n    \"updated_at\": \"2026-02-14T10:56:14.865296Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "update network agregator mapping",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"is_active\": false,\n    \"priority\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/core/admin/aggregator-mappings/{{mapping_uid}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "admin",
+                "aggregator-mappings",
+                "{{mapping_uid}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "update network agregator mapping",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"priority\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/core/admin/aggregator-mappings/{{mapping_uid}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "core",
+                    "admin",
+                    "aggregator-mappings",
+                    "{{mapping_uid}}",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Feb 2026 11:09:18 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "726"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, PATCH, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"uid\": \"26cdc458-69fe-4d8e-83fe-dea02cef3d44\",\n    \"network\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n    \"network_name\": \"Wave\",\n    \"aggregator\": \"991aa418-b411-4fc1-840f-71c3c393a6ea\",\n    \"aggregator_name\": \"DGS Pay\",\n    \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n    \"country_name\": \"Côte-d’ivoire\",\n    \"priority\": 2,\n    \"aggregator_network_code\": \"wave-ci\",\n    \"payin_url\": \"https://api.dgs-pay.com/api/v2/payin/\",\n    \"payout_url\": \"https://api.dgs-pay.com/api/v2/payout/\",\n    \"status_check_url\": \"https://api.dgs-pay.com/api/v2/transactions/\",\n    \"min_amount\": \"500.00\",\n    \"max_amount\": \"2000000.00\",\n    \"fixed_fee\": null,\n    \"payin_percentage_fee\": null,\n    \"payout_percentage_fee\": null,\n    \"is_active\": true,\n    \"created_at\": \"2026-02-10T09:17:41.985822Z\",\n    \"updated_at\": \"2026-02-14T11:09:18.775665Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "create mapping",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"network\": \"{{network_uid}}\",\n    \"aggregator\": \"{{aggregator_uid}}\",\n    \"country\": \"{{country_uid}}\",\n    \"priority\": 1,\n    \"aggregator_network_code\": \"wave-ci\",\n    \"payin_url\": \"https://api.dgs-pay.com/api/v2/payin/\",\n    \"payout_url\": \"https://api.dgs-pay.com/api/v2/payout/\",\n    \"status_check_url\": \"https://api.dgs-pay.com/api/v2/transactions/\",\n    \"min_amount\": \"500.00\",\n    \"max_amount\": \"2000000.00\",\n    \"fixed_fee\": null,\n    \"payin_percentage_fee\": 1.9,\n    \"payout_percentage_fee\": 1.2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/core/admin/aggregator-mappings/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "admin",
+                "aggregator-mappings",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "create mapping",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"network\": \"{{network_uid}}\",\n    \"aggregator\": \"{{aggregator_uid}}\",\n    \"country\": \"{{country_uid}}\",\n    \"priority\": 1,\n    \"aggregator_network_code\": \"wave-ci\",\n    \"payin_url\": \"https://api.dgs-pay.com/api/v2/payin/\",\n    \"payout_url\": \"https://api.dgs-pay.com/api/v2/payout/\",\n    \"status_check_url\": \"https://api.dgs-pay.com/api/v2/transactions/\",\n    \"min_amount\": \"500.00\",\n    \"max_amount\": \"2000000.00\",\n    \"fixed_fee\": null,\n    \"payin_percentage_fee\": 1.9,\n    \"payout_percentage_fee\": 1.2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/core/admin/aggregator-mappings/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "core",
+                    "admin",
+                    "aggregator-mappings",
+                    ""
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.24.0 (Ubuntu)"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 14 Feb 2026 11:19:20 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "740"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains; preload"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"uid\": \"d2d48498-8770-4a51-8196-87fdd68ab45d\",\n    \"network\": \"f5c00de3-b0ca-453d-aea2-2cce23cfbc0d\",\n    \"network_name\": \"Wave\",\n    \"aggregator\": \"2ccbda77-5965-4245-9652-c3022322de89\",\n    \"aggregator_name\": \"PAL (Pals Africa)\",\n    \"country\": \"10841a39-3fc9-4f0a-82e9-a491b63e4daf\",\n    \"country_name\": \"Côte-d’ivoire\",\n    \"priority\": 1,\n    \"aggregator_network_code\": \"wave-ci\",\n    \"payin_url\": \"https://api.dgs-pay.com/api/v2/payin/\",\n    \"payout_url\": \"https://api.dgs-pay.com/api/v2/payout/\",\n    \"status_check_url\": \"https://api.dgs-pay.com/api/v2/transactions/\",\n    \"min_amount\": \"500.00\",\n    \"max_amount\": \"2000000.00\",\n    \"fixed_fee\": null,\n    \"payin_percentage_fee\": \"1.90\",\n    \"payout_percentage_fee\": \"1.20\",\n    \"is_active\": true,\n    \"created_at\": \"2026-02-14T11:19:20.094483Z\",\n    \"updated_at\": \"2026-02-14T11:19:20.094501Z\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Webhooks",
       "request": {
         "auth": {
@@ -6342,6 +7655,15 @@
         },
         "method": "POST",
         "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"network\": \"{{network_uid}}\",\n    \"aggregator\": \"{{aggregator_uid}}\",\n    \"country\": \"{{country_uid}}\",\n    //\"priority\": 1,\n    \"payin_url\": \"https://api.dgs-pay.com/api/v2/payin/\",\n    \"payout_url\": \"https://api.dgs-pay.com/api/v2/payout/\",\n    \"status_check_url\": \"https://api.dgs-pay.com/api/v2/transactions/\",\n    \"min_amount\": \"500.00\",\n    \"max_amount\": \"2000000.00\",\n    \"fixed_fee\": null,\n    \"payin_percentage_fee\": 1.8,\n    \"payout_percentage_fee\": 1.2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
           "raw": "{{base_url}}/api/core/webhook/{{aggregator_code}}/",
           "host": [

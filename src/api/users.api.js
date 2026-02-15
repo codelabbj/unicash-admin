@@ -23,5 +23,23 @@ export const usersAPI = {
     updateUserRole: async (id, role) => {
         const response = await apiClient.patch(`/auth/admin/users/${id}/`, { role });
         return response;
+    },
+
+    blockUser: async (id) => {
+        const response = await apiClient.post(`/auth/admin/users/${id}/block/`);
+        return response;
+    },
+
+    unblockUser: async (id) => {
+        const response = await apiClient.post(`/auth/admin/users/${id}/unblock/`);
+        return response;
+    },
+
+    updateUserFee: async (userId, feeRate) => {
+        const response = await apiClient.post('/core/admin/users/fees/', {
+            user_uids: [userId],
+            fee_rate: feeRate
+        });
+        return response;
     }
 };

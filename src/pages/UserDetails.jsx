@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FiArrowLeft, FiUser, FiMail, FiPhone, FiCalendar, FiShield, FiCreditCard, FiExternalLink, FiList } from 'react-icons/fi';
+import { FiArrowLeft, FiUser, FiMail, FiPhone, FiCalendar, FiShield, FiCreditCard, FiExternalLink, FiList, FiSlash, FiCheckCircle } from 'react-icons/fi';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import TransactionTable from '../components/transactions/TransactionTable';
+import ConfirmationModal from '../components/common/ConfirmationModal';
+import CustomSelect from '../components/common/CustomSelect';
+import { toast } from 'react-toastify';
 import { usersAPI } from '../api/users.api';
 import { transactionsAPI } from '../api/transactions.api';
 
@@ -13,6 +16,10 @@ const UserDetails = () => {
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('info'); // 'info' or 'transactions'
+    const [confirmModalState, setConfirmModalState] = useState({
+        isOpen: false,
+        action: '' // 'block' or 'unblock'
+    });
 
     useEffect(() => {
         if (userId) {
@@ -42,6 +49,42 @@ const UserDetails = () => {
             fetchUserDetails();
         } catch (error) {
             console.error("Error updating role:", error);
+        }
+    };
+
+    const handleToggleBlockStatus = () => {
+        setConfirmModalState({
+            isOpen: true,
+            action: user.is_active ? 'block' : 'unblock'
+        });
+    };
+
+    const confirmBlockStatusChange = async () => {
+        try {
+            if (confirmModalState.action === 'block') {
+                await usersAPI.blockUser(userId);
+            } else {
+                await usersAPI.unblockUser(userId);
+            }
+            fetchUserDetails();
+            setConfirmModalState({ ...confirmModalState, isOpen: false });
+        } catch (error) {
+            console.error(`Error ${confirmModalState.action}ing user:`, error);
+        }
+    };
+
+    const handleUpdateFee = async (e) => {
+        e.preventDefault();
+        const feeRate = parseFloat(e.target.feeRate.value);
+        if (isNaN(feeRate)) return;
+
+        try {
+            await usersAPI.updateUserFee(userId, feeRate);
+            toast.success("Frais mis à jour avec succès");
+            fetchUserDetails();
+        } catch (error) {
+            console.error("Error updating fee:", error);
+            toast.error("Erreur lors de la mise à jour des frais");
         }
     };
 
@@ -79,6 +122,25 @@ const UserDetails = () => {
                         <p className="text-[13px] text-slate-500 font-medium">Consultez et gérez les informations de {user.first_name} {user.last_name || ''}.</p>
                     </div>
                 </div>
+                <div className="flex items-center gap-3">
+                    {user.is_active ? (
+                        <button
+                            onClick={handleToggleBlockStatus}
+                            className="flex items-center gap-2 px-4 py-2 bg-rose-50 text-rose-600 rounded-xl font-bold hover:bg-rose-100 transition-colors"
+                        >
+                            <FiSlash size={18} />
+                            Bloquer l'utilisateur
+                        </button>
+                    ) : (
+                        <button
+                            onClick={handleToggleBlockStatus}
+                            className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-600 rounded-xl font-bold hover:bg-emerald-100 transition-colors"
+                        >
+                            <FiCheckCircle size={18} />
+                            Débloquer l'utilisateur
+                        </button>
+                    )}
+                </div>
             </div>
 
             {/* Main Content Card */}
@@ -105,86 +167,97 @@ const UserDetails = () => {
 
                 <div className="p-8">
                     {activeTab === 'info' ? (
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                            {/* General Info */}
-                            <div className="lg:col-span-2 space-y-8">
-                                <section>
-                                    <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-400 mb-6 flex items-center gap-2">
-                                        <div className="p-1.5 bg-blue-50 text-blue-600 rounded-lg"><FiUser size={14} /></div>
-                                        Informations Personnelles
-                                    </h3>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="bg-slate-50/50 p-5 rounded-2xl border border-slate-100 group hover:border-primary/20 transition-all">
-                                            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-1">Prénom</div>
-                                            <div className="text-sm font-black text-slate-800">{user.first_name}</div>
-                                        </div>
-                                        <div className="bg-slate-50/50 p-5 rounded-2xl border border-slate-100 group hover:border-primary/20 transition-all">
-                                            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-1">Nom</div>
-                                            <div className="text-sm font-black text-slate-800">{user.last_name || 'N/A'}</div>
-                                        </div>
-                                        <div className="bg-slate-50/50 p-5 rounded-2xl border border-slate-100 group hover:border-primary/20 transition-all md:col-span-2">
-                                            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-1">Email</div>
-                                            <div className="flex items-center gap-2">
-                                                <FiMail className="text-slate-400" size={14} />
-                                                <div className="text-sm font-black text-slate-800">{user.email}</div>
-                                            </div>
-                                        </div>
-                                        <div className="bg-slate-50/50 p-5 rounded-2xl border border-slate-100 group hover:border-primary/20 transition-all">
-                                            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-1">Téléphone</div>
-                                            <div className="flex items-center gap-2">
-                                                <FiPhone className="text-slate-400" size={14} />
-                                                <div className="text-sm font-black text-slate-800">{user.phone_number || 'N/A'}</div>
-                                            </div>
-                                        </div>
-                                        <div className="bg-slate-50/50 p-5 rounded-2xl border border-slate-100 group hover:border-primary/20 transition-all">
-                                            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-1">ID Utilisateur</div>
-                                            <div className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-tighter truncate">{user.uid}</div>
+                        <div className="space-y-8">
+                            <section>
+                                <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-400 mb-6 flex items-center gap-2">
+                                    <div className="p-1.5 bg-blue-50 text-blue-600 rounded-lg"><FiUser size={14} /></div>
+                                    Informations & Paramètres
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {/* Informations Personnelles */}
+                                    <div className="bg-slate-50/50 p-5 rounded-2xl border border-slate-100 group hover:border-primary/20 transition-all">
+                                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-1">Prénom</div>
+                                        <div className="text-sm font-black text-slate-800">{user.first_name}</div>
+                                    </div>
+                                    <div className="bg-slate-50/50 p-5 rounded-2xl border border-slate-100 group hover:border-primary/20 transition-all">
+                                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-1">Nom</div>
+                                        <div className="text-sm font-black text-slate-800">{user.last_name || 'N/A'}</div>
+                                    </div>
+                                    <div className="bg-slate-50/50 p-5 rounded-2xl border border-slate-100 group hover:border-primary/20 transition-all">
+                                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-1">Email</div>
+                                        <div className="flex items-center gap-2">
+                                            <FiMail className="text-slate-400" size={14} />
+                                            <div className="text-sm font-black text-slate-800 truncate" title={user.email}>{user.email}</div>
                                         </div>
                                     </div>
-                                </section>
-                            </div>
-
-                            {/* Account Status / Role */}
-                            <div className="space-y-8">
-                                <section>
-                                    <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-400 mb-6 flex items-center gap-2">
-                                        <div className="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg"><FiShield size={14} /></div>
-                                        Paramètres du compte
-                                    </h3>
-                                    <div className="space-y-4">
-                                        <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
-                                            <div className="flex items-center justify-between mb-4">
-                                                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight">Status</div>
-                                                <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-black shadow-sm ${user.is_active ? 'bg-emerald-500 text-white' : 'bg-rose-500 text-white'}`}>
-                                                    <span className={`w-1.5 h-1.5 rounded-full bg-white ${!user.is_active && 'animate-pulse'}`}></span>
-                                                    {user.is_active ? 'ACTIF' : 'BLOQUÉ'}
-                                                </span>
-                                            </div>
-                                            <p className="text-[11px] text-slate-400 font-medium">L'utilisateur {user.is_active ? 'peut' : 'ne peut plus'} accéder à son compte sur l'application mobile.</p>
+                                    <div className="bg-slate-50/50 p-5 rounded-2xl border border-slate-100 group hover:border-primary/20 transition-all">
+                                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-1">Téléphone</div>
+                                        <div className="flex items-center gap-2">
+                                            <FiPhone className="text-slate-400" size={14} />
+                                            <div className="text-sm font-black text-slate-800">{user.phone_number || 'N/A'}</div>
                                         </div>
+                                    </div>
+                                    <div className="bg-slate-50/50 p-5 rounded-2xl border border-slate-100 group hover:border-primary/20 transition-all">
+                                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-1">ID Utilisateur</div>
+                                        <div className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-tighter truncate">{user.uid}</div>
+                                    </div>
 
-                                        <div className="bg-slate-50/30 p-6 rounded-3xl border border-slate-100">
-                                            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-3">Rôle Utilisateur</div>
-                                            <select
-                                                value={user.is_staff || user.role === 'ADMIN' ? 'ADMIN' : 'USER'}
-                                                onChange={(e) => handleRoleChange(e.target.value)}
-                                                className="w-full rounded-2xl border border-slate-200 py-3 px-4 text-[14px] font-black focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10 bg-white transition-all shadow-sm cursor-pointer"
+                                    {/* Status */}
+                                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-center">
+                                        <div className="flex items-center justify-between">
+                                            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight">Statut</div>
+                                            <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-black shadow-sm ${user.is_active ? 'bg-emerald-500 text-white' : 'bg-rose-500 text-white'}`}>
+                                                <span className={`w-1.5 h-1.5 rounded-full bg-white ${!user.is_active && 'animate-pulse'}`}></span>
+                                                {user.is_active ? 'ACTIF' : 'BLOQUÉ'}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Role */}
+                                    <div className="bg-slate-50/30 p-5 rounded-2xl border border-slate-100">
+                                        <CustomSelect
+                                            label="Rôle Utilisateur"
+                                            value={user.is_staff || user.role === 'ADMIN' ? 'ADMIN' : 'USER'}
+                                            onChange={handleRoleChange}
+                                            options={[
+                                                { value: 'USER', label: 'Utilisateur Standard' },
+                                                { value: 'ADMIN', label: 'Administrateur' }
+                                            ]}
+                                        />
+                                    </div>
+
+                                    {/* Created At */}
+                                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Inscrit depuis le</div>
+                                        <div className="flex items-center gap-3">
+                                            <div className="p-2 bg-slate-50 rounded-xl text-slate-400"><FiCalendar size={18} /></div>
+                                            <div className="text-sm font-black text-slate-800">{new Date(user.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
+                                        </div>
+                                    </div>
+
+                                    {/* Specific Fee */}
+                                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Frais Spécifiques (%)</div>
+                                        <form onSubmit={handleUpdateFee} className="flex gap-2">
+                                            <input
+                                                type="number"
+                                                name="feeRate"
+                                                step="0.01"
+                                                min="0"
+                                                placeholder="0.00"
+                                                defaultValue={user.fee_rate || ''}
+                                                className="w-full rounded-xl border border-slate-200 py-2 px-3 text-[14px] font-black focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10 bg-white transition-all shadow-sm"
+                                            />
+                                            <button
+                                                type="submit"
+                                                className="px-3 py-2 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors text-xs"
                                             >
-                                                <option value="USER">Utilisateur Standard</option>
-                                                <option value="ADMIN">Administrateur</option>
-                                            </select>
-                                        </div>
-
-                                        <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
-                                            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Inscrit depuis le</div>
-                                            <div className="flex items-center gap-3">
-                                                <div className="p-2 bg-slate-50 rounded-xl text-slate-400"><FiCalendar size={18} /></div>
-                                                <div className="text-sm font-black text-slate-800">{new Date(user.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
-                                            </div>
-                                        </div>
+                                                OK
+                                            </button>
+                                        </form>
                                     </div>
-                                </section>
-                            </div>
+                                </div>
+                            </section>
                         </div>
                     ) : (
                         <div className="space-y-6">
@@ -218,6 +291,17 @@ const UserDetails = () => {
                     )}
                 </div>
             </div>
+
+            {/* Confirmation Modal */}
+            <ConfirmationModal
+                isOpen={confirmModalState.isOpen}
+                onClose={() => setConfirmModalState({ ...confirmModalState, isOpen: false })}
+                onConfirm={confirmBlockStatusChange}
+                title={confirmModalState.action === 'block' ? 'Bloquer l\'utilisateur' : 'Débloquer l\'utilisateur'}
+                message={`Êtes-vous sûr de vouloir ${confirmModalState.action === 'block' ? 'bloquer' : 'débloquer'} cet utilisateur ?`}
+                confirmText={confirmModalState.action === 'block' ? 'Bloquer' : 'Débloquer'}
+                variant={confirmModalState.action === 'block' ? 'danger' : 'success'}
+            />
         </div>
     );
 };

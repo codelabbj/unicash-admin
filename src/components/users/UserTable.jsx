@@ -74,23 +74,6 @@ const UserTable = ({ users, onViewDetails, onUpdateStatus }) => {
                                         >
                                             <FiEye size={16} />
                                         </button>
-                                        {user.is_active ? (
-                                            <button
-                                                onClick={() => onUpdateStatus(user.uid, 'BLOCKED')}
-                                                className="rounded-lg p-1.5 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
-                                                title="Bloquer"
-                                            >
-                                                <FiXCircle size={16} />
-                                            </button>
-                                        ) : (
-                                            <button
-                                                onClick={() => onUpdateStatus(user.uid, 'ACTIVE')}
-                                                className="rounded-lg p-1.5 text-slate-400 hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
-                                                title="Activer"
-                                            >
-                                                <FiCheckCircle size={16} />
-                                            </button>
-                                        )}
                                     </div>
                                 </td>
                             </tr>

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiSearch, FiDownload, FiUsers } from 'react-icons/fi';
+import { FiSearch, FiUsers } from 'react-icons/fi';
 import { toast } from 'react-toastify';
-import ConfirmationModal from '../components/common/ConfirmationModal';
 import UserTable from '../components/users/UserTable';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import EmptyState from '../components/common/EmptyState';
@@ -14,11 +13,6 @@ const Users = () => {
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const [confirmModalState, setConfirmModalState] = useState({
-        isOpen: false,
-        userId: null,
-        action: ''
-    });
 
     const fetchUsers = async () => {
         setIsLoading(true);
@@ -43,23 +37,6 @@ const Users = () => {
         navigate(`/admin/users/${user.uid}`);
     };
 
-    const handleUpdateStatus = (userId, action) => {
-        setConfirmModalState({
-            isOpen: true,
-            userId,
-            action: action === 'ACTIVE' ? 'activer' : 'bloquer'
-        });
-    };
-
-    const confirmStatusUpdate = async () => {
-        try {
-            await usersAPI.updateUserStatus(confirmModalState.userId, confirmModalState.action === 'activer' ? 'ACTIVE' : 'BLOCKED');
-            setConfirmModalState({ ...confirmModalState, isOpen: false });
-            fetchUsers();
-        } catch (error) {
-            console.error("Error updating user status:", error);
-        }
-    };
     return (
         <div className="space-y-5">
             <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
@@ -94,21 +71,8 @@ const Users = () => {
                 <UserTable
                     users={users}
                     onViewDetails={handleViewDetails}
-                    onUpdateStatus={handleUpdateStatus}
                 />
             )}
-
-
-            {/* Confirmation Modal */}
-            <ConfirmationModal
-                isOpen={confirmModalState.isOpen}
-                onClose={() => setConfirmModalState({ ...confirmModalState, isOpen: false })}
-                onConfirm={confirmStatusUpdate}
-                title={confirmModalState.action === 'activer' ? 'Activer le compte' : 'Bloquer le compte'}
-                message={`Êtes-vous sûr de vouloir ${confirmModalState.action} cet utilisateur ?`}
-                confirmText={confirmModalState.action === 'activer' ? 'Activer' : 'Bloquer'}
-                variant={confirmModalState.action === 'activer' ? 'success' : 'danger'}
-            />
         </div>
     );
 };
