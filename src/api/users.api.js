@@ -5,7 +5,12 @@ export const usersAPI = {
         const response = await apiClient.get('/auth/admin/users/', { params: filters });
         const data = response.data;
         const results = Array.isArray(data) ? data : (data.results || data.data || []);
-        return { data: results };
+        return { 
+            data: results,
+            count: data.count,
+            next: data.next,
+            previous: data.previous
+        };
     },
 
     getUserById: async (id) => {

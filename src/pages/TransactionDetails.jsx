@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import {
     FiArrowLeft, FiCopy, FiCheckCircle, FiClock, FiXCircle,
     FiAlertTriangle, FiAlertCircle, FiSmartphone, FiCalendar, FiHash,
-    FiActivity, FiFileText, FiRefreshCw, FiGrid
+    FiActivity, FiFileText, FiRefreshCw, FiGrid, FiCheckSquare, FiXSquare
 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -16,6 +16,8 @@ const TransactionDetails = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isRetrying, setIsRetrying] = useState(false);
+    const [isMarkingCompleted, setIsMarkingCompleted] = useState(false);
+    const [isMarkingFailed, setIsMarkingFailed] = useState(false);
 
     const fetchDetails = async () => {
         setIsLoading(true);
@@ -51,6 +53,36 @@ const TransactionDetails = () => {
             toast.error("Échec de l'envoi de la demande de re-crédit.");
         } finally {
             setIsRetrying(false);
+        }
+    };
+
+    const handleMarkCompleted = async () => {
+        if (!transaction) return;
+        setIsMarkingCompleted(true);
+        try {
+            await transactionsAPI.markCompleted(transaction.uid);
+            toast.success("Transaction marquée comme COMPLÉTÉE !");
+            fetchDetails();
+        } catch (error) {
+            console.error("Error marking transaction as completed:", error);
+            toast.error("Échec du marquage de la transaction.");
+        } finally {
+            setIsMarkingCompleted(false);
+        }
+    };
+
+    const handleMarkFailed = async () => {
+        if (!transaction) return;
+        setIsMarkingFailed(true);
+        try {
+            await transactionsAPI.markFailed(transaction.uid);
+            toast.success("Transaction marquée comme ÉCHOUÉE !");
+            fetchDetails();
+        } catch (error) {
+            console.error("Error marking transaction as failed:", error);
+            toast.error("Échec du marquage de la transaction.");
+        } finally {
+            setIsMarkingFailed(false);
         }
     };
 
@@ -133,7 +165,7 @@ const TransactionDetails = () => {
                     Retour aux transactions
                 </button>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-wrap">
                     <button
                         onClick={() => handleCopy(transaction.reference, "Référence")}
                         className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl text-[13px] font-black hover:bg-slate-800 transition-all shadow-lg shadow-slate-900/10 active:scale-95"
@@ -150,6 +182,26 @@ const TransactionDetails = () => {
                             <FiRefreshCw size={14} className={isRetrying ? "animate-spin" : ""} />
                             {isRetrying ? "Envoi..." : "Relancer le crédit"}
                         </button>
+                    )}
+                    {transaction.status === 'PENDING' && (
+                        <>
+                            <button
+                                onClick={handleMarkCompleted}
+                                disabled={isMarkingCompleted}
+                                className={`flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-[13px] font-black hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-500/20 active:scale-95 ${isMarkingCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            >
+                                <FiCheckSquare size={14} className={isMarkingCompleted ? "animate-pulse" : ""} />
+                                {isMarkingCompleted ? "Traitement..." : "Marquer complétée"}
+                            </button>
+                            <button
+                                onClick={handleMarkFailed}
+                                disabled={isMarkingFailed}
+                                className={`flex items-center gap-2 px-5 py-2.5 bg-rose-600 text-white rounded-xl text-[13px] font-black hover:bg-rose-700 transition-all shadow-lg shadow-rose-500/20 active:scale-95 ${isMarkingFailed ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            >
+                                <FiXSquare size={14} className={isMarkingFailed ? "animate-pulse" : ""} />
+                                {isMarkingFailed ? "Traitement..." : "Marquer échouée"}
+                            </button>
+                        </>
                     )}
                 </div>
             </div>

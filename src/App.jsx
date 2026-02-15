@@ -16,6 +16,7 @@ import Countries from './pages/Countries';
 import Networks from './pages/Networks';
 import FeeConfigs from './pages/FeeConfigs';
 import Aggregators from './pages/Aggregators';
+import AggregatorMappings from './pages/AggregatorMappings';
 import Transactions from './pages/Transactions';
 import UserTransactions from './pages/UserTransactions';
 import TransactionDetails from './pages/TransactionDetails';
@@ -56,6 +57,7 @@ function App() {
             <Route path="networks" element={<Networks />} />
             {/* <Route path="fee-configs" element={<FeeConfigs />} /> */}
             <Route path="aggregators" element={<Aggregators />} />
+            <Route path="aggregator-mappings" element={<AggregatorMappings />} />
             <Route path="transactions" element={<Transactions />} />
             <Route path="transactions/:txnId" element={<TransactionDetails />} />
             <Route path="kyc" element={<KYC />} />

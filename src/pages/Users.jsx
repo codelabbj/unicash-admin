@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import UserTable from '../components/users/UserTable';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import EmptyState from '../components/common/EmptyState';
+import Pagination from '../components/common/Pagination';
 import { usersAPI } from '../api/users.api';
 import { formatErrorForDisplay } from '../utils/errorHandler';
 
@@ -13,12 +14,23 @@ const Users = () => {
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalCount, setTotalCount] = useState(0);
+    const [hasNext, setHasNext] = useState(false);
+    const [hasPrevious, setHasPrevious] = useState(false);
+    const itemsPerPage = 10;
 
     const fetchUsers = async () => {
         setIsLoading(true);
         try {
-            const response = await usersAPI.getUsers({ search: searchTerm });
+            const response = await usersAPI.getUsers({ 
+                search: searchTerm,
+                page: currentPage
+            });
             setUsers(response.data);
+            setTotalCount(response.count ?? response.data.length);
+            setHasNext(!!response.next);
+            setHasPrevious(!!response.previous);
         } catch (error) {
             console.error("Error fetching users:", error);
         } finally {
@@ -27,11 +39,15 @@ const Users = () => {
     };
 
     useEffect(() => {
+        setCurrentPage(1);
+    }, [searchTerm]);
+
+    useEffect(() => {
         const delaySearch = setTimeout(() => {
             fetchUsers();
         }, 500);
         return () => clearTimeout(delaySearch);
-    }, [searchTerm]);
+    }, [searchTerm, currentPage]);
 
     const handleViewDetails = (user) => {
         navigate(`/admin/users/${user.uid}`);
@@ -68,10 +84,21 @@ const Users = () => {
                     icon={<FiUsers size={32} />}
                 />
             ) : (
-                <UserTable
-                    users={users}
-                    onViewDetails={handleViewDetails}
-                />
+                <>
+                    <UserTable
+                        users={users}
+                        onViewDetails={handleViewDetails}
+                    />
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={Math.ceil(totalCount / itemsPerPage)}
+                        totalItems={totalCount}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={setCurrentPage}
+                        hasNext={hasNext}
+                        hasPrevious={hasPrevious}
+                    />
+                </>
             )}
         </div>
     );

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import {
     FiHome, FiUsers, FiGlobe, FiWifi, FiDollarSign,
-    FiCreditCard, FiList, FiSettings, FiX, FiImage, FiShield
+    FiCreditCard, FiList, FiSettings, FiX, FiImage, FiShield, FiLink
 } from 'react-icons/fi';
 
 
@@ -19,6 +19,7 @@ const Sidebar = ({ onClose }) => {
         { path: '/admin/networks', icon: FiWifi, label: 'Réseaux' },
         // { path: '/admin/fee-configs', icon: FiDollarSign, label: 'Frais' },
         { path: '/admin/aggregators', icon: FiCreditCard, label: 'Agrégateurs' },
+        { path: '/admin/aggregator-mappings', icon: FiLink, label: 'Mappings' },
         { path: '/admin/transactions', icon: FiList, label: 'Transactions' },
         { path: '/admin/kyc', icon: FiShield, label: 'Vérification KYC' },
         { path: '/admin/settings', icon: FiSettings, label: 'Paramètres' },

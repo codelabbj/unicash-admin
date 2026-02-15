@@ -1,11 +1,18 @@
 import React from 'react';
-import { FiClock, FiCheckCircle, FiXCircle, FiInfo, FiRefreshCw, FiAlertTriangle, FiUser } from 'react-icons/fi';
+import { FiClock, FiCheckCircle, FiXCircle, FiInfo, FiRefreshCw, FiAlertTriangle, FiUser, FiCopy, FiCheck } from 'react-icons/fi';
+import { useState } from 'react';
 
 const TransactionTable = ({ transactions, onViewDetails, onRetryCredit }) => {
-    const maskPhoneNumber = (number) => {
-        if (!number) return '';
-        if (number.length <= 6) return number;
-        return `${number.slice(0, 4)}****${number.slice(-2)}`;
+    const [copiedUid, setCopiedUid] = useState(null);
+
+    const handleCopyUid = async (uid) => {
+        try {
+            await navigator.clipboard.writeText(uid);
+            setCopiedUid(uid);
+            setTimeout(() => setCopiedUid(null), 2000);
+        } catch (err) {
+            console.error('Failed to copy:', err);
+        }
     };
 
     const formatCurrency = (amount) => {
@@ -49,11 +56,15 @@ const TransactionTable = ({ transactions, onViewDetails, onRetryCredit }) => {
                 <table className="min-w-full border-separate border-spacing-0">
                     <thead className="bg-slate-50/50">
                         <tr>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">UID</th>
                             <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Référence</th>
                             <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">User</th>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Contact</th>
                             <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Montant</th>
                             <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Frais</th>
                             <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Net</th>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Frais à charge</th>
+                            <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Profit</th>
                             <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Source</th>
                             <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Destination</th>
                             <th className="px-5 py-4 text-left text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Statut</th>
@@ -66,6 +77,20 @@ const TransactionTable = ({ transactions, onViewDetails, onRetryCredit }) => {
                         {transactions.map((txn) => (
                             <tr key={txn.uid} className="hover:bg-white/60 transition-all group">
                                 <td className="px-5 py-4 whitespace-nowrap">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-[11px] font-mono font-bold text-slate-600 truncate max-w-[100px]" title={txn.uid}>
+                                            {txn.uid?.slice(0, 8)}...
+                                        </span>
+                                        <button
+                                            onClick={() => handleCopyUid(txn.uid)}
+                                            className="p-1.5 rounded-lg bg-slate-100 text-slate-500 hover:bg-blue-100 hover:text-blue-600 transition-all active:scale-95"
+                                            title="Copier l'UID"
+                                        >
+                                            {copiedUid === txn.uid ? <FiCheck size={14} className="text-emerald-500" /> : <FiCopy size={14} />}
+                                        </button>
+                                    </div>
+                                </td>
+                                <td className="px-5 py-4 whitespace-nowrap">
                                     <span className="text-[12px] font-black text-slate-900 bg-slate-100 px-2 py-1 rounded-lg border border-slate-200/50">
                                         {txn.reference}
                                     </span>
@@ -75,10 +100,17 @@ const TransactionTable = ({ transactions, onViewDetails, onRetryCredit }) => {
                                         <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500 transition-colors">
                                             <FiUser size={14} />
                                         </div>
-                                        <span className="text-[13px] font-bold text-slate-600 truncate max-w-[120px]" title={txn.user_email || txn.user}>
-                                            {txn.user_email || `${txn.user?.slice(0, 8)}...`}
-                                        </span>
+                                        <div className="flex flex-col">
+                                            <span className="text-[12px] font-bold text-slate-700 truncate max-w-[120px]" title={txn.user_name}>
+                                                {txn.user_name || '-'}
+                                            </span>
+                                        </div>
                                     </div>
+                                </td>
+                                <td className="px-5 py-4 whitespace-nowrap">
+                                    <span className="text-[12px] font-bold text-slate-500">
+                                        {txn.user_email || txn.user_phone || '-'}
+                                    </span>
                                 </td>
                                 <td className="px-5 py-4 whitespace-nowrap">
                                     <span className="text-[13px] font-black text-slate-900">{formatCurrency(txn.amount)}</span>
@@ -92,13 +124,23 @@ const TransactionTable = ({ transactions, onViewDetails, onRetryCredit }) => {
                                     </span>
                                 </td>
                                 <td className="px-5 py-4 whitespace-nowrap">
+                                    <span className={`text-[11px] font-black px-2 py-1 rounded-lg ${txn.sender_pays_fees ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-600'}`}>
+                                        {txn.sender_pays_fees ? 'Expéditeur' : 'Destinataire'}
+                                    </span>
+                                </td>
+                                <td className="px-5 py-4 whitespace-nowrap">
+                                    <span className="text-[13px] font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">
+                                        {formatCurrency(txn.platform_profit || 0)}
+                                    </span>
+                                </td>
+                                <td className="px-5 py-4 whitespace-nowrap">
                                     <div className="flex items-center gap-2.5">
                                         {txn.source_network?.logo && (
                                             <img src={txn.source_network.logo} alt={txn.source_network.name} className="w-6 h-6 rounded-md object-contain shadow-sm border border-white" />
                                         )}
                                         <div className="flex flex-col">
                                             <span className="text-[11px] font-black text-slate-900 leading-none">{txn.source_network?.name}</span>
-                                            <span className="text-[11px] font-bold text-slate-400 mt-0.5">{maskPhoneNumber(txn.source_number)}</span>
+                                            <span className="text-[11px] font-bold text-slate-400 mt-0.5">{txn.source_number}</span>
                                         </div>
                                     </div>
                                 </td>
@@ -109,7 +151,7 @@ const TransactionTable = ({ transactions, onViewDetails, onRetryCredit }) => {
                                         )}
                                         <div className="flex flex-col">
                                             <span className="text-[11px] font-black text-slate-900 leading-none">{txn.dest_network?.name}</span>
-                                            <span className="text-[11px] font-bold text-slate-400 mt-0.5">{maskPhoneNumber(txn.dest_number)}</span>
+                                            <span className="text-[11px] font-bold text-slate-400 mt-0.5">{txn.dest_number}</span>
                                         </div>
                                     </div>
                                 </td>

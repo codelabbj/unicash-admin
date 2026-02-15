@@ -6,6 +6,7 @@ import TransactionTable from '../components/transactions/TransactionTable';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import EmptyState from '../components/common/EmptyState';
 import ConfirmationModal from '../components/common/ConfirmationModal';
+import Pagination from '../components/common/Pagination';
 import { transactionsAPI } from '../api/transactions.api';
 
 const Transactions = () => {
@@ -14,6 +15,11 @@ const Transactions = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalCount, setTotalCount] = useState(0);
+    const [hasNext, setHasNext] = useState(false);
+    const [hasPrevious, setHasPrevious] = useState(false);
+    const itemsPerPage = 10;
     const [confirmModal, setConfirmModal] = useState({
         isOpen: false,
         txn: null
@@ -24,9 +30,13 @@ const Transactions = () => {
         try {
             const response = await transactionsAPI.getTransactions({
                 search: searchTerm,
-                status: statusFilter
+                status: statusFilter,
+                page: currentPage
             });
             setTransactions(response.data);
+            setTotalCount(response.count ?? response.data.length);
+            setHasNext(!!response.next);
+            setHasPrevious(!!response.previous);
         } catch (error) {
             console.error("Error fetching transactions:", error);
         } finally {
@@ -35,11 +45,15 @@ const Transactions = () => {
     };
 
     useEffect(() => {
+        setCurrentPage(1);
+    }, [searchTerm, statusFilter]);
+
+    useEffect(() => {
         const delaySearch = setTimeout(() => {
             fetchTransactions();
         }, 500);
         return () => clearTimeout(delaySearch);
-    }, [searchTerm, statusFilter]);
+    }, [searchTerm, statusFilter, currentPage]);
 
     const handleViewDetails = (txn) => {
         navigate(`/admin/transactions/${txn.uid}`);
@@ -166,11 +180,24 @@ const Transactions = () => {
                     />
                 </div>
             ) : (
-                <TransactionTable
-                    transactions={transactions}
-                    onViewDetails={handleViewDetails}
-                    onRetryCredit={handleRetryCredit}
-                />
+                <>
+                    <TransactionTable
+                        transactions={transactions}
+                        onViewDetails={handleViewDetails}
+                        onRetryCredit={handleRetryCredit}
+                    />
+                    <div className="mt-6">
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={Math.ceil(totalCount / itemsPerPage)}
+                            totalItems={totalCount}
+                            itemsPerPage={itemsPerPage}
+                            onPageChange={setCurrentPage}
+                            hasNext={hasNext}
+                            hasPrevious={hasPrevious}
+                        />
+                    </div>
+                </>
             )}
 
             <ConfirmationModal

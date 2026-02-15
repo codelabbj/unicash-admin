@@ -3,11 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
     FiDollarSign, FiActivity, FiGlobe, FiSend, FiClock,
-    FiCheckCircle, FiXCircle, FiList, FiTrendingUp, FiBarChart2, FiUsers
+    FiCheckCircle, FiXCircle, FiList, FiTrendingUp, FiBarChart2, FiUsers,
+    FiPieChart, FiCalendar
 } from 'react-icons/fi';
 import StatCard from '../components/dashboard/StatCard';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import CommissionStatsCards from '../components/dashboard/commissions/CommissionStatsCards';
+import CommissionGraph from '../components/dashboard/commissions/CommissionGraph';
+import CommissionMonthsChart from '../components/dashboard/commissions/CommissionMonthsChart';
 import { statsAPI } from '../api/stats.api';
+import { transactionsAPI } from '../api/transactions.api';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -21,6 +26,11 @@ const Dashboard = () => {
             pending: 0,
             approved: 0,
             rejected: 0
+        },
+        commissions: {
+            stats: null,
+            graphs: [],
+            months: []
         }
     });
     const [loading, setLoading] = useState(true);
@@ -28,9 +38,12 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [statsData, kycData] = await Promise.all([
+                const [statsData, kycData, commissionsStats, commissionsGraphs, commissionsMonths] = await Promise.all([
                     statsAPI.getAdminStats(),
-                    statsAPI.getKycStats()
+                    statsAPI.getKycStats(),
+                    transactionsAPI.getCommissionsStats(),
+                    transactionsAPI.getCommissionsGraphsStats(),
+                    transactionsAPI.getCommissionsMonthsGraph()
                 ]);
 
                 setStats({
@@ -43,6 +56,11 @@ const Dashboard = () => {
                         pending: kycData.pending || 0,
                         approved: kycData.approved || 0,
                         rejected: kycData.rejected || 0
+                    },
+                    commissions: {
+                        stats: commissionsStats,
+                        graphs: commissionsGraphs?.results || [],
+                        months: commissionsMonths?.results || []
                     }
                 });
             } catch (error) {
@@ -202,6 +220,51 @@ const Dashboard = () => {
                                 </div>
                             );
                         })}
+                    </div>
+                </div>
+            )}
+
+            {/* Commissions Section */}
+            {stats.commissions.stats && (
+                <div className="space-y-8">
+                    {/* Commission Stats Cards */}
+                    <div className="glass-card rounded-[2rem] p-8 border-none ring-1 ring-black/5">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="p-2.5 bg-primary/10 rounded-xl text-primary">
+                                <FiDollarSign size={20} />
+                            </div>
+                            <h2 className="text-[17px] font-black text-slate-900 tracking-tight">Statistiques des Commissions</h2>
+                        </div>
+                        <CommissionStatsCards stats={stats.commissions.stats} />
+                    </div>
+
+                    {/* Commission Graphs Grid */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        {/* Daily Profit Evolution */}
+                        {stats.commissions.graphs.length > 0 && (
+                            <div className="glass-card rounded-[2rem] p-8 border-none ring-1 ring-black/5">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-2.5 bg-amber-50 rounded-xl text-amber-600">
+                                        <FiPieChart size={20} />
+                                    </div>
+                                    <h2 className="text-[17px] font-black text-slate-900 tracking-tight">Évolution Quotidienne du Profit</h2>
+                                </div>
+                                <CommissionGraph data={stats.commissions.graphs} />
+                            </div>
+                        )}
+
+                        {/* Monthly Commissions Chart */}
+                        {stats.commissions.months.length > 0 && (
+                            <div className="glass-card rounded-[2rem] p-8 border-none ring-1 ring-black/5">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-2.5 bg-emerald-50 rounded-xl text-emerald-600">
+                                        <FiCalendar size={20} />
+                                    </div>
+                                    <h2 className="text-[17px] font-black text-slate-900 tracking-tight">Évolution Mensuelle</h2>
+                                </div>
+                                <CommissionMonthsChart data={stats.commissions.months} />
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
