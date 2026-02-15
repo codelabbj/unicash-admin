@@ -12,6 +12,7 @@ const KYC = () => {
     const [requests, setRequests] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [statusFilter, setStatusFilter] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
     const [stats, setStats] = useState({
         total_requests: 0,
         pending: 0,
@@ -22,8 +23,13 @@ const KYC = () => {
     const fetchData = async () => {
         setIsLoading(true);
         try {
+            const params = { status: statusFilter };
+            if (searchTerm.trim()) {
+                params.search = searchTerm.trim();
+            }
+            
             const [requestsRes, statsRes] = await Promise.all([
-                kycAPI.getKYCRequests({ status: statusFilter }),
+                kycAPI.getKYCRequests(params),
                 kycAPI.getKYCStatistics()
             ]);
             setRequests(requestsRes.data);
@@ -36,8 +42,11 @@ const KYC = () => {
     };
 
     useEffect(() => {
-        fetchData();
-    }, [statusFilter]);
+        const delaySearch = setTimeout(() => {
+            fetchData();
+        }, 500);
+        return () => clearTimeout(delaySearch);
+    }, [statusFilter, searchTerm]);
 
     const handleViewDetails = (req) => {
         navigate(`/admin/kyc/${req.uid}`);
@@ -74,7 +83,27 @@ const KYC = () => {
             {/* Filters */}
             <div className="relative z-40 glass-card rounded-[1.5rem] p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 border border-white/60 bg-white/40 backdrop-blur-md shadow-lg shadow-slate-200/50">
                 <div className="flex flex-wrap items-center gap-4 flex-grow">
-                    <div className="w-full sm:w-[280px] relative group">
+                    {/* Search */}
+                    <div className="w-full sm:w-[240px] relative group">
+                        <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10 pointer-events-none group-hover:text-blue-500 transition-colors" />
+                        <input
+                            type="text"
+                            placeholder="Rechercher par nom..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full pl-11 pr-9 py-2.5 rounded-xl bg-white/60 border border-slate-100 text-[13px] font-semibold text-slate-600 hover:border-slate-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+                        />
+                        {searchTerm && (
+                            <button
+                                onClick={() => setSearchTerm('')}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                            >
+                                <FiXCircle size={16} />
+                            </button>
+                        )}
+                    </div>
+
+                    <div className="w-full sm:w-[200px] relative group">
                         <FiFilter className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10 pointer-events-none group-hover:text-blue-500 transition-colors" />
                         <GlassSelect
                             value={statusFilter}
@@ -100,9 +129,12 @@ const KYC = () => {
                         </div>
                     )}
 
-                    {statusFilter && (
+                    {(statusFilter || searchTerm) && (
                         <button
-                            onClick={() => setStatusFilter('')}
+                            onClick={() => {
+                                setStatusFilter('');
+                                setSearchTerm('');
+                            }}
                             className="flex items-center gap-2 text-rose-500 text-[12px] font-black hover:text-rose-600 hover:scale-105 active:scale-95 transition-all bg-rose-50 px-3 py-2 rounded-xl border border-rose-100 whitespace-nowrap"
                         >
                             <FiRefreshCw size={14} />
@@ -121,7 +153,7 @@ const KYC = () => {
                 <div className="py-20 bg-white/30 backdrop-blur-md rounded-[2.5rem] border border-white/60">
                     <EmptyState
                         title="Aucune demande KYC"
-                        description={statusFilter ? "Aucune demande ne correspond à ce filtre." : "Toutes les demandes ont été traitées !"}
+                        description={statusFilter || searchTerm ? "Aucune demande ne correspond à vos critères." : "Toutes les demandes ont été traitées !"}
                         icon={<FiShield size={48} className="text-slate-300" />}
                     />
                 </div>

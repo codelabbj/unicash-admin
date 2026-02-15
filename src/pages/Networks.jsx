@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiPlus, FiWifi } from 'react-icons/fi';
+import { FiPlus, FiWifi, FiSearch, FiFilter, FiX } from 'react-icons/fi';
 import Modal from '../components/common/Modal';
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import NetworkTable from '../components/networks/NetworkTable';
@@ -19,12 +19,23 @@ const Networks = () => {
     const [currentNetwork, setCurrentNetwork] = useState(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [networkToDelete, setNetworkToDelete] = useState(null);
+    
+    // Search and filters
+    const [searchTerm, setSearchTerm] = useState('');
+    const [statusFilter, setStatusFilter] = useState('');
+    const [countryFilter, setCountryFilter] = useState('');
+    const [showFilters, setShowFilters] = useState(false);
 
     const fetchData = async () => {
         setIsLoading(true);
         try {
+            const params = {};
+            if (searchTerm.trim()) params.search = searchTerm.trim();
+            if (statusFilter) params.is_active = statusFilter === 'active';
+            if (countryFilter) params.country = countryFilter;
+            
             const [networksRes, countriesRes] = await Promise.all([
-                networksAPI.getNetworks(),
+                networksAPI.getNetworks(params),
                 countriesAPI.getCountries()
             ]);
             setNetworks(networksRes.data);
@@ -37,13 +48,20 @@ const Networks = () => {
     };
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        const delaySearch = setTimeout(() => {
+            fetchData();
+        }, 500);
+        return () => clearTimeout(delaySearch);
+    }, [searchTerm, statusFilter, countryFilter]);
 
     const fetchNetworks = async () => {
-        // Keep this for updates after create/edit/delete
         try {
-            const response = await networksAPI.getNetworks();
+            const params = {};
+            if (searchTerm.trim()) params.search = searchTerm.trim();
+            if (statusFilter) params.is_active = statusFilter === 'active';
+            if (countryFilter) params.country = countryFilter;
+            
+            const response = await networksAPI.getNetworks(params);
             setNetworks(response.data);
         } catch (error) {
             console.error("Error fetching networks:", error);
@@ -78,6 +96,14 @@ const Networks = () => {
         }
     };
 
+    const hasActiveFilters = statusFilter || countryFilter;
+
+    const clearFilters = () => {
+        setStatusFilter('');
+        setCountryFilter('');
+        setSearchTerm('');
+    };
+
     const handleToggleStatus = async (id) => {
         const network = networks.find(n => n.uid === id);
         if (network) {
@@ -102,17 +128,86 @@ const Networks = () => {
 
     return (
         <div className="space-y-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-black text-slate-900 tracking-tight">Gestion des Réseaux</h1>
                     <p className="text-sm text-slate-500 font-medium">Configurez et supervisez les opérateurs mobiles et leurs services.</p>
                 </div>
-                <button
-                    onClick={handleCreate}
-                    className="flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/30 hover:bg-primary-hover hover:scale-[1.02] transition-all"
-                >
-                    <FiPlus size={20} /> Nouveau Réseau
-                </button>
+                <div className="flex flex-col gap-3 w-full md:w-auto">
+                    {/* Search and Filter Toggle */}
+                    <div className="flex items-center gap-2">
+                        <div className="relative flex-1 md:w-64">
+                            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+                            <input
+                                type="text"
+                                placeholder="Rechercher un réseau..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full rounded-xl border border-gray-200 pl-9 pr-3 py-2 text-[13px] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-white shadow-sm transition-all"
+                            />
+                        </div>
+                        <button
+                            onClick={() => setShowFilters(!showFilters)}
+                            className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-[13px] font-medium transition-all ${
+                                hasActiveFilters 
+                                    ? 'border-primary bg-primary/10 text-primary' 
+                                    : 'border-gray-200 bg-white text-slate-600 hover:border-gray-300'
+                            }`}
+                        >
+                            <FiFilter className="w-4 h-4" />
+                            <span className="hidden sm:inline">Filtres</span>
+                            {hasActiveFilters && (
+                                <span className="flex items-center justify-center w-5 h-5 bg-primary text-white text-[10px] font-bold rounded-full">
+                                    {[statusFilter, countryFilter].filter(Boolean).length}
+                                </span>
+                            )}
+                        </button>
+                        <button
+                            onClick={handleCreate}
+                            className="flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white shadow-lg shadow-primary/30 hover:bg-primary-hover hover:scale-[1.02] transition-all whitespace-nowrap"
+                        >
+                            <FiPlus size={18} /> <span className="hidden sm:inline">Nouveau</span>
+                        </button>
+                    </div>
+
+                    {/* Filters Panel */}
+                    {showFilters && (
+                        <div className="flex flex-wrap items-center gap-2 p-3 bg-gray-50 rounded-xl border border-gray-200">
+                            <select
+                                value={statusFilter}
+                                onChange={(e) => setStatusFilter(e.target.value)}
+                                className="px-3 py-2 rounded-lg border border-gray-200 bg-white text-[13px] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                            >
+                                <option value="">Tous les statuts</option>
+                                <option value="active">Actif</option>
+                                <option value="inactive">Inactif</option>
+                            </select>
+
+                            <select
+                                value={countryFilter}
+                                onChange={(e) => setCountryFilter(e.target.value)}
+                                className="px-3 py-2 rounded-lg border border-gray-200 bg-white text-[13px] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                            >
+                                <option value="">Tous les pays</option>
+                                {countries.map(country => (
+                                    <option key={country.code} value={country.code}>
+                                        {country.name}
+                                    </option>
+                                ))}
+                            </select>
+
+                            {hasActiveFilters && (
+                                <button
+                                    onClick={clearFilters}
+                                    className="flex items-center gap-1 px-3 py-2 text-[13px] text-slate-500 hover:text-slate-700 transition-colors"
+                                >
+                                    <FiX className="w-4 h-4" />
+                                    Réinitialiser
+                                </button>
+                            )}
+                        </div>
+                    )}
+                </div>
             </div>
 
             <NetworkStats networks={networks} />
@@ -122,17 +217,17 @@ const Networks = () => {
                 <LoadingSpinner text="Chargement des réseaux..." />
             ) : networks.length === 0 ? (
                 <EmptyState
-                    title="Aucun réseau configuré"
-                    description="Ajoutez les réseaux mobiles pris en charge par la plateforme."
+                    title="Aucun réseau trouvé"
+                    description={searchTerm || hasActiveFilters ? "Aucun réseau ne correspond à vos critères." : "Ajoutez les réseaux mobiles pris en charge par la plateforme."}
                     icon={<FiWifi size={32} />}
-                    action={
+                    action={!searchTerm && !hasActiveFilters ? (
                         <button
                             onClick={handleCreate}
                             className="flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-hover transition-colors"
                         >
                             <FiPlus size={18} /> Nouveau Réseau
                         </button>
-                    }
+                    ) : null}
                 />
             ) : (
                 <NetworkTable

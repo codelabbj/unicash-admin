@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { FiCreditCard } from 'react-icons/fi';
+import { FiCreditCard, FiSearch, FiX } from 'react-icons/fi';
 import Modal from '../components/common/Modal';
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import AggregatorCard from '../components/aggregators/AggregatorCard';
 import AggregatorForm from '../components/aggregators/AggregatorForm';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import EmptyState from '../components/common/EmptyState';
 import { aggregatorsAPI } from '../api/aggregators.api';
 
 const Aggregators = () => {
@@ -13,6 +14,7 @@ const Aggregators = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentAggregator, setCurrentAggregator] = useState(null);
     const [activeTab, setActiveTab] = useState('ALL');
+    const [searchTerm, setSearchTerm] = useState('');
 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [aggregatorToDelete, setAggregatorToDelete] = useState(null);
@@ -20,7 +22,9 @@ const Aggregators = () => {
     const fetchAggregators = async () => {
         setIsLoading(true);
         try {
-            const response = await aggregatorsAPI.getAggregators();
+            const params = {};
+            if (searchTerm.trim()) params.search = searchTerm.trim();
+            const response = await aggregatorsAPI.getAggregators(params);
             setAggregators(response.data);
         } catch (error) {
             console.error("Error fetching aggregators:", error);
@@ -30,13 +34,17 @@ const Aggregators = () => {
     };
 
     useEffect(() => {
-        fetchAggregators();
-    }, []);
+        const delaySearch = setTimeout(() => {
+            fetchAggregators();
+        }, 500);
+        return () => clearTimeout(delaySearch);
+    }, [searchTerm]);
 
     const filteredAggregators = aggregators.filter(agg => {
-        if (activeTab === 'ACTIVE') return agg.is_active;
-        if (activeTab === 'INACTIVE') return !agg.is_active;
-        return true;
+        const matchesTab = activeTab === 'ALL' ? true : 
+                          activeTab === 'ACTIVE' ? agg.is_active : 
+                          !agg.is_active;
+        return matchesTab;
     });
 
     const counts = {
@@ -93,11 +101,29 @@ const Aggregators = () => {
 
     return (
         <div className="space-y-8">
-            {/* Header */}
+            {/* Header with Search */}
             <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
                 <div>
                     <h1 className="text-3xl font-black text-gray-900 mb-1">Agrégateurs de Paiement</h1>
                     <p className="text-sm text-gray-500 font-medium">Configurez et gérez vos passerelles de paiement partenaires.</p>
+                </div>
+                <div className="relative w-full md:w-72">
+                    <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <input
+                        type="text"
+                        placeholder="Rechercher un agrégateur..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full rounded-xl border border-gray-200 pl-9 pr-9 py-2 text-[13px] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-white shadow-sm transition-all"
+                    />
+                    {searchTerm && (
+                        <button
+                            onClick={() => setSearchTerm('')}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        >
+                            <FiX className="w-4 h-4" />
+                        </button>
+                    )}
                 </div>
             </div>
 
@@ -131,6 +157,12 @@ const Aggregators = () => {
                 <div className="py-20 flex justify-center">
                     <LoadingSpinner text="Chargement des agrégateurs..." />
                 </div>
+            ) : filteredAggregators.length === 0 ? (
+                <EmptyState
+                    title="Aucun agrégateur trouvé"
+                    description={searchTerm ? "Aucun agrégateur ne correspond à votre recherche." : "Aucun agrégateur configuré."}
+                    icon={<FiCreditCard size={48} className="text-gray-300" />}
+                />
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {filteredAggregators.map((aggregator) => (
