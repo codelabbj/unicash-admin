@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { FiPlus, FiCreditCard } from 'react-icons/fi';
+import { FiCreditCard } from 'react-icons/fi';
 import Modal from '../components/common/Modal';
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import AggregatorCard from '../components/aggregators/AggregatorCard';
-import AddAggregatorCard from '../components/aggregators/AddAggregatorCard';
 import AggregatorForm from '../components/aggregators/AggregatorForm';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { aggregatorsAPI } from '../api/aggregators.api';
@@ -44,11 +43,6 @@ const Aggregators = () => {
         ALL: aggregators.length,
         ACTIVE: aggregators.filter(a => a.is_active).length,
         INACTIVE: aggregators.filter(a => !a.is_active).length
-    };
-
-    const handleCreate = () => {
-        setCurrentAggregator(null);
-        setIsModalOpen(true);
     };
 
     const handleEdit = (aggregator) => {
@@ -105,12 +99,6 @@ const Aggregators = () => {
                     <h1 className="text-3xl font-black text-gray-900 mb-1">Agrégateurs de Paiement</h1>
                     <p className="text-sm text-gray-500 font-medium">Configurez et gérez vos passerelles de paiement partenaires.</p>
                 </div>
-                <button
-                    onClick={handleCreate}
-                    className="flex items-center gap-2 rounded-xl bg-[#2534C1] px-5 py-3 text-[13px] font-bold text-white shadow-lg shadow-blue-100/50 hover:bg-[#1e2a9e] hover:scale-[1.02] transition-all"
-                >
-                    <FiPlus size={18} strokeWidth={3} /> Ajouter un Agrégateur
-                </button>
             </div>
 
             {/* Tabs */}
@@ -153,9 +141,6 @@ const Aggregators = () => {
                             onToggleStatus={handleToggleStatus}
                         />
                     ))}
-
-                    {/* Add Card always at the end of the filtered list */}
-                    <AddAggregatorCard onClick={handleCreate} />
                 </div>
             )}
 
