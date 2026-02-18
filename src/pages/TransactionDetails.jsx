@@ -105,8 +105,6 @@ const TransactionDetails = () => {
                     label: 'En attente'
                 };
             case 'FAILED':
-            case 'DEBIT_FAILED':
-            case 'CREDIT_FAILED':
                 return {
                     bg: 'bg-rose-50',
                     text: 'text-rose-700',
@@ -114,13 +112,29 @@ const TransactionDetails = () => {
                     icon: <FiXCircle className="w-5 h-5" />,
                     label: 'Échec'
                 };
+            case 'DEBIT_FAILED':
+                return {
+                    bg: 'bg-rose-50',
+                    text: 'text-rose-700',
+                    border: 'border-rose-100',
+                    icon: <FiXCircle className="w-5 h-5" />,
+                    label: 'Échec Débit'
+                };
+            case 'CREDIT_FAILED':
+                return {
+                    bg: 'bg-rose-50',
+                    text: 'text-rose-700',
+                    border: 'border-rose-100',
+                    icon: <FiXCircle className="w-5 h-5" />,
+                    label: 'Échec Crédit'
+                };
             default:
                 return {
                     bg: 'bg-slate-50',
                     text: 'text-slate-700',
                     border: 'border-slate-100',
                     icon: <FiActivity className="w-5 h-5" />,
-                    label: status
+                    label: status || 'Inconnu'
                 };
         }
     };
@@ -381,7 +395,8 @@ const TransactionDetails = () => {
                                                 <span className={`text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter border ${op.status === 'SUCCESS' || op.status === 'COMPLETED' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :
                                                     op.status === 'PENDING' ? 'bg-amber-50 text-amber-600 border-amber-100' : 'bg-rose-50 text-rose-600 border-rose-100'
                                                     }`}>
-                                                    {op.status}
+                                                    {op.status === 'SUCCESS' || op.status === 'COMPLETED' ? 'Succès' :
+                                                        op.status === 'PENDING' ? 'En attente' : 'Échec'}
                                                 </span>
                                                 <span className="text-[11px] font-mono font-bold text-slate-400">{op.reference}</span>
                                             </div>

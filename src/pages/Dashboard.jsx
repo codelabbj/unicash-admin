@@ -93,13 +93,13 @@ const Dashboard = () => {
 
     const getStatusLabel = (status) => {
         const labels = {
-            'COMPLETED': 'Réussi',
+            'COMPLETED': 'Succès',
             'SUCCESS': 'Succès',
             'FAILED': 'Échec',
-            'DEBIT_FAILED': 'Échec débit',
-            'CREDIT_FAILED': 'Échec crédit',
+            'DEBIT_FAILED': 'Échec Débit',
+            'CREDIT_FAILED': 'Échec Crédit',
             'PENDING': 'En attente',
-            'DEBIT_INITIATED': 'Débit initié'
+            'DEBIT_INITIATED': 'Débit Initié'
         };
         return labels[status] || status;
     };

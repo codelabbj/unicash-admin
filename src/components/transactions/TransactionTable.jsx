@@ -31,13 +31,13 @@ const TransactionTable = ({ transactions, onViewDetails, onRetryCredit }) => {
         };
 
         const config = {
-            COMPLETED: { icon: FiCheckCircle, text: 'COMPLETED' },
-            SUCCESS: { icon: FiCheckCircle, text: 'COMPLETED' },
-            PENDING: { icon: FiClock, text: 'PENDING' },
-            FAILED: { icon: FiXCircle, text: 'FAILED' },
-            DEBIT_FAILED: { icon: FiXCircle, text: 'FAILED' },
-            CREDIT_FAILED: { icon: FiXCircle, text: 'FAILED' },
-            default: { icon: FiInfo, text: status || 'UNKNOWN' }
+            COMPLETED: { icon: FiCheckCircle, text: 'Succès' },
+            SUCCESS: { icon: FiCheckCircle, text: 'Succès' },
+            PENDING: { icon: FiClock, text: 'En attente' },
+            FAILED: { icon: FiXCircle, text: 'Échec' },
+            DEBIT_FAILED: { icon: FiXCircle, text: 'Échec Débit' },
+            CREDIT_FAILED: { icon: FiXCircle, text: 'Échec Crédit' },
+            default: { icon: FiInfo, text: status || 'INCONNU' }
         };
 
         const style = styles[status] || styles.default;
