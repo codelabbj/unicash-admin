@@ -1,9 +1,27 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FiMoreVertical, FiEdit2, FiTrash2, FiToggleLeft, FiToggleRight, FiExternalLink } from 'react-icons/fi';
+import { FiMoreVertical, FiEdit2, FiTrash2, FiToggleLeft, FiToggleRight, FiExternalLink, FiGrid } from 'react-icons/fi';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 const BannerCard = ({ banner, onEdit, onDelete, onToggleStatus }) => {
     const [showMenu, setShowMenu] = useState(false);
     const menuRef = useRef(null);
+
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        isDragging
+    } = useSortable({ id: banner.id });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+        zIndex: isDragging ? 60 : undefined,
+        opacity: isDragging ? 0.5 : 1,
+    };
 
     // Close menu when clicking outside
     useEffect(() => {
@@ -23,6 +41,8 @@ const BannerCard = ({ banner, onEdit, onDelete, onToggleStatus }) => {
 
     return (
         <div
+            ref={setNodeRef}
+            style={style}
             className={`group relative flex flex-col rounded-2xl border bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:border-blue-100 ${showMenu ? 'z-50 shadow-xl border-blue-100' : 'z-10 hover:z-20'}`}
         >
             {/* Image Preview - Aspect Ratio 16:9 */}
@@ -32,6 +52,17 @@ const BannerCard = ({ banner, onEdit, onDelete, onToggleStatus }) => {
                     alt={banner.title}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
+
+                {/* Drag Handle Overlay */}
+                <div
+                    {...attributes}
+                    {...listeners}
+                    className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100 cursor-grab active:cursor-grabbing"
+                >
+                    <div className="p-3 bg-white/20 backdrop-blur-md rounded-2xl border border-white/30 text-white shadow-2xl scale-90 group-hover:scale-100 transition-transform">
+                        <FiGrid size={32} />
+                    </div>
+                </div>
 
                 {/* Status Badge Over Image */}
                 <div className="absolute top-3 left-3 pointer-events-none">
