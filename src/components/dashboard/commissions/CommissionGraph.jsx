@@ -22,7 +22,7 @@ const CommissionGraph = ({ data }) => {
 
     // Show only last 7 days with transactions
     const recentData = data.slice(-7).filter(item => item.count > 0);
-    
+
     if (recentData.length === 0) {
         return (
             <div className="rounded-2xl bg-gray-50 border border-gray-200 p-6 text-center">
@@ -37,7 +37,7 @@ const CommissionGraph = ({ data }) => {
         <div className="space-y-3">
             {recentData.map((item, index) => {
                 const heightPercentage = Math.max(((item.profit || 0) / maxValue) * 100, 5);
-                
+
                 return (
                     <div key={index} className="flex items-center gap-3">
                         <div className="w-20 text-xs font-medium text-slate-600">
@@ -51,8 +51,8 @@ const CommissionGraph = ({ data }) => {
                                 <span className="text-[10px] font-bold text-white">{formatCurrency(item.profit)}</span>
                             </div>
                         </div>
-                        <div className="w-12 text-xs text-slate-400 text-right">
-                            {item.count} tx
+                        <div className="flex-1 text-xs text-slate-600 text-right font-bold">
+                            {formatCurrency(item.profit)}
                         </div>
                     </div>
                 );

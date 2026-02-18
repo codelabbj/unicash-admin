@@ -22,7 +22,7 @@ const CommissionMonthsChart = ({ data }) => {
 
     // Filter months with data and show last 6 months
     const activeMonths = data.filter(item => item.count > 0).slice(-6);
-    
+
     if (activeMonths.length === 0) {
         return (
             <div className="rounded-2xl bg-gray-50 border border-gray-200 p-6 text-center">
@@ -37,7 +37,7 @@ const CommissionMonthsChart = ({ data }) => {
         <div className="flex items-end gap-3 h-48 px-2">
             {activeMonths.map((item, index) => {
                 const heightPercentage = Math.max(((item.profit || 0) / maxValue) * 100, 8);
-                
+
                 return (
                     <div key={index} className="flex-1 flex flex-col items-center gap-2">
                         <div className="w-full flex items-end justify-center" style={{ height: '120px' }}>
@@ -52,7 +52,7 @@ const CommissionMonthsChart = ({ data }) => {
                         </div>
                         <div className="text-center">
                             <p className="text-[10px] font-bold text-slate-900 uppercase">{formatMonth(item.month)}</p>
-                            <p className="text-[9px] font-medium text-slate-400">{item.count} tx</p>
+                            <p className="text-[9px] font-bold text-primary">{formatCurrency(item.profit)}</p>
                         </div>
                     </div>
                 );
