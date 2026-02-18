@@ -87,56 +87,58 @@ const TransactionDetails = () => {
     };
 
     const getStatusStyle = (status) => {
-        switch (status) {
-            case 'COMPLETED':
-                return {
-                    bg: 'bg-emerald-50',
-                    text: 'text-emerald-700',
-                    border: 'border-emerald-100',
-                    icon: <FiCheckCircle className="w-5 h-5" />,
-                    label: 'Succès'
-                };
-            case 'PENDING':
-                return {
-                    bg: 'bg-amber-50',
-                    text: 'text-amber-700',
-                    border: 'border-amber-100',
-                    icon: <FiClock className="w-5 h-5" />,
-                    label: 'En attente'
-                };
-            case 'FAILED':
-                return {
-                    bg: 'bg-rose-50',
-                    text: 'text-rose-700',
-                    border: 'border-rose-100',
-                    icon: <FiXCircle className="w-5 h-5" />,
-                    label: 'Échec'
-                };
-            case 'DEBIT_FAILED':
-                return {
-                    bg: 'bg-rose-50',
-                    text: 'text-rose-700',
-                    border: 'border-rose-100',
-                    icon: <FiXCircle className="w-5 h-5" />,
-                    label: 'Échec Débit'
-                };
-            case 'CREDIT_FAILED':
-                return {
-                    bg: 'bg-rose-50',
-                    text: 'text-rose-700',
-                    border: 'border-rose-100',
-                    icon: <FiXCircle className="w-5 h-5" />,
-                    label: 'Échec Crédit'
-                };
-            default:
-                return {
-                    bg: 'bg-slate-50',
-                    text: 'text-slate-700',
-                    border: 'border-slate-100',
-                    icon: <FiActivity className="w-5 h-5" />,
-                    label: status || 'Inconnu'
-                };
-        }
+        const styles = {
+            COMPLETED: {
+                bg: 'bg-emerald-50',
+                text: 'text-emerald-700',
+                border: 'border-emerald-100',
+                icon: <FiCheckCircle className="w-5 h-5" />,
+                label: 'Succès'
+            },
+            SUCCESS: {
+                bg: 'bg-emerald-50',
+                text: 'text-emerald-700',
+                border: 'border-emerald-100',
+                icon: <FiCheckCircle className="w-5 h-5" />,
+                label: 'Succès'
+            },
+            PENDING: {
+                bg: 'bg-amber-50',
+                text: 'text-amber-700',
+                border: 'border-amber-100',
+                icon: <FiClock className="w-5 h-5" />,
+                label: 'En attente'
+            },
+            FAILED: {
+                bg: 'bg-rose-50',
+                text: 'text-rose-700',
+                border: 'border-rose-100',
+                icon: <FiXCircle className="w-5 h-5" />,
+                label: 'Échec'
+            },
+            DEBIT_FAILED: {
+                bg: 'bg-rose-50',
+                text: 'text-rose-700',
+                border: 'border-rose-100',
+                icon: <FiXCircle className="w-5 h-5" />,
+                label: 'Échec Débit'
+            },
+            CREDIT_FAILED: {
+                bg: 'bg-rose-50',
+                text: 'text-rose-700',
+                border: 'border-rose-100',
+                icon: <FiXCircle className="w-5 h-5" />,
+                label: 'Échec Crédit'
+            },
+            default: {
+                bg: 'bg-slate-50',
+                text: 'text-slate-700',
+                border: 'border-slate-100',
+                icon: <FiActivity className="w-5 h-5" />,
+                label: status || 'Inconnu'
+            }
+        };
+        return styles[status] || styles.default;
     };
 
     if (isLoading) {
@@ -187,7 +189,7 @@ const TransactionDetails = () => {
                         <FiCopy size={14} />
                         Copier la référence
                     </button>
-                    {(transaction.status === 'FAILED' || transaction.status === 'CREDIT_FAILED') && (
+                    {transaction.status === 'CREDIT_FAILED' && (
                         <button
                             onClick={handleRetry}
                             disabled={isRetrying}
@@ -197,8 +199,10 @@ const TransactionDetails = () => {
                             {isRetrying ? "Envoi..." : "Relancer le crédit"}
                         </button>
                     )}
-                    {transaction.status === 'PENDING' && (
-                        <>
+                    {(transaction.status === 'PENDING' ||
+                        transaction.status === 'FAILED' ||
+                        transaction.status === 'CREDIT_FAILED' ||
+                        transaction.status === 'DEBIT_FAILED') && (
                             <button
                                 onClick={handleMarkCompleted}
                                 disabled={isMarkingCompleted}
@@ -207,6 +211,10 @@ const TransactionDetails = () => {
                                 <FiCheckSquare size={14} className={isMarkingCompleted ? "animate-pulse" : ""} />
                                 {isMarkingCompleted ? "Traitement..." : "Marquer complétée"}
                             </button>
+                        )}
+                    {(transaction.status === 'PENDING' ||
+                        transaction.status === 'SUCCESS' ||
+                        transaction.status === 'COMPLETED') && (
                             <button
                                 onClick={handleMarkFailed}
                                 disabled={isMarkingFailed}
@@ -215,8 +223,7 @@ const TransactionDetails = () => {
                                 <FiXSquare size={14} className={isMarkingFailed ? "animate-pulse" : ""} />
                                 {isMarkingFailed ? "Traitement..." : "Marquer échouée"}
                             </button>
-                        </>
-                    )}
+                        )}
                 </div>
             </div>
 

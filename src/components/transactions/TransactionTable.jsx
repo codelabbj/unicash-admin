@@ -176,7 +176,7 @@ const TransactionTable = ({ transactions, onViewDetails, onRetryCredit }) => {
                                 </td>
                                 <td className="px-5 py-4 text-right whitespace-nowrap">
                                     <div className="flex items-center justify-end gap-2">
-                                        {(txn.status === 'FAILED' || txn.status === 'CREDIT_FAILED') && (
+                                        {txn.status === 'CREDIT_FAILED' && (
                                             <button
                                                 onClick={() => onRetryCredit(txn)}
                                                 className="w-8 h-8 flex items-center justify-center rounded-xl bg-amber-50 text-amber-500 hover:bg-amber-100 hover:text-amber-600 transition-all active:scale-95"
