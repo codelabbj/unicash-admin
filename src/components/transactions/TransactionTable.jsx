@@ -135,12 +135,11 @@ const TransactionTable = ({ transactions, onViewDetails, onRetryCredit }) => {
                                 </td>
                                 <td className="px-5 py-5 whitespace-nowrap">
                                     <div className="flex items-center gap-3">
-                                        <div className="relative">
-                                            {txn.source_network?.logo && (
-                                                <img src={txn.source_network.logo} alt={txn.source_network.name} className="w-7 h-7 rounded-lg object-contain shadow-sm border border-white relative z-10" />
-                                            )}
-                                            <div className="absolute inset-0 bg-primary/20 blur-md rounded-full -z-0 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                        </div>
+                                        {txn.source_network?.logo && (
+                                            <div className="w-9 h-9 flex-shrink-0 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center p-1 overflow-hidden">
+                                                <img src={txn.source_network.logo} alt={txn.source_network.name} className="w-full h-full object-contain" />
+                                            </div>
+                                        )}
                                         <div className="flex flex-col">
                                             <span className="text-[11px] font-black text-slate-900 leading-none">{txn.source_network?.name}</span>
                                             <span className="text-[11px] font-bold text-slate-400 mt-1">{txn.source_number}</span>
@@ -149,12 +148,11 @@ const TransactionTable = ({ transactions, onViewDetails, onRetryCredit }) => {
                                 </td>
                                 <td className="px-5 py-5 whitespace-nowrap">
                                     <div className="flex items-center gap-3">
-                                        <div className="relative">
-                                            {txn.dest_network?.logo && (
-                                                <img src={txn.dest_network.logo} alt={txn.dest_network.name} className="w-7 h-7 rounded-lg object-contain shadow-sm border border-white relative z-10" />
-                                            )}
-                                            <div className="absolute inset-0 bg-primary/20 blur-md rounded-full -z-0 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                        </div>
+                                        {txn.dest_network?.logo && (
+                                            <div className="w-9 h-9 flex-shrink-0 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center p-1 overflow-hidden">
+                                                <img src={txn.dest_network.logo} alt={txn.dest_network.name} className="w-full h-full object-contain" />
+                                            </div>
+                                        )}
                                         <div className="flex flex-col">
                                             <span className="text-[11px] font-black text-slate-900 leading-none">{txn.dest_network?.name}</span>
                                             <span className="text-[11px] font-bold text-slate-400 mt-1">{txn.dest_number}</span>

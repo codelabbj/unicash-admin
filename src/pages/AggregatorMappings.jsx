@@ -145,8 +145,8 @@ const AggregatorMappings = () => {
                         <button
                             onClick={() => setShowFilters(!showFilters)}
                             className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-[13px] font-medium transition-all ${hasActiveFilters
-                                    ? 'border-primary bg-primary/10 text-primary'
-                                    : 'border-gray-200 bg-white text-slate-600 hover:border-gray-300'
+                                ? 'border-primary bg-primary/10 text-primary'
+                                : 'border-gray-200 bg-white text-slate-600 hover:border-gray-300'
                                 }`}
                         >
                             <FiFilter className="w-4 h-4" />
@@ -254,7 +254,7 @@ const AggregatorMappings = () => {
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="flex items-center gap-3">
                                                     {mapping.network_logo && (
-                                                        <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm flex items-center justify-center p-1">
+                                                        <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm flex items-center justify-center p-0.5">
                                                             <img src={mapping.network_logo} alt="" className="h-full w-full object-contain" />
                                                         </div>
                                                     )}
