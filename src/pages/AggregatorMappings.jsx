@@ -26,7 +26,7 @@ const AggregatorMappings = () => {
     const [hasNext, setHasNext] = useState(false);
     const [hasPrevious, setHasPrevious] = useState(false);
     const itemsPerPage = 10;
-    
+
     // Search and filters
     const [searchTerm, setSearchTerm] = useState('');
     const [networkFilter, setNetworkFilter] = useState('');
@@ -42,7 +42,7 @@ const AggregatorMappings = () => {
             if (networkFilter) params.network = networkFilter;
             if (aggregatorFilter) params.aggregator = aggregatorFilter;
             if (countryFilter) params.country = countryFilter;
-            
+
             const [mappingsRes, aggregatorsRes, networksRes] = await Promise.all([
                 aggregatorMappingsAPI.getMappings(params),
                 aggregatorsAPI.getAggregators(),
@@ -144,11 +144,10 @@ const AggregatorMappings = () => {
                         </div>
                         <button
                             onClick={() => setShowFilters(!showFilters)}
-                            className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-[13px] font-medium transition-all ${
-                                hasActiveFilters 
-                                    ? 'border-primary bg-primary/10 text-primary' 
+                            className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-[13px] font-medium transition-all ${hasActiveFilters
+                                    ? 'border-primary bg-primary/10 text-primary'
                                     : 'border-gray-200 bg-white text-slate-600 hover:border-gray-300'
-                            }`}
+                                }`}
                         >
                             <FiFilter className="w-4 h-4" />
                             <span className="hidden sm:inline">Filtres</span>
@@ -350,7 +349,17 @@ const MappingForm = ({ mapping, aggregators, networks, onSubmit, onCancel, allMa
     const [formData, setFormData] = useState({
         network: mapping?.network || '',
         aggregator: mapping?.aggregator || '',
-        country: '10841a39-3fc9-4f0a-82e9-a491b63e4daf' // Fixed Côte d'Ivoire UID
+        country: mapping?.country || '10841a39-3fc9-4f0a-82e9-a491b63e4daf', // Fixed Côte d'Ivoire UID
+        priority: mapping?.priority || 1,
+        aggregator_network_code: mapping?.aggregator_network_code || '',
+        payin_url: mapping?.payin_url || '',
+        payout_url: mapping?.payout_url || '',
+        status_check_url: mapping?.status_check_url || '',
+        min_amount: mapping?.min_amount || '500.00',
+        max_amount: mapping?.max_amount || '2000000.00',
+        fixed_fee: mapping?.fixed_fee || '',
+        payin_percentage_fee: mapping?.payin_percentage_fee || '',
+        payout_percentage_fee: mapping?.payout_percentage_fee || ''
     });
     const [error, setError] = useState('');
 
@@ -358,8 +367,19 @@ const MappingForm = ({ mapping, aggregators, networks, onSubmit, onCancel, allMa
         e.preventDefault();
         setError('');
 
+        // Basic validation
+        if (!formData.network || !formData.aggregator) {
+            setError('Veuillez sélectionner un réseau et un agrégateur.');
+            return;
+        }
+
+        if (!formData.aggregator_network_code || !formData.payin_url || !formData.payout_url) {
+            setError('Veuillez remplir tous les champs obligatoires (Code, URLs).');
+            return;
+        }
+
         // Check for duplicate combination (excluding current mapping)
-        const isDuplicate = allMappings.some(m => 
+        const isDuplicate = allMappings.some(m =>
             m.uid !== mapping?.uid &&
             m.network === formData.network &&
             m.aggregator === formData.aggregator &&
@@ -371,73 +391,201 @@ const MappingForm = ({ mapping, aggregators, networks, onSubmit, onCancel, allMa
             return;
         }
 
-        onSubmit(formData);
+        // Clean values before submit (e.g. empty strings to null for optional fee)
+        const submissionData = {
+            ...formData,
+            fixed_fee: formData.fixed_fee === '' ? null : formData.fixed_fee,
+            payin_percentage_fee: formData.payin_percentage_fee === '' ? 0 : formData.payin_percentage_fee,
+            payout_percentage_fee: formData.payout_percentage_fee === '' ? 0 : formData.payout_percentage_fee,
+            priority: parseInt(formData.priority) || 1
+        };
+
+        onSubmit(submissionData);
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-6 max-h-[70vh] overflow-y-auto px-1 pr-3 custom-scrollbar">
             {/* Error Message */}
             {error && (
-                <div className="rounded-xl bg-rose-50 border border-rose-200 p-4">
+                <div className="rounded-xl bg-rose-50 border border-rose-200 p-4 sticky top-0 z-10">
                     <p className="text-sm font-bold text-rose-600">{error}</p>
                 </div>
             )}
 
-            {/* Network Selection */}
-            <CustomSelect
-                label="Réseau"
-                value={formData.network}
-                options={networks.map((network) => ({
-                    value: network.uid,
-                    label: `${network.name} (${network.code})`
-                }))}
-                onChange={(value) => setFormData({ ...formData, network: value })}
-                icon={FiWifi}
-            />
+            {/* Basic Info Section */}
+            <div className="space-y-4">
+                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-2">Configuration de Base</h3>
 
-            {/* Aggregator Selection */}
-            <CustomSelect
-                label="Agrégateur"
-                value={formData.aggregator}
-                options={aggregators.map((agg) => ({
-                    value: agg.uid,
-                    label: `${agg.name} (${agg.code})`
-                }))}
-                onChange={(value) => setFormData({ ...formData, aggregator: value })}
-                icon={FiCreditCard}
-            />
-
-            {/* Country - Disabled, Fixed to Côte d'Ivoire */}
-            <div>
-                <label className="block text-sm font-bold text-slate-500 mb-2">Pays</label>
-                <div className="relative">
-                    <input
-                        type="text"
-                        value="Côte d'Ivoire"
-                        disabled
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium text-slate-500 cursor-not-allowed"
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <CustomSelect
+                        label="Réseau"
+                        value={formData.network}
+                        options={[
+                            { value: "", label: "Choisir un réseau" },
+                            ...networks.map((network) => ({
+                                value: network.uid,
+                                label: `${network.name} (${network.code})`
+                            }))
+                        ]}
+                        onChange={(value) => setFormData({ ...formData, network: value })}
+                        icon={FiWifi}
                     />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-4">
-                        <span className="text-xs font-bold text-slate-400 bg-gray-200 px-2 py-1 rounded">Fixé</span>
+
+                    <CustomSelect
+                        label="Agrégateur"
+                        value={formData.aggregator}
+                        options={[
+                            { value: "", label: "Choisir un agrégateur" },
+                            ...aggregators.map((agg) => ({
+                                value: agg.uid,
+                                label: `${agg.name} (${agg.code})`
+                            }))
+                        ]}
+                        onChange={(value) => setFormData({ ...formData, aggregator: value })}
+                        icon={FiCreditCard}
+                    />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Code Réseau Agrégateur *</label>
+                        <input
+                            type="text"
+                            required
+                            placeholder="ex: wave-ci, mtn-bj"
+                            value={formData.aggregator_network_code}
+                            onChange={(e) => setFormData({ ...formData, aggregator_network_code: e.target.value })}
+                            className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Priorité</label>
+                        <input
+                            type="number"
+                            min="1"
+                            value={formData.priority}
+                            onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
+                            className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all"
+                        />
                     </div>
                 </div>
-                <p className="mt-1.5 text-xs text-slate-400">Le pays est fixé à la Côte d'Ivoire et ne peut pas être modifié.</p>
+            </div>
+
+            {/* URLs Section */}
+            <div className="space-y-4 pt-2">
+                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-2">Endpoints API</h3>
+
+                <div className="space-y-4">
+                    <div>
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Payin URL *</label>
+                        <input
+                            type="url"
+                            required
+                            placeholder="https://api.aggregator.com/payin"
+                            value={formData.payin_url}
+                            onChange={(e) => setFormData({ ...formData, payin_url: e.target.value })}
+                            className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-[13px] font-medium focus:border-primary outline-none transition-all"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Payout URL *</label>
+                        <input
+                            type="url"
+                            required
+                            placeholder="https://api.aggregator.com/payout"
+                            value={formData.payout_url}
+                            onChange={(e) => setFormData({ ...formData, payout_url: e.target.value })}
+                            className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-[13px] font-medium focus:border-primary outline-none transition-all"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Status Check URL</label>
+                        <input
+                            type="url"
+                            placeholder="https://api.aggregator.com/status"
+                            value={formData.status_check_url}
+                            onChange={(e) => setFormData({ ...formData, status_check_url: e.target.value })}
+                            className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-[13px] font-medium focus:border-primary outline-none transition-all"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            {/* Financial Parameters Section */}
+            <div className="space-y-4 pt-2">
+                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-2">Paramètres Financiers</h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Montant Min</label>
+                        <input
+                            type="text"
+                            placeholder="500.00"
+                            value={formData.min_amount}
+                            onChange={(e) => setFormData({ ...formData, min_amount: e.target.value })}
+                            className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:border-primary outline-none transition-all"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Montant Max</label>
+                        <input
+                            type="text"
+                            placeholder="2000000.00"
+                            value={formData.max_amount}
+                            onChange={(e) => setFormData({ ...formData, max_amount: e.target.value })}
+                            className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:border-primary outline-none transition-all"
+                        />
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Frais Fixe (Optionnel)</label>
+                        <input
+                            type="text"
+                            placeholder="ex: 0"
+                            value={formData.fixed_fee}
+                            onChange={(e) => setFormData({ ...formData, fixed_fee: e.target.value })}
+                            className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:border-primary outline-none transition-all"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Commission Payin (%)</label>
+                        <input
+                            type="text"
+                            placeholder="1.9"
+                            value={formData.payin_percentage_fee}
+                            onChange={(e) => setFormData({ ...formData, payin_percentage_fee: e.target.value })}
+                            className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:border-primary outline-none transition-all text-blue-600"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-tight mb-2">Commission Payout (%)</label>
+                        <input
+                            type="text"
+                            placeholder="1.2"
+                            value={formData.payout_percentage_fee}
+                            onChange={(e) => setFormData({ ...formData, payout_percentage_fee: e.target.value })}
+                            className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:border-primary outline-none transition-all text-emerald-600"
+                        />
+                    </div>
+                </div>
             </div>
 
             {/* Actions */}
-            <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+            <div className="flex items-center justify-end gap-3 pt-6 border-t border-slate-100 sticky bottom-0 bg-white pb-2">
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="px-5 py-2.5 text-sm font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all"
+                    className="px-6 py-3 text-sm font-bold text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-2xl transition-all"
                 >
                     Annuler
                 </button>
                 <button
                     type="submit"
-                    className="px-5 py-2.5 bg-primary text-white text-sm font-bold rounded-xl hover:bg-primary-hover hover:shadow-lg hover:shadow-primary/25 transition-all active:scale-95"
+                    className="px-8 py-3 bg-primary text-white text-sm font-black rounded-2xl hover:bg-primary-hover hover:shadow-xl hover:shadow-primary/25 transition-all active:scale-[0.98]"
                 >
-                    {mapping ? 'Mettre à jour' : 'Créer'}
+                    {mapping ? 'Mettre à jour' : 'Créer le mapping'}
                 </button>
             </div>
         </form>
