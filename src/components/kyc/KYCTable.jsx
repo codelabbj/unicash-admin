@@ -36,18 +36,27 @@ const KYCTable = ({ requests, onViewDetails }) => {
     };
 
     return (
-        <div className="glass-card rounded-[2rem] overflow-hidden border border-white/60 shadow-2xl shadow-slate-200/50">
-            <div className="overflow-x-auto">
+        <div className="glass-panel overflow-hidden border-none shadow-2xl rounded-[2.5rem] relative">
+            {/* Background Accent */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 blur-[80px] pointer-events-none"></div>
+
+            <div className="overflow-x-auto relative z-10">
                 <table className="w-full text-left border-separate border-spacing-0">
-                    <thead>
-                        <tr className="bg-slate-50/50 backdrop-blur-md">
-                            <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-100">Date Soumission</th>
-                            <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-100">Utilisateur</th>
-                            <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-100 font-bold">Statut</th>
-                            <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-100 text-right">Actions</th>
+                    <thead className="bg-[#2534C1]">
+                        <tr>
+                            {[
+                                'Date Soumission', 'Utilisateur', 'Statut', 'Actions'
+                            ].map((header) => (
+                                <th
+                                    key={header}
+                                    className={`px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-white/50 border-b border-white/10 ${header === 'Actions' ? 'text-right' : ''}`}
+                                >
+                                    {header}
+                                </th>
+                            ))}
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-50">
+                    <tbody className="divide-y divide-slate-100 bg-white/40">
                         {requests.map((req) => (
                             <tr key={req.uid} className="hover:bg-slate-50/50 transition-colors group">
                                 <td className="px-6 py-5">

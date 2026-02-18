@@ -172,50 +172,57 @@ const Banners = () => {
 
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <div className="flex items-center gap-4">
-                    <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl">
-                        <FiImage size={24} />
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div className="flex items-center gap-5">
+                    <div className="p-4 bg-primary rounded-[2rem] text-white shadow-xl shadow-primary/20">
+                        <FiImage size={32} />
                     </div>
                     <div>
-                        <h1 className="text-3xl font-black text-slate-900 tracking-tight">Gestion des Bannières</h1>
-                        <p className="text-slate-500 font-medium mt-1">Configurez les visuels promotionnels et gérez leur ordre d'affichage.</p>
+                        <h1 className="text-3xl font-black text-slate-900 tracking-tight">Bannières Mobiles</h1>
+                        <p className="text-[14px] text-slate-500 font-medium mt-1.5">Gérez le contenu promotionnel visible par vos utilisateurs.</p>
                     </div>
                 </div>
+
                 <button
                     onClick={handleCreate}
-                    className="flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white shadow-xl hover:bg-slate-800 hover:scale-[1.02] transition-all active:scale-95"
+                    className="flex items-center justify-center gap-3 px-6 py-4 bg-slate-900 text-white rounded-2xl font-black text-sm shadow-xl hover:bg-primary hover:scale-[1.02] transition-all active:scale-95 group"
                 >
-                    <FiPlus size={20} /> Nouvelle Bannière
+                    <FiPlus size={20} className="group-hover:rotate-90 transition-transform duration-300" />
+                    NOUVELLE BANNIÈRE
                 </button>
             </div>
 
             {/* Stats Overview */}
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-                    <div className="relative z-10">
-                        <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">Total Bannières</p>
-                        <p className="text-4xl font-black text-slate-900 tracking-tight">{banners.length}</p>
-                        <div className="mt-4 flex items-center gap-2 text-xs font-medium text-slate-400">
-                            <FiMove className="text-blue-500" /> Glissez-déposez pour réorganiser
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
+                <div className="glass-card rounded-[2.5rem] p-8 relative overflow-hidden group border-none shadow-xl hover:shadow-2xl transition-all duration-500 bg-white/90">
+                    <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 bg-primary"></div>
+                    <div className="flex items-start justify-between relative z-10">
+                        <div>
+                            <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Total Bannières</p>
+                            <p className="text-4xl font-black text-slate-900 tracking-tight group-hover:text-primary transition-colors">{banners.length}</p>
+                            <div className="mt-5 flex items-center gap-2 text-[11px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100">
+                                <FiMove className="text-primary animate-pulse" /> Réorganisation active
+                            </div>
                         </div>
-                    </div>
-                    <div className="absolute right-6 top-6 h-12 w-12 rounded-2xl bg-gray-50 flex items-center justify-center text-gray-400">
-                        <FiImage size={24} />
+                        <div className="p-5 rounded-2xl bg-slate-50 text-slate-400 group-hover:bg-primary/10 group-hover:text-primary transition-all duration-500 group-hover:scale-110">
+                            <FiImage size={28} />
+                        </div>
                     </div>
                 </div>
 
-                <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-                    <div className="relative z-10">
-                        <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">Bannières Actives</p>
-                        <p className="text-4xl font-black text-slate-900 tracking-tight">{activeBanners}</p>
-                        <div className="mt-4 flex items-center gap-2 text-xs font-medium text-slate-400">
-                            <div className={`h-2 w-2 rounded-full ${activeBanners > 0 ? 'bg-emerald-500 animate-pulse' : 'bg-gray-300'}`}></div>
-                            Visibilité actuelle sur l'application mobile
+                <div className="glass-card rounded-[2.5rem] p-8 relative overflow-hidden group border-none shadow-xl hover:shadow-2xl transition-all duration-500 bg-white/90">
+                    <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 bg-emerald-500"></div>
+                    <div className="flex items-start justify-between relative z-10">
+                        <div>
+                            <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Visibles en ligne</p>
+                            <p className="text-4xl font-black text-emerald-600 tracking-tight">{activeBanners}</p>
+                            <div className="mt-5 flex items-center gap-2 text-[11px] font-black text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100">
+                                <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div> Flux de production actif
+                            </div>
                         </div>
-                    </div>
-                    <div className="absolute right-6 top-6 h-12 w-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
-                        <FiToggleRight size={24} />
+                        <div className="p-5 rounded-2xl bg-emerald-50 text-emerald-600 group-hover:scale-110 transition-transform duration-500">
+                            <FiToggleRight size={28} />
+                        </div>
                     </div>
                 </div>
             </div>

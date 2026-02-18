@@ -24,57 +24,66 @@ const UserTable = ({ users, onViewDetails, onUpdateStatus }) => {
     };
 
     return (
-        <div className="glass-panel overflow-hidden border-none ring-1 ring-black/5">
-            <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-100">
-                    <thead className="bg-gray-50/50">
+        <div className="glass-panel rounded-[2.5rem] overflow-hidden border-none shadow-2xl relative">
+            {/* Background Accent */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 blur-[80px] pointer-events-none"></div>
+
+            <div className="overflow-x-auto relative z-10">
+                <table className="min-w-full border-separate border-spacing-0">
+                    <thead className="bg-[#2534C1]">
                         <tr>
-                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Utilisateur</th>
-                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Contact</th>
-                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Statut</th>
-                            <th className="px-4 py-3 text-left text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Compte</th>
-                            <th className="px-4 py-3 text-right text-[11px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">Actions</th>
+                            {[
+                                'Utilisateur', 'Contact', 'Statut KYC', 'Compte', 'Actions'
+                            ].map((header) => (
+                                <th
+                                    key={header}
+                                    className={`px-6 py-5 text-left text-[10px] font-black uppercase tracking-[0.2em] text-white/50 border-b border-white/10 ${header === 'Actions' ? 'text-right' : ''}`}
+                                >
+                                    {header}
+                                </th>
+                            ))}
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100 bg-white/50">
+                    <tbody className="divide-y divide-slate-100 bg-white/40">
                         {users.map((user) => (
-                            <tr key={user.uid} className="hover:bg-blue-50/30 transition-colors group">
-                                <td className="px-4 py-2.5 whitespace-nowrap">
-                                    <div className="flex items-center gap-2.5">
-                                        <div>
-                                            <div className="text-[13px] font-bold text-slate-900 leading-none">
+                            <tr key={user.uid} className="hover:bg-primary/[0.03] transition-all group">
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-inner">
+                                            {user.email?.charAt(0).toUpperCase()}
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <div className="text-[13px] font-black text-slate-900 leading-none">
                                                 {user.first_name || user.last_name ? `${user.first_name} ${user.last_name}` : 'Utilisateur'}
                                             </div>
-                                            <div className="text-[11px] text-slate-400 font-medium mt-1">
+                                            <div className="text-[11px] text-slate-400 font-bold mt-1 uppercase tracking-tighter">
                                                 Inscrit le {user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td className="px-4 py-2.5 whitespace-nowrap">
+                                <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex flex-col">
-                                        <span className="text-[13px] text-slate-700 font-semibold leading-none">{user.email}</span>
-                                        <span className="text-[11px] text-slate-400 font-medium mt-1">{user.phone_number || 'Non renseigné'}</span>
+                                        <span className="text-[13px] text-slate-800 font-black leading-none">{user.email}</span>
+                                        <span className="text-[11px] text-slate-400 font-bold mt-1 italic">{user.phone_number || 'Numéro non renseigné'}</span>
                                     </div>
                                 </td>
-                                <td className="px-4 py-2.5 whitespace-nowrap">
+                                <td className="px-6 py-4 whitespace-nowrap">
                                     {getKycBadge(user.kycStatus || (user.is_email_verified ? 'VERIFIED' : 'PENDING'))}
                                 </td>
-                                <td className="px-4 py-2.5 whitespace-nowrap">
-                                    <span className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-black leading-none ${getStatusColor(user.is_active ? 'ACTIVE' : 'BLOCKED')}`}>
-                                        {user.is_active ? 'Actif' : 'Bloqué'}
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <span className={`inline-flex rounded-xl px-3 py-1.5 text-[10px] font-black leading-none border shadow-sm ${getStatusColor(user.is_active ? 'ACTIVE' : 'BLOCKED')}`}>
+                                        {user.is_active ? 'ACTIF' : 'BLOQUÉ'}
                                     </span>
                                 </td>
-                                <td className="px-4 py-2.5 text-right whitespace-nowrap">
-                                    <div className="flex justify-end gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
-                                        <button
-                                            onClick={() => onViewDetails(user)}
-                                            className="rounded-lg p-1.5 text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                                            title="Voir Détails"
-                                        >
-                                            <FiEye size={16} />
-                                        </button>
-                                    </div>
+                                <td className="px-6 py-4 text-right whitespace-nowrap">
+                                    <button
+                                        onClick={() => onViewDetails(user)}
+                                        className="w-9 h-9 inline-flex items-center justify-center rounded-xl bg-slate-100 text-slate-500 hover:bg-slate-900 hover:text-white transition-all active:scale-90 shadow-sm border border-slate-200"
+                                        title="Voir Détails"
+                                    >
+                                        <FiEye size={16} />
+                                    </button>
                                 </td>
                             </tr>
                         ))}

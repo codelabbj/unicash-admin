@@ -27,7 +27,7 @@ const KYC = () => {
             if (searchTerm.trim()) {
                 params.search = searchTerm.trim();
             }
-            
+
             const [requestsRes, statsRes] = await Promise.all([
                 kycAPI.getKYCRequests(params),
                 kycAPI.getKYCStatistics()
@@ -56,26 +56,28 @@ const KYC = () => {
         <div className="space-y-8 animate-in fade-in duration-500">
             {/* Header */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-                <div>
-                    <h1 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
-                        <FiShield className="text-blue-600" />
-                        Vérifications KYC
-                    </h1>
-                    <p className="text-[14px] text-slate-500 font-medium mt-1.5 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-                        Gestion des identités et conformité des utilisateurs.
-                    </p>
+                <div className="flex items-center gap-5">
+                    <div className="p-4 bg-primary rounded-[2rem] text-white shadow-xl shadow-primary/20">
+                        <FiShield size={32} />
+                    </div>
+                    <div>
+                        <h1 className="text-3xl font-black text-slate-900 tracking-tight">Vérifications KYC</h1>
+                        <p className="text-[14px] text-slate-500 font-medium mt-1.5 flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                            Garantissez la conformité et la sécurité des comptes utilisateurs.
+                        </p>
+                    </div>
                 </div>
 
                 {/* Quick Stats */}
                 <div className="flex items-center gap-4">
-                    <div className="bg-white/50 backdrop-blur-sm border border-white p-3 rounded-2xl shadow-sm flex flex-col items-center min-w-[80px]">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">En attente</span>
-                        <span className="text-xl font-black text-amber-500">{stats.pending}</span>
+                    <div className="glass-card bg-white/60 p-4 rounded-[1.5rem] shadow-sm flex flex-col items-center min-w-[100px] border-none group hover:bg-white transition-all">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">En attente</span>
+                        <span className="text-2xl font-black text-amber-500">{stats.pending}</span>
                     </div>
-                    <div className="bg-white/50 backdrop-blur-sm border border-white p-3 rounded-2xl shadow-sm flex flex-col items-center min-w-[80px]">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total</span>
-                        <span className="text-xl font-black text-slate-900">{stats.total_requests}</span>
+                    <div className="glass-card bg-white/60 p-4 rounded-[1.5rem] shadow-sm flex flex-col items-center min-w-[100px] border-none group hover:bg-white transition-all">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Traitées</span>
+                        <span className="text-2xl font-black text-emerald-500">{stats.approved + stats.rejected}</span>
                     </div>
                 </div>
             </div>

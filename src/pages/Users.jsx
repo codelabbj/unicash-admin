@@ -29,19 +29,19 @@ const Users = () => {
     const fetchUsers = async () => {
         setIsLoading(true);
         try {
-            const params = { 
+            const params = {
                 search: searchTerm,
                 page: currentPage,
                 status: statusFilter,
                 role: roleFilter,
                 country: countryFilter
             };
-            
+
             // Remove empty params
             Object.keys(params).forEach(key => {
                 if (!params[key]) delete params[key];
             });
-            
+
             const response = await usersAPI.getUsers(params);
             setUsers(response.data);
             setTotalCount(response.count ?? response.data.length);
@@ -78,61 +78,73 @@ const Users = () => {
     };
 
     return (
-        <div className="space-y-5">
-            <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">
+        <div className="space-y-8 animate-in fade-in duration-500">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-xl font-black text-slate-900 tracking-tight">Utilisateurs</h1>
-                    <p className="text-[13px] text-slate-500 font-medium">Consultez et gérez les comptes utilisateurs.</p>
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">Utilisateurs</h1>
+                    <p className="text-[14px] text-slate-500 font-medium mt-1.5 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                        Gérez les comptes clients et la sécurité de la plateforme.
+                    </p>
                 </div>
-                <div className="flex flex-col gap-3 w-full md:w-auto">
-                    {/* Search and Filter Toggle */}
-                    <div className="flex items-center gap-2">
-                        <div className="relative flex-1 md:w-64">
-                            <input
-                                type="text"
-                                placeholder="Rechercher..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full rounded-xl border border-gray-200 pl-9 pr-3 py-2 text-[13px] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-white shadow-sm transition-all"
-                            />
-                            <FiSearch className="absolute left-3 top-2.5 text-gray-400 w-4 h-4" />
+
+                <div className="flex items-center gap-3 w-full lg:w-auto">
+                    <div className="relative flex-1 lg:w-[400px] group">
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <FiSearch className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                         </div>
-                        <button
-                            onClick={() => setShowFilters(!showFilters)}
-                            className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-[13px] font-medium transition-all ${
-                                hasActiveFilters 
-                                    ? 'border-primary bg-primary/10 text-primary' 
-                                    : 'border-gray-200 bg-white text-slate-600 hover:border-gray-300'
-                            }`}
-                        >
-                            <FiFilter className="w-4 h-4" />
-                            <span className="hidden sm:inline">Filtres</span>
-                            {hasActiveFilters && (
-                                <span className="flex items-center justify-center w-5 h-5 bg-primary text-white text-[10px] font-bold rounded-full">
-                                    {[statusFilter, roleFilter, countryFilter].filter(Boolean).length}
-                                </span>
-                            )}
-                        </button>
+                        <input
+                            type="text"
+                            placeholder="Nom, email, téléphone..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="block w-full pl-12 pr-4 py-3.5 bg-white border border-slate-200 rounded-2xl text-[14px] font-bold text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all shadow-sm hover:border-slate-300 group-hover:shadow-md"
+                        />
                     </div>
 
-                    {/* Filters Panel */}
-                    {showFilters && (
-                        <div className="flex flex-wrap items-center gap-2 p-3 bg-gray-50 rounded-xl border border-gray-200">
+                    <button
+                        onClick={() => setShowFilters(!showFilters)}
+                        className={`flex items-center justify-center w-[54px] h-[54px] rounded-2xl border transition-all active:scale-95 ${hasActiveFilters
+                                ? 'bg-primary border-primary text-white shadow-lg shadow-primary/25'
+                                : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
+                            }`}
+                        title="Filtrer"
+                    >
+                        <FiFilter size={20} className={hasActiveFilters ? 'animate-pulse' : ''} />
+                    </button>
+                </div>
+            </div>
+
+            {/* Filters Panel */}
+            {showFilters && (
+                <div className="glass-panel p-6 rounded-[2rem] border-white/60 shadow-xl animate-in slide-in-from-top-4 duration-300">
+                    <div className="flex items-baseline justify-between mb-4 border-b border-slate-100 pb-4">
+                        <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Filtres Avancés</h3>
+                        {hasActiveFilters && (
+                            <button onClick={clearFilters} className="text-[11px] font-black text-rose-500 hover:text-rose-600 transition-colors uppercase tracking-widest">Réinitialiser tout</button>
+                        )}
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Statut du compte</label>
                             <select
                                 value={statusFilter}
                                 onChange={(e) => setStatusFilter(e.target.value)}
-                                className="px-3 py-2 rounded-lg border border-gray-200 bg-white text-[13px] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                                className="w-full bg-white/50 border-slate-200 rounded-xl px-4 py-3 text-[13px] font-bold text-slate-700 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                             >
                                 <option value="">Tous les statuts</option>
                                 <option value="active">Actif</option>
                                 <option value="inactive">Inactif</option>
                                 <option value="suspended">Suspendu</option>
                             </select>
+                        </div>
 
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Type de rôle</label>
                             <select
                                 value={roleFilter}
                                 onChange={(e) => setRoleFilter(e.target.value)}
-                                className="px-3 py-2 rounded-lg border border-gray-200 bg-white text-[13px] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                                className="w-full bg-white/50 border-slate-200 rounded-xl px-4 py-3 text-[13px] font-bold text-slate-700 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                             >
                                 <option value="">Tous les rôles</option>
                                 <option value="user">Utilisateur</option>
@@ -140,11 +152,14 @@ const Users = () => {
                                 <option value="admin">Administrateur</option>
                                 <option value="agent">Agent</option>
                             </select>
+                        </div>
 
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Pays de résidence</label>
                             <select
                                 value={countryFilter}
                                 onChange={(e) => setCountryFilter(e.target.value)}
-                                className="px-3 py-2 rounded-lg border border-gray-200 bg-white text-[13px] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                                className="w-full bg-white/50 border-slate-200 rounded-xl px-4 py-3 text-[13px] font-bold text-slate-700 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                             >
                                 <option value="">Tous les pays</option>
                                 <option value="CI">Côte d'Ivoire</option>
@@ -154,20 +169,10 @@ const Users = () => {
                                 <option value="TG">Togo</option>
                                 <option value="BJ">Bénin</option>
                             </select>
-
-                            {hasActiveFilters && (
-                                <button
-                                    onClick={clearFilters}
-                                    className="flex items-center gap-1 px-3 py-2 text-[13px] text-slate-500 hover:text-slate-700 transition-colors"
-                                >
-                                    <FiX className="w-4 h-4" />
-                                    Réinitialiser
-                                </button>
-                            )}
                         </div>
-                    )}
+                    </div>
                 </div>
-            </div>
+            )}
 
             {/* List */}
             {isLoading ? (

@@ -41,9 +41,9 @@ const Aggregators = () => {
     }, [searchTerm]);
 
     const filteredAggregators = aggregators.filter(agg => {
-        const matchesTab = activeTab === 'ALL' ? true : 
-                          activeTab === 'ACTIVE' ? agg.is_active : 
-                          !agg.is_active;
+        const matchesTab = activeTab === 'ALL' ? true :
+            activeTab === 'ACTIVE' ? agg.is_active :
+                !agg.is_active;
         return matchesTab;
     });
 
@@ -100,56 +100,60 @@ const Aggregators = () => {
     };
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-8 animate-in fade-in duration-500">
             {/* Header with Search */}
-            <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl font-black text-gray-900 mb-1">Agrégateurs de Paiement</h1>
-                    <p className="text-sm text-gray-500 font-medium">Configurez et gérez vos passerelles de paiement partenaires.</p>
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">Passerelles de Paiement</h1>
+                    <p className="text-[14px] text-slate-500 font-medium mt-1.5 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                        Gérez les intégrations avec vos partenaires agrégateurs.
+                    </p>
                 </div>
-                <div className="relative w-full md:w-72">
-                    <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+
+                <div className="relative w-full lg:w-[400px] group">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <FiSearch className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+                    </div>
                     <input
                         type="text"
-                        placeholder="Rechercher un agrégateur..."
+                        placeholder="Rechercher partenaires..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full rounded-xl border border-gray-200 pl-9 pr-9 py-2 text-[13px] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary bg-white shadow-sm transition-all"
+                        className="block w-full pl-12 pr-12 py-3.5 bg-white border border-slate-200 rounded-2xl text-[14px] font-bold text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all shadow-sm hover:border-slate-300 group-hover:shadow-md"
                     />
                     {searchTerm && (
                         <button
                             onClick={() => setSearchTerm('')}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-300 hover:text-rose-500 transition-colors"
                         >
-                            <FiX className="w-4 h-4" />
+                            <FiXCircle size={18} />
                         </button>
                     )}
                 </div>
             </div>
 
             {/* Tabs */}
-            <div className="flex items-center gap-8 border-b border-gray-100 pb-px">
-                <button
-                    onClick={() => setActiveTab('ALL')}
-                    className={`pb-4 text-sm font-bold transition-all relative ${activeTab === 'ALL' ? 'text-[#2534C1]' : 'text-gray-400 hover:text-gray-600'}`}
-                >
-                    Tous ({counts.ALL})
-                    {activeTab === 'ALL' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#2534C1] rounded-t-full" />}
-                </button>
-                <button
-                    onClick={() => setActiveTab('ACTIVE')}
-                    className={`pb-4 text-sm font-bold transition-all relative ${activeTab === 'ACTIVE' ? 'text-[#2534C1]' : 'text-gray-400 hover:text-gray-600'}`}
-                >
-                    Actifs ({counts.ACTIVE})
-                    {activeTab === 'ACTIVE' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#2534C1] rounded-t-full" />}
-                </button>
-                <button
-                    onClick={() => setActiveTab('INACTIVE')}
-                    className={`pb-4 text-sm font-bold transition-all relative ${activeTab === 'INACTIVE' ? 'text-[#2534C1]' : 'text-gray-400 hover:text-gray-600'}`}
-                >
-                    Inactifs ({counts.INACTIVE})
-                    {activeTab === 'INACTIVE' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#2534C1] rounded-t-full" />}
-                </button>
+            <div className="flex items-center gap-1 bg-slate-100 p-1.5 rounded-[1.5rem] w-fit shadow-inner">
+                {[
+                    { id: 'ALL', label: 'Toutes', count: counts.ALL },
+                    { id: 'ACTIVE', label: 'Actives', count: counts.ACTIVE },
+                    { id: 'INACTIVE', label: 'Inactives', count: counts.INACTIVE }
+                ].map((tab) => (
+                    <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`px-6 py-2.5 rounded-xl text-[12px] font-black tracking-widest transition-all duration-300 flex items-center gap-2.5 ${activeTab === tab.id
+                                ? 'bg-white text-primary shadow-lg shadow-black/5 scale-[1.02]'
+                                : 'text-slate-500 hover:text-slate-700 hover:bg-white/50'
+                            }`}
+                    >
+                        {tab.label.toUpperCase()}
+                        <span className={`px-2 py-0.5 rounded-lg text-[10px] ${activeTab === tab.id ? 'bg-primary/10 text-primary' : 'bg-slate-200 text-slate-600'}`}>
+                            {tab.count}
+                        </span>
+                    </button>
+                ))}
             </div>
 
             {/* Grid Content */}

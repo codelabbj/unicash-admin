@@ -70,10 +70,18 @@ const Settings = () => {
     };
 
     return (
-        <div className="max-w-2xl space-y-8">
-            <div>
-                <h1 className="text-2xl font-black text-slate-900 tracking-tight text-center sm:text-left">Paramètres de Sécurité</h1>
-                <p className="text-[13px] text-slate-500 font-medium mt-1 text-center sm:text-left">Gérez la sécurité de votre compte administrateur.</p>
+        <div className="max-w-2xl space-y-10 animate-in fade-in duration-500">
+            <div className="flex items-center gap-5">
+                <div className="p-4 bg-rose-500 rounded-[2rem] text-white shadow-xl shadow-rose-500/20">
+                    <FiShield size={32} />
+                </div>
+                <div>
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">Paramètres de Sécurité</h1>
+                    <p className="text-[14px] text-slate-500 font-medium mt-1.5 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+                        Gérez l'accès et la protection de votre compte.
+                    </p>
+                </div>
             </div>
 
             <div className="glass-card rounded-[2rem] p-8 border-none ring-1 ring-black/5 bg-gradient-to-br from-white to-slate-50/50">
